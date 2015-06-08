@@ -3,3 +3,4 @@ minion/.idea/
 *.sqlite3
 db.sqlite3
 minion/db.sqlite3
+minion/data/CommunityGardensandFoodTrees.csv
