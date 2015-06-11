@@ -36,6 +36,7 @@ def flush_gardens_and_trees():
 
 def parse_downloaded_file(csvfile):
     reader = csv.DictReader(csvfile)
+    food_list = generate_food_list()
     for row in reader:
         if is_valid_garden(row):
             garden = Garden.objects.create(
@@ -43,7 +44,6 @@ def parse_downloaded_file(csvfile):
                 latitude=row["Latitude"],
                 longitude=row["Longitude"]
             )
-            food_list = generate_food_list()
             parse_food_trees(row["FoodTreeVarieties"], garden, food_list)
 
 
