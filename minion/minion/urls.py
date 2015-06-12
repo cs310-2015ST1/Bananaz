@@ -21,5 +21,8 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^admin/import/', ajax_import.import_garden_data),
     url(r'',include('garden.urls')),
+    #twitterauth
+    url('', include('social.apps.django_app.urls', namespace='social')),
+
 
 ]
