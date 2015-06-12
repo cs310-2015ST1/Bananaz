@@ -30,6 +30,7 @@
             $(this).click(function() {
                 var garden = gardenByID[this.id];
                 var center = new google.maps.LatLng(garden.lat, garden.lng);
+				clearOverlays();
                 if (marker) marker.setMap();
                 marker = new google.maps.Marker({map: map, position: center});
                 map.panTo(center);
@@ -40,6 +41,13 @@
         });
 
     }
+
+	function clearOverlays(){
+		for (var i = 0; i < allmarkers.length; i++ ) {
+				allmarkers[i].setMap(null);
+			}
+		allmarkers.length = 0;
+	}
 	
 	function setPoint(){
 		var j = 0;
