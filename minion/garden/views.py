@@ -1,14 +1,38 @@
-from django.shortcuts import render
+from django.shortcuts import render_to_response, redirect, render
+from django.template.loader import render_to_string
+
+from django.contrib.auth import logout as auth_logout
+from django.contrib.auth.decorators import login_required
+# from django.template.context import RequestContext
 
 from .models import Garden
 from .models import FoodTree
+
+
 
 # Create your views here.
 def index(request):
 	food_types = generate_food_types()
 	gardens = Garden.objects.order_by('name')
-	return render_index(request, gardens, food_types)
+    return render_index(request, gardens, food_types)
 
+
+#twitterauth
+def login(request):
+    # context = RequestContext(request, {
+    #     'request': request, 'user': request.user})
+    # return render_to_response('login.html', context_instance=context)
+    return render(request, 'login.html')
+
+
+@login_required(login_url='/')
+def home(request):
+    return render_to_response('home.html')
+
+
+def logout(request):
+    auth_logout(request)
+    return redirect('/')
 
 def render_index(request, gardens, food_types):
 	return render(request, 'garden/index.html',

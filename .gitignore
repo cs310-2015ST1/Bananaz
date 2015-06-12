@@ -5,3 +5,5 @@ minion/.idea/
 db.sqlite3
 minion/db.sqlite3
 minion/data/CommunityGardensandFoodTrees.csv
+
+config.py
