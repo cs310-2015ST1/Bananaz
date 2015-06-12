@@ -42,6 +42,7 @@
 });
 
 
+
 </script>
 <style>
 	body {font-family: sans-serif}
@@ -57,4 +58,28 @@
         {% include 'garden/gardens.html' %}
     </div>
 </body>
+
+
+<table>
+    <tr>
+        <th>Garden</th>
+
+        <th>Latitude</th>
+
+        <th>Longitude</th>
+    </tr>
+    {% for item in gardens %}
+    <tr>
+        <td>{{ item.name }}</td>
+
+        <td>{{ item.latitude }}</td>
+
+        <td>{{ item.longitude }}</td>
+
+    </tr>
+    {% endfor %}
+</table>
+
+<a href="/search_criteria/">Search</a>
+
 </html>
