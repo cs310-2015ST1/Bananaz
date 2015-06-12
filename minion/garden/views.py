@@ -8,7 +8,7 @@ def index(request):
 	food_types = generate_food_types()
 	gardens = Garden.objects.order_by('name')
 	return render(request,'garden/index.html',
-			{'gardens' : gardens, 'trees' : food_types})
+			{'gardens' : gardens, 'food_types' : food_types})
 
 def generate_food_types():
 	food_types = []
@@ -29,8 +29,8 @@ def search_criteria(request):
 	dict_of_mapping_from_garden_to_fruits = {}
 
 	try:
-		name_of_garden = request.GET['name']
-		list_of_fruits = request.GET.getlist('fruit')
+		name_of_garden = request.POST['name']
+		list_of_fruits = request.POST.getlist('fruit')
 	except:
 		return render(request, 'garden/search_criteria.html',
 			{'gardens' : gardens, "trees" : food_types})
@@ -71,4 +71,4 @@ def search_criteria(request):
 				gardens.append(garden)
 
 	return render(request, 'garden/index.html',
-			{'gardens' : gardens, "trees" : food_types})
+			{'gardens' : gardens, "food_types" : food_types})

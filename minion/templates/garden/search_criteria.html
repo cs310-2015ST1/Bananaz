@@ -1,4 +1,5 @@
-<form method="get" action="/search_criteria">
+<form method="post" action="/search_criteria/">
+    {% csrf_token %}
     Name of Garden:
     <br>
     Note: Search is case-sensitive.
@@ -12,7 +13,7 @@
 <select multiple name="fruit" size="10">
   <option value="all">All</option>
 
-{% for food in trees %}
+{% for food in food_types %}
   <option value={{ food }}>{{ food }}</option>
 {% endfor %}
 </select>
