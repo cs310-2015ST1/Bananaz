@@ -55,6 +55,7 @@
 			var garden = gardenByID[this.id];
 			allmarkers[j] = new google.maps.Marker({
 				position: new google.maps.LatLng(garden.lat, garden.lng),
+				title: garden.name,
 			});
 			j++;
 		});
