@@ -5,32 +5,39 @@ from .models import FoodTree
 
 # Create your views here.
 def index(request):
+	food_types = generate_food_types()
 	gardens = Garden.objects.order_by('name')
 	return render(request,'garden/index.html',
-			{'gardens' : gardens})
+			{'gardens' : gardens, 'trees' : food_types})
+
+def generate_food_types():
+	food_types = []
+	all_trees = FoodTree.objects.order_by('food_type')
+
+	for item in all_trees:
+		if not (item.food_type in food_types):
+			food_types.append(item.food_type)
+
+	return food_types
 
 def search_criteria(request):
 
 	gardens = Garden.objects.order_by('name')
 
-	trees = []
+	food_types = generate_food_types()
 	treeobjects = FoodTree.objects.order_by('food_type')
 	dict_of_mapping_from_garden_to_fruits = {}
-
-	for item in treeobjects:
-		if not (item.food_type in trees):
-			trees.append(item.food_type)
 
 	try:
 		name_of_garden = request.GET['name']
 		list_of_fruits = request.GET.getlist('fruit')
 	except:
-		return render(request,'search_criteria.html',
-			{'gardens' : gardens, "trees" : trees})
+		return render(request, 'garden/search_criteria.html',
+			{'gardens' : gardens, "trees" : food_types})
 
 	if ((name_of_garden == '') and ((list_of_fruits.__len__() == 0) or ("all" in list_of_fruits))):
-		return render(request,'search_criteria.html',
-			{'gardens' : gardens, "trees" : trees})
+		return render(request, 'garden/search_criteria.html',
+			{'gardens' : gardens, "trees" : food_types})
 
 	elif (name_of_garden == ''):
 		gardens = [];
@@ -63,5 +70,5 @@ def search_criteria(request):
 			if (name_of_garden in garden.name):
 				gardens.append(garden)
 
-	return render(request,'search_criteria.html',
-			{'gardens' : gardens, "trees" : trees})
+	return render(request, 'garden/index.html',
+			{'gardens' : gardens, "trees" : food_types})
