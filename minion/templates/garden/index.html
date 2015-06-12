@@ -54,14 +54,47 @@
 </head>
 <body onload='initialize()'>
 	<div id=map></div>
-	
-    <table>
+
+
+
+<form method="get" action=".">
+    Name of Garden:
+    <br>
+    Note: Search is case-sensitive.
+    <br>
+<input type="text" name="name" >
+<br>
+
+    Select Fruits in Garden (press Ctrl key to select multiple fruits):<br>
+    Note: If you select more than one, then gardens with any one of the fruits will be displayed.<br>
+
+<select multiple name="fruit" size="10">
+  <option value="all">All</option>
+
+{% for food in trees %}
+  <option value={{ food }}>{{ food }}</option>
+{% endfor %}
+</select>
+
+<br>
+
+<input type="submit" class="btn" value="Search" >
+</form>
+
+
+
+<table>
     <tr>
+
         <th>Garden</th>
 
         <th>Latitude</th>
 
         <th>Longitude</th>
+
+        <th>{Fruit 1: number of trees, Fruit 2: number of trees, ...}</th>
+
+
     </tr>
     {% for g in gardens %}
     <tr id={{g.id}} class='g linkOFF'>
@@ -71,13 +104,14 @@
 
         <td>{{ g.longitude }}</td>
 
+        <td>TODO</td>
     </tr>
     {% endfor %}
-	</table>
+</table>
     
+
+
+
+{#<a href="/search_criteria/">Search</a>#}
 </body>
-
-
-<a href="/search_criteria/">Search</a>
-
 </html>
