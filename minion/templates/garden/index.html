@@ -6,6 +6,7 @@
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script>
 	var map,marker,gardenByID = {};
+	var allmarkers = [];
 
 	function initialize(){
 		map = new google.maps.Map(document.getElementById('map'),{
@@ -37,8 +38,12 @@
                 function () {this.className = this.className.replace('ON', 'OFF');}
             );
         });
+
     }
+
+	
     activateGardens();
+
 });
 
 
@@ -49,7 +54,7 @@
 	#map {width: 1000px; height: 500px}
 	#gardens {overflow: auto; width: 500px; height: 100px}
     .linkOFF {color: darkblue}
-    .linkON {color: white; background-color: darkblue}
+    .linkON {color: white; background-color: darkblue;cursor:pointer}
 </style>
 </head>
 <body onload='initialize()'>
@@ -74,9 +79,9 @@
     </tr>
     {% endfor %}
 	</table>
-    
+    {% include 'garden/search_criteria.html' %}
 </body>
 
-{% include 'garden/search_criteria.html' %}
+
 
 </html>
