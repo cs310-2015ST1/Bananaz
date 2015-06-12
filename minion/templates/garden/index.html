@@ -52,6 +52,10 @@
 </style>
 </head>
 <body onload='initialize()'>
+
+	{% include 'garden/home.html' %}
+	{% include 'garden/login.html' %}
+
 	<div id=map></div>
 	    <div id=gardens>
         {% include 'garden/gardens.html' %}
