@@ -12,4 +12,3 @@ class GardenMethodTests(TestCase):
                 cat = Garden(latitude = -100,longitude=-1, name="TestGarden")
                 cat.save()
                 self.assertEqual((cat.latitude >= 0), True)
-

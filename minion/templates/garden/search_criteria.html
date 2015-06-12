@@ -1,0 +1,26 @@
+<form method="post" action="/search_criteria/">
+    {% csrf_token %}
+    Name of Garden:
+    <br>
+    Note: Search is case-sensitive.
+    <br>
+<input type="text" name="name" >
+<br>
+
+    Select Fruits in Garden (press Ctrl key to select multiple fruits):<br>
+    Note: If you select more than one, then gardens with any one of the fruits will be displayed.<br>
+
+<select multiple name="foods" size="10">
+  <option value="all">All</option>
+
+{% for food in food_types %}
+  <option value={{ food }}>{{ food }}</option>
+{% endfor %}
+</select>
+
+<br>
+
+<input type="submit" class="btn" value="Search" >
+</form>
+
+<a href="../">Refresh</a>

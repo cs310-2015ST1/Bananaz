@@ -2,7 +2,6 @@
 https://realpython.com/blog/python/django-and-ajax-form-submissions/ -->
 
 <form method="POST" id="post-form">
-    {% csrf_token %}
     <div id="results"></div>
     <input type="submit" value="Import Gardens" id="submit-button">
 </form>
@@ -23,7 +22,10 @@ https://realpython.com/blog/python/django-and-ajax-form-submissions/ -->
         $("#submit-button").attr("disabled", "disabled");
         $.ajax({
             url: "http://127.0.0.1:8000/admin/import/",
-            type: "GET",
+            type: "POST",
+            data: {
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            },
             success: function() {
                 setResult("Success!");
                 $("#submit-button").removeAttr("disabled");
