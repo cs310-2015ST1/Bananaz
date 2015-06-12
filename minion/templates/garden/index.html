@@ -46,7 +46,7 @@
 </script>
 <style>
 	body {font-family: sans-serif}
-	#map {width: 500px; height: 300px}
+	#map {width: 1000px; height: 500px}
 	#gardens {overflow: auto; width: 500px; height: 100px}
     .linkOFF {color: darkblue}
     .linkON {color: white; background-color: darkblue}
@@ -54,13 +54,8 @@
 </head>
 <body onload='initialize()'>
 	<div id=map></div>
-	    <div id=gardens>
-        {% include 'garden/gardens.html' %}
-    </div>
-</body>
-
-
-<table>
+	
+    <table>
     <tr>
         <th>Garden</th>
 
@@ -68,17 +63,20 @@
 
         <th>Longitude</th>
     </tr>
-    {% for item in gardens %}
-    <tr>
-        <td>{{ item.name }}</td>
+    {% for g in gardens %}
+    <tr id={{g.id}} class='g linkOFF'>
+        <td>{{ g.name }}</td>
 
-        <td>{{ item.latitude }}</td>
+        <td>{{ g.latitude }}</td>
 
-        <td>{{ item.longitude }}</td>
+        <td>{{ g.longitude }}</td>
 
     </tr>
     {% endfor %}
-</table>
+	</table>
+    
+</body>
+
 
 <a href="/search_criteria/">Search</a>
 
