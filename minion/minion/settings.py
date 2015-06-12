@@ -44,6 +44,8 @@ INSTALLED_APPS = (
     'garden',
     #twitterauth
     'social.apps.django_app.default',
+    #twitterprofileauth
+    'socialprofile',
 
 )
 
