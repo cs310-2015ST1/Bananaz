@@ -39,6 +39,9 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     #'django.contrib.gis',
     'garden',
+    #twitterauth
+    'social.apps.django_app.default',
+
 )
 
 MIDDLEWARE_CLASSES = (
