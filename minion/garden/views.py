@@ -14,29 +14,30 @@ from .models import FoodTree
 def index(request):
 	food_types = generate_food_types()
 	gardens = Garden.objects.order_by('name')
-    return render_index(request, gardens, food_types)
+	return render_index(request, gardens, food_types)
 
 
-#twitterauth
+# twitterauth
 def login(request):
-    # context = RequestContext(request, {
-    #     'request': request, 'user': request.user})
-    # return render_to_response('login.html', context_instance=context)
-    return render(request, 'login.html')
+	# context = RequestContext(request, {
+	#     'request': request, 'user': request.user})
+	# return render_to_response('login.html', context_instance=context)
+	return render(request, 'login.html')
 
 
 @login_required(login_url='/')
 def home(request):
-    return render_to_response('home.html')
+	return render_to_response('home.html')
 
 
 def logout(request):
-    auth_logout(request)
-    return redirect('/')
+	auth_logout(request)
+	return redirect('/')
+
 
 def render_index(request, gardens, food_types):
 	return render(request, 'garden/index.html',
-				{'gardens': gardens, 'food_types': food_types})
+				  {'gardens': gardens, 'food_types': food_types})
 
 
 def generate_food_types():
