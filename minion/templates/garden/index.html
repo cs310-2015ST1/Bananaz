@@ -6,6 +6,7 @@
 <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script>
 	var map,marker,gardenByID = {};
+	var allmarkers = [];
 
 	function initialize(){
 		map = new google.maps.Map(document.getElementById('map'),{
@@ -37,8 +38,12 @@
                 function () {this.className = this.className.replace('ON', 'OFF');}
             );
         });
+
     }
+
+	
     activateGardens();
+
 });
 
 
@@ -49,52 +54,19 @@
 	#map {width: 1000px; height: 500px}
 	#gardens {overflow: auto; width: 500px; height: 100px}
     .linkOFF {color: darkblue}
-    .linkON {color: white; background-color: darkblue}
+    .linkON {color: white; background-color: darkblue;cursor:pointer}
 </style>
 </head>
 <body onload='initialize()'>
 	<div id=map></div>
-
-
-
-<form method="get" action=".">
-    Name of Garden:
-    <br>
-    Note: Search is case-sensitive.
-    <br>
-<input type="text" name="name" >
-<br>
-
-    Select Fruits in Garden (press Ctrl key to select multiple fruits):<br>
-    Note: If you select more than one, then gardens with any one of the fruits will be displayed.<br>
-
-<select multiple name="fruit" size="10">
-  <option value="all">All</option>
-
-{% for food in trees %}
-  <option value={{ food }}>{{ food }}</option>
-{% endfor %}
-</select>
-
-<br>
-
-<input type="submit" class="btn" value="Search" >
-</form>
-
-
-
-<table>
+	
+    <table>
     <tr>
-
         <th>Garden</th>
 
         <th>Latitude</th>
 
         <th>Longitude</th>
-
-        <th>{Fruit 1: number of trees, Fruit 2: number of trees, ...}</th>
-
-
     </tr>
     {% for g in gardens %}
     <tr id={{g.id}} class='g linkOFF'>
@@ -104,14 +76,12 @@
 
         <td>{{ g.longitude }}</td>
 
-        <td>TODO</td>
     </tr>
     {% endfor %}
-</table>
-    
-
-
-
-{#<a href="/search_criteria/">Search</a>#}
+	</table>
+    {% include 'garden/search_criteria.html' %}
 </body>
+
+
+
 </html>

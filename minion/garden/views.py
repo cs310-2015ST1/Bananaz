@@ -1,126 +1,82 @@
 from django.shortcuts import render
-from django.template.loader import render_to_string
+
 from .models import Garden
 from .models import FoodTree
 
 # Create your views here.
 def index(request):
-
-    gardens = Garden.objects.order_by('name')
-
-    trees = []
-    treeobjects = FoodTree.objects.order_by('food_type')
-    dict_of_mapping_from_garden_to_fruits = {}
-
-    for item in treeobjects:
-        if not (item.food_type in trees):
-            trees.append(item.food_type)
-
-    # if True:
-    #     return render(request,'garden/index.html',{'gardens' : gardens, "trees" : trees})
-    if not (('fruit' in request.GET) and ('name' in request.GET)):
-        return render(request,'garden/index.html', {'gardens' : gardens, "trees" : trees})
-    else:
-        name_of_garden = request.GET['name']
-        list_of_fruits = request.GET.getlist('fruit')
-
-    # except (UnicodeDecodeError, MultiValueDictKeyError):
-    #     return render(request,'garden/index.html',
-    #         {'gardens' : gardens, "trees" : trees})
-
-    if ((name_of_garden == '') and ((list_of_fruits.__len__() == 0) or ("all" in list_of_fruits))):
-        return render(request,'garden/index.html',
-            {'gardens' : gardens, "trees" : trees})
-
-    elif (name_of_garden == ''):
-        gardens = [];
-        for tree in treeobjects:
-            if tree.food_type in list_of_fruits:
-                if tree.garden in gardens:
-                    pass
-                else:
-                    gardens.append(tree.garden)
-
-    elif (list_of_fruits.__len__() == 0):
-        gardenstemp = Garden.objects.order_by('name')
-        gardens = []
-        for garden in gardenstemp:
-            if (name_of_garden in garden.name):
-                gardens.append(garden)
-
-    else:
-        if not ("all" in list_of_fruits):
-            gardens = [];
-            for tree in treeobjects:
-                if tree.food_type in list_of_fruits:
-                    if tree.garden in gardens:
-                        pass
-                    else:
-                        gardens.append(tree.garden)
-        gardenstemp = gardens[:]
-        gardens = []
-        for garden in gardenstemp:
-            if (name_of_garden in garden.name):
-                gardens.append(garden)
-
-    return render(request,'garden/index.html',
-            {'gardens' : gardens, "trees" : trees})
+	food_types = generate_food_types()
+	gardens = Garden.objects.order_by('name')
+	return render_index(request, gardens, food_types)
 
 
+def render_index(request, gardens, food_types):
+	return render(request, 'garden/index.html',
+				{'gardens': gardens, 'food_types': food_types})
 
-# def search_criteria(request):
-#
-# 	gardens = Garden.objects.order_by('name')
-#
-# 	trees = []
-# 	treeobjects = FoodTree.objects.order_by('food_type')
-# 	dict_of_mapping_from_garden_to_fruits = {}
-#
-# 	for item in treeobjects:
-# 		if not (item.food_type in trees):
-# 			trees.append(item.food_type)
-#
-# 	try:
-# 		name_of_garden = request.GET['name']
-# 		list_of_fruits = request.GET.getlist('fruit')
-# 	except:
-# 		return render(request,'search_criteria.html',
-# 			{'gardens' : gardens, "trees" : trees})
-#
-# 	if ((name_of_garden == '') and ((list_of_fruits.__len__() == 0) or ("all" in list_of_fruits))):
-# 		return render(request,'search_criteria.html',
-# 			{'gardens' : gardens, "trees" : trees})
-#
-# 	elif (name_of_garden == ''):
-# 		gardens = [];
-# 		for tree in treeobjects:
-# 			if tree.food_type in list_of_fruits:
-# 				if tree.garden in gardens:
-# 					pass
-# 				else:
-# 					gardens.append(tree.garden)
-#
-# 	elif (list_of_fruits.__len__() == 0):
-# 		gardenstemp = Garden.objects.order_by('name')
-# 		gardens = []
-# 		for garden in gardenstemp:
-# 			if (name_of_garden in garden.name):
-# 				gardens.append(garden)
-#
-# 	else:
-# 		if not ("all" in list_of_fruits):
-# 			gardens = [];
-# 			for tree in treeobjects:
-# 				if tree.food_type in list_of_fruits:
-# 					if tree.garden in gardens:
-# 						pass
-# 					else:
-# 						gardens.append(tree.garden)
-# 		gardenstemp = gardens[:]
-# 		gardens = []
-# 		for garden in gardenstemp:
-# 			if (name_of_garden in garden.name):
-# 				gardens.append(garden)
-#
-# 	return render(request,'search_criteria.html',
-# 			{'gardens' : gardens, "trees" : trees})
+
+def generate_food_types():
+	food_types = []
+	all_trees = FoodTree.objects.order_by('food_type')
+
+	for item in all_trees:
+		if not (item.food_type in food_types):
+			food_types.append(item.food_type)
+
+	return food_types
+
+
+def search_criteria(request):
+	all_gardens = Garden.objects.order_by('name')
+
+	food_types = generate_food_types()
+	all_food_trees = FoodTree.objects.order_by('food_type')
+
+	try:
+		name_of_garden = request.POST['name']
+		list_of_foods = request.POST.getlist('foods')
+	except:
+		return render_index(request, all_gardens, food_types)
+
+	# Nothing to filter by
+	if ignore_name(name_of_garden) and ignore_foods(list_of_foods):
+		return render_index(request, all_gardens, food_types)
+
+	elif ignore_name(name_of_garden):
+		gardens = filter_by_name(all_food_trees, list_of_foods)
+
+	elif ignore_foods(list_of_foods):
+		gardens = filter_by_foods(all_gardens, name_of_garden)
+
+	else:
+		gardens = filter_by_name(all_food_trees, list_of_foods)
+		gardens = filter_by_foods(gardens, name_of_garden)
+
+	return render_index(request, gardens, food_types)
+
+
+def filter_by_foods(gardens, name_of_garden):
+	filtered_gardens = []
+	for garden in gardens:
+		if name_of_garden in garden.name:
+			filtered_gardens.append(garden)
+	return filtered_gardens
+
+
+def filter_by_name(all_food_trees, list_of_foods):
+	gardens = []
+	for tree in all_food_trees:
+		if tree.food_type in list_of_foods:
+			if tree.garden in gardens:
+				pass
+			else:
+				gardens.append(tree.garden)
+	return gardens
+
+
+def ignore_name(name_of_garden):
+	return name_of_garden == ''
+
+
+def ignore_foods(list_of_foods):
+	return (list_of_foods.__len__() == 0) or ("all" in list_of_foods)
