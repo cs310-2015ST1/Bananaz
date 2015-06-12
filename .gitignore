@@ -1,6 +1,6 @@
 minion/.idea/
 *.pyc
-*.py~
+*~
 *.sqlite3
 db.sqlite3
 minion/db.sqlite3
