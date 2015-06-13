@@ -1,13 +1,10 @@
 from django.shortcuts import render_to_response, redirect, render
-from django.template.loader import render_to_string
-
 from django.contrib.auth import logout as auth_logout
 from django.contrib.auth.decorators import login_required
-# from django.template.context import RequestContext
+from django.utils.datastructures import MultiValueDictKeyError
 
 from .models import Garden
 from .models import FoodTree
-
 
 
 # Create your views here.
@@ -37,7 +34,7 @@ def logout(request):
 
 def render_index(request, gardens, food_types):
 	return render(request, 'garden/index.html',
-				  {'gardens': gardens, 'food_types': food_types})
+				{'gardens': gardens, 'food_types': food_types})
 
 
 def generate_food_types():
@@ -57,13 +54,14 @@ def search_criteria(request):
 	food_types = generate_food_types()
 	all_food_trees = FoodTree.objects.order_by('food_type')
 
+	# Get / invalid Post request
 	try:
 		name_of_garden = request.POST['name']
 		list_of_foods = request.POST.getlist('foods')
-	except:
+	except MultiValueDictKeyError:
 		return render_index(request, all_gardens, food_types)
 
-	# Nothing to filter by
+	# empty search
 	if ignore_name(name_of_garden) and ignore_foods(list_of_foods):
 		return render_index(request, all_gardens, food_types)
 
