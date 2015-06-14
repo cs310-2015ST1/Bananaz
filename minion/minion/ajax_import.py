@@ -55,21 +55,41 @@ def is_valid_garden(row):
 def parse_food_trees(food_trees, garden, food_list):
     """Finds foods that match given food list"""
     for tree_text in food_trees.lower().split(","):
+        found_food = None
         for food in food_list:
             # if word(s) of food are found in the comma separated list of trees, then add it as a food tree
             if food in tree_text:
-                # from http://stackoverflow.com/questions/4289331/python-extract-numbers-from-a-string
-                amounts = [int(s) for s in re.findall(r'\d+', tree_text)]
-                try:
-                    amount = amounts[0]
-                except IndexError:
-                    amount = 1
+                if not found_food:
+                    found_food = food
+                else:
+                    # Don't add food if we find multiple foods in one section
+                    found_food = None
+                    break
 
-                FoodTree.objects.create(
-                    garden=garden,
-                    amount=amount,
-                    food_type=food
-                )
+        if found_food:
+            add_food_tree(tree_text, found_food, garden)
+
+
+def add_food_tree(tree_text, food, garden):
+    # from http://stackoverflow.com/questions/4289331/python-extract-numbers-from-a-string
+    amounts = [int(s) for s in re.findall(r'\d+', tree_text)]
+    try:
+        amount = amounts[0]
+    except IndexError:
+        amount = 1
+
+    existing_tree = garden.foodtree_set.filter(food_type__exact=food)
+
+    if existing_tree:
+        existing_tree[0].amount += amount
+        existing_tree[0].save()
+    else:
+        FoodTree.objects.create(
+            garden=garden,
+            amount=amount,
+            food_type=food
+        )
+
 
 # Modified from http://stackoverflow.com/questions/3277503/python-read-file-line-by-line-into-array
 def generate_food_list():
