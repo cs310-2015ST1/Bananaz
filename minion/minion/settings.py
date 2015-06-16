@@ -45,7 +45,7 @@ INSTALLED_APPS = (
     #twitterauth
     'social.apps.django_app.default',
     #twitterprofileauth
-    'socialprofile',
+    #'socialprofile',
 
 )
 

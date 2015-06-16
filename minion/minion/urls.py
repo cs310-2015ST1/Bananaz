@@ -24,8 +24,9 @@ urlpatterns = [
     #twitterauth
     url('', include('social.apps.django_app.urls', namespace='social')),
 
+
     # Social Profiles
-    url(r'^socialprofile/', include('socialprofile.urls')),
+    #url(r'^socialprofile/', include('socialprofile.urls')),
 
 
 ]

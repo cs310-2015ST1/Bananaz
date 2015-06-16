@@ -1,6 +1,8 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, render_to_response
 from django.contrib.auth import logout as auth_logout
 from django.utils.datastructures import MultiValueDictKeyError
+from django.contrib.auth.decorators import login_required
+
 
 from .models import Garden
 from .models import FoodTree
@@ -13,9 +15,18 @@ def index(request):
 
 
 # twitterauth
+def login(request):
+    return render(request, 'login.html')
+
+
+@login_required(login_url='/')
+def home(request):
+    return render_to_response('home.html')
+
+
 def logout(request):
-	auth_logout(request)
-	return redirect('/')
+    auth_logout(request)
+    return redirect('/')
 
 
 def render_index(request, gardens, food_types):
@@ -89,3 +100,23 @@ def ignore_name(name_of_garden):
 
 def ignore_foods(list_of_foods):
 	return (list_of_foods.__len__() == 0) or ("all" in list_of_foods)
+
+
+#twitterprofile
+def get_user_avatar(backend, details, response, social_user, uid,
+                    user, *args, **kwargs):
+    url = None
+    if backend.__class__ == FacebookBackend:
+        url = "http://graph.facebook.com/%s/picture?type=large" % response['id']
+
+    elif backend.__class__ == TwitterBackend:
+        url = response.get('profile_image_url', '').replace('_normal', '')
+
+    if url:
+        profile = user.get_profile()
+        avatar = urlopen(url).read()
+        fout = open(filepath, "wb") #filepath is where to save the image
+        fout.write(avatar)
+        fout.close()
+        profile.photo = url_to_image # depends on where you saved it
+        profile.save()
