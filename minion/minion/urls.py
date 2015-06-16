@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'',include('garden.urls')),
     #twitterauth
     url('', include('social.apps.django_app.urls', namespace='social')),
+    
 
 
     # Social Profiles
