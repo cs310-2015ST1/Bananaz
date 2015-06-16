@@ -3,5 +3,5 @@
   <br>
   <a href="/logout">Logout</a>
 {% else %}
-  <a href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}">Login with Twitter</a>
+  <a href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}"><img src="https://g.twimg.com/dev/sites/default/files/images_documentation/sign-in-with-twitter-gray.png"></a>
 {% endif %}
