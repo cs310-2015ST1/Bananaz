@@ -78,6 +78,10 @@ google.maps.event.addDomListener(window, 'load', setPoint);
 	#gardens {overflow: auto; width: 500px; height: 100px}
     .linkOFF {color: darkblue}
     .linkON {color: white; background-color: darkblue;cursor:pointer}
+    ul.comma-separated {list-style: none; display: inline; padding:0; margin:0}
+    ul.comma-separated li {display:inline}
+    ul.comma-separated li:after {content: ","}
+    ul.comma-separated li:last-child:after {content: ""}
 </style>
 </head>
 <body onload='initialize()'>
@@ -106,9 +110,11 @@ google.maps.event.addDomListener(window, 'load', setPoint);
 
         <td>{{ g.longitude }}</td>
         <td>
-            {% for tree in g.foodtree_set.all %}
-                {{tree.food_type}}
-            {% endfor %}
+            <ul class="comma-separated">
+                {% for tree in g.foodtree_set.all %}
+                    <li>{{tree.food_type}}</li>
+                {% endfor %}
+            </ul>
         </td>
 
     </tr>
