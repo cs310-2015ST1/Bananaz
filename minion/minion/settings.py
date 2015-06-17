@@ -104,7 +104,8 @@ AUTHENTICATION_BACKENDS = (
 
 )
 
-
+#twitterprofile
+AUTH_PROFILE_MODULE = 'garden.UserProfile'
 
 WSGI_APPLICATION = 'minion.wsgi.application'
 

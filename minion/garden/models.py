@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Because Django requires these
 MAX_LENGTH = 255
@@ -30,7 +31,6 @@ class Account(models.Model):
 		return self.name
 
 #twitterprofile
-class Profile(models.Model):
-	user = models.ForeignKey(User)
-	oauth_token = models.CharField(max_length=200)
-	oauth_secret = models.CharField(max_length=200)
+class UserProfile(models.Model):
+	user = models.ForeignKey(User, unique = True, related_name = 'profile')
+	photo = models.TextField()
