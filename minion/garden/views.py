@@ -7,7 +7,6 @@ from django.contrib.auth.decorators import login_required
 from .models import Garden
 from .models import FoodTree
 
-
 def index(request):
 	food_types = generate_food_types()
 	gardens = Garden.objects.order_by('name')
@@ -16,12 +15,26 @@ def index(request):
 
 # twitterauth
 def login(request):
-    return render(request, 'login.html')
+	title = 'Welcome nig'
+
+	form = Account()
+	context = {
+	"template_title": title,
+	"form": form
+	}
+	return render(request, 'login.html', context)
 
 
-@login_required(login_url='/')
+#@login_required(login_url='/')
 def home(request):
-    return render_to_response('home.html')
+	title = 'Welcome nig'
+
+	form = Account()
+	context = {
+	"template_title": title,
+	"form": form
+	}
+	return render_to_response('home.html', context)
 
 
 def logout(request):
@@ -103,20 +116,23 @@ def ignore_foods(list_of_foods):
 
 
 #twitterprofile
-def get_user_avatar(backend, details, response, social_user, uid,
-                    user, *args, **kwargs):
-    url = None
-    if backend.__class__ == FacebookBackend:
-        url = "http://graph.facebook.com/%s/picture?type=large" % response['id']
 
-    elif backend.__class__ == TwitterBackend:
-        url = response.get('profile_image_url', '').replace('_normal', '')
 
-    if url:
-        profile = user.get_profile()
-        avatar = urlopen(url).read()
-        fout = open(filepath, "wb") #filepath is where to save the image
-        fout.write(avatar)
-        fout.close()
-        profile.photo = url_to_image # depends on where you saved it
-        profile.save()
+
+# def get_user_avatar(backend, details, response, social_user, uid,
+#                     user, *args, **kwargs):
+#     url = None
+#     if backend.__class__ == FacebookBackend:
+#         url = "http://graph.facebook.com/%s/picture?type=large" % response['id']
+
+#     elif backend.__class__ == TwitterBackend:
+#         url = response.get('profile_image_url', '').replace('_normal', '')
+
+#     if url:
+#         profile = user.get_profile()
+#         avatar = urlopen(url).read()
+#         fout = open(filepath, "wb") #filepath is where to save the image
+#         fout.write(avatar)
+#         fout.close()
+#         profile.photo = url_to_image # depends on where you saved it
+#         profile.save()

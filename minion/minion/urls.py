@@ -17,12 +17,16 @@ from django.conf.urls import include, url
 from django.contrib import admin
 import ajax_import
 
+
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^admin/import/$', ajax_import.import_garden_data, name='ajax_import'),
     url(r'',include('garden.urls')),
     #twitterauth
     url('', include('social.apps.django_app.urls', namespace='social')),
+    # url(r'^$', 'garden.views.login'),
+    # url(r'^home/$', 'garden.views.home'),
+    # url(r'^logout/$', 'garden.views.logout'),
     
 
 
