@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 import ajax_import
+admin.autodiscover()
 
 
 urlpatterns = [
