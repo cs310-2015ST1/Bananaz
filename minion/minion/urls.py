@@ -28,7 +28,6 @@ urlpatterns = [
     # url(r'^$', 'garden.views.login'),
     # url(r'^home/$', 'garden.views.home'),
     # url(r'^logout/$', 'garden.views.logout'),
-    
 
 
     # Social Profiles
