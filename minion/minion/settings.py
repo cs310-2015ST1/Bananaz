@@ -97,10 +97,11 @@ AUTHENTICATION_BACKENDS = (
     # 'social.pipeline.social_auth.associate_user',
     # 'social.pipeline.social_auth.load_extra_data',
     #'social.pipeline.user.user_details'
-SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/logged/'
-SOCIAL_AUTH_LOGIN_ERROR_URL = '/login-error/'
 
 )
+
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/logged/'
+SOCIAL_AUTH_LOGIN_ERROR_URL = '/login-error/'
 
 #twitterprofile
 AUTH_PROFILE_MODULE = 'garden.UserProfile'

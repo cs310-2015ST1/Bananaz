@@ -1,0 +1,19 @@
+Number	User Story										Test
+1		Displaying search results on a map				a. Map loads centered on vancouver when you first go to the site for the first time containing points of all gardens
+														b. Map loads after search button is pressed
+														c. Map loads with all points displayed on it as per the search results
+														d. Search results are displayed when only 1 garden is the result of the search. Test Case : {Lemon}
+														e. Search results are displayed when more than 1 garden is the result of the search. Test Case(s) : {Apple + *}
+														f. Empty map loads centered on Vancouver when no garden is the search result. Invalid name is used in the search box. Test Case : {"Orange"}
+
+2		Table List of Gardens							a. Table list containing names of all gardens is loaded when you first arrive at the site.
+														b. Each row has a value in the name field, latitude field and a longitude field and an optional value in the food tress depending upon if the garden in question has a food tree or not.
+														c. Table shows only 1 garden if the search result gives back only 1 such garden. Test Case: {Lemon}
+														d. Table shows more than 1 gardens if the search result gives back more than 1 gardens. Test Case(s) : {Apple + *}
+														e. A table loads after the search button is pressed.
+														f. An empty table loads for a food tree that is not present in any garden. Test Case(s): Invalid name is used in the search box.
+
+3		Clickable Gardens in the table					a. Map is cleared when a garden in the table is clicked.
+														b. After the map is cleared, only the pin corresponding to the clicked garden should show up on the map.
+														c. The map is centered around the clicked garden.
+														d. Clicking on a different garden removes the previous marker and places a new marker at the new location.
