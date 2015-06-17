@@ -11,11 +11,7 @@ class GardenAdmin(admin.ModelAdmin):
     inlines = [FoodTreeInline]
     search_fields = ['name']
 
-class UserAdmin(admin.ModelAdmin):
-    search_fields = ['name']
-
 admin.site.register(Garden, GardenAdmin)
-admin.site.register(User, UserAdmin)
 
 #twitterauth
 # class AccountAdmin(admin.ModelAdmin):

@@ -3,20 +3,25 @@ from garden.models import UserProfile
 from social.backends.twitter import TwitterOAuth
 
 
-def save_profile(backend, details, response, social_user, uid,
-                    user, *args, **kwargs):
-    url = None
- # backend.__class__ == TwitterOAuth:
-    url = response.get['profile_image_url']
+def fetch_or_create_user(user):
+    try:
+        my_user = user.userprofile
+    except Exception:
+        my_user = UserProfile.objects.create(
+            user=user
+        )
+    return my_user
 
-    if url:
-        profile = user.get_profile()
-        avatar = urlopen(url).read()
-        fout = open(filepath, "wb") #filepath is where to save the image
-        fout.write(avatar)
-        fout.close()
-        profile.photo = url_to_image # depends on where you saved it
-        profile.save()
+
+def update_user_data(my_user, response):
+    my_user.photo = response['profile_image_url']
+    my_user.save()
+
+
+def save_profile(backend, details, response, uid,
+                    user, *args, **kwargs):
+    my_user = fetch_or_create_user(user)
+    update_user_data(my_user, response)
 
 
 
