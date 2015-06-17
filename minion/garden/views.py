@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render, render_to_response
 from django.contrib.auth import logout as auth_logout
 from django.utils.datastructures import MultiValueDictKeyError
 from django.contrib.auth.decorators import login_required
+from Account import UserProfile
 
 
 from .models import Garden
@@ -15,31 +16,20 @@ def index(request):
 
 # twitterauth
 def login(request):
-	title = 'Welcome nig'
-
-	form = Account()
-	context = {
-	"template_title": title,
-	"form": form
-	}
-	return render(request, 'login.html', context)
+	# return render(request, 'login.html')
+	return render_to_response("Account/login.html", {"user":request.user})
 
 
 #@login_required(login_url='/')
 def home(request):
-	title = 'Welcome nig'
-
-	form = Account()
-	context = {
-	"template_title": title,
-	"form": form
-	}
-	return render_to_response('home.html', context)
+#	return render_to_response('home.html', context)
+	return render_to_response("Account/home.html", {"user" : request.user})
 
 
 def logout(request):
     auth_logout(request)
-    return redirect('/')
+  #  return redirect('/')
+  return HttpResponseRedirect("/login")
 
 
 def render_index(request, gardens, food_types):
