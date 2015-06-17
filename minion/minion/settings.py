@@ -14,7 +14,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 import os
 
 #twitterauth
-from config import *
+# from config import *
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -72,6 +72,7 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
+                'django.core.context_processors.request',
                 'django.contrib.messages.context_processors.messages',
                 #twitterauth
                 'django.core.context_processors.i18n',
@@ -80,6 +81,7 @@ TEMPLATES = [
                 'django.core.context_processors.tz',
                 'social.apps.django_app.context_processors.backends',
                 'social.apps.django_app.context_processors.login_redirect',
+
             ],
         },
     },
@@ -97,9 +99,38 @@ AUTHENTICATION_BACKENDS = (
     # 'social.pipeline.social_auth.associate_user',
     # 'social.pipeline.social_auth.load_extra_data',
     #'social.pipeline.user.user_details'
+)
+
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/logged/'
 SOCIAL_AUTH_LOGIN_ERROR_URL = '/login-error/'
 
+
+SOCIAL_AUTH_TWITTER_KEY = 'BVBOWynKxDOQkVLkVMUvxPXzY'
+SOCIAL_AUTH_TWITTER_SECRET = 'A2iD5qZSGn3O0qiI3SbVd3nR7LQeHV5n4ikBQDMI7xZxf0ym8D'
+
+TWITTER_ACCESS_TOKEN = '3223057478-yEyffNPrNEOJw9LmiM5jzsNZL2vEgmrYhK4oW7T'
+
+TWITTER_ACCESS_TOKEN_SECRET = 'paPcP3gBU1LNvS9q81dGWF73mDhLQCRn7pM6inHT2Vpwr'
+
+
+
+SOCIAL_AUTH_PIPELINE = (
+    'social.pipeline.social_auth.social_details',
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social.pipeline.social_auth.social_user',
+    'social.pipeline.user.get_username',
+    'social.pipeline.mail.mail_validation',
+    'social.pipeline.user.create_user',
+    'social.pipeline.social_auth.associate_user',
+    'social.pipeline.social_auth.load_extra_data',
+    'social.pipeline.user.user_details',
+    'garden.pipeline.get_profile_picture',
+)
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    "django.contrib.auth.context_processors.auth",
+    'django.core.context_processors.request',
 )
 
 #twitterprofile
