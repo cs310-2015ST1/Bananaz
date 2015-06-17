@@ -9,18 +9,3 @@
     {% load staticfiles %}
   <a href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}"><img src="{% static "twitter.png" %}"></a>
 {% endif %}
-
-<!-- {%block content%}
-    {%if user.is_authenticated%}
-        <h1>Hello {{user.get_full_name}}</h1>
-        <small>This is your profile picture</small>
-        <img src="{{user.get_profile.photo}}" width=20% class="img-account" >
-        <a href="/logout">Exit</a>
-    {%else%}
-        <h3>Select login option:</h3>
-        {% load staticfiles %}
-        <a href="{% url 'social:begin' 'twitter' %}">
-            <img src="{% static "twitter.png" %}" style="float:left;">
-        </a>
-    {%endif%}
-{%endblock%} -->

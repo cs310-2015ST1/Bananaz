@@ -2,7 +2,9 @@ from django.shortcuts import redirect, render, render_to_response
 from django.contrib.auth import logout as auth_logout
 from django.utils.datastructures import MultiValueDictKeyError
 from django.contrib.auth.decorators import login_required
-#from Account import UserProfile
+from django.http import HttpResponseRedirect
+from django.contrib import auth
+from django.core.context_processors import csrf
 
 
 from .models import Garden

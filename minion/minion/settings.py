@@ -53,6 +53,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    #helps store things in backend; uses cookies 
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -114,19 +115,29 @@ TWITTER_ACCESS_TOKEN_SECRET = 'paPcP3gBU1LNvS9q81dGWF73mDhLQCRn7pM6inHT2Vpwr'
 
 
 
+# SOCIAL_AUTH_PIPELINE = (
+# 'social_auth.backends.pipeline.social.social_auth_user',
+# 'social_auth.backends.pipeline.associate.associate_by_email',
+# 'social_auth.backends.pipeline.user.get_username',
+# 'social_auth.backends.pipeline.user.create_user',
+# 'social_auth.backends.pipeline.social.associate_user',
+# 'social_auth.backends.pipeline.user.update_user_details',
+# 'garden.pipeline.save_profile',  # <--- set the path to the function
+# )
+
 SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.social_details',
     'social.pipeline.social_auth.social_uid',
     'social.pipeline.social_auth.auth_allowed',
     'social.pipeline.social_auth.social_user',
     'social.pipeline.user.get_username',
-    'social.pipeline.mail.mail_validation',
     'social.pipeline.user.create_user',
+    'garden.pipeline.save_profile',  # <--- set the path to the function
     'social.pipeline.social_auth.associate_user',
     'social.pipeline.social_auth.load_extra_data',
-    'social.pipeline.user.user_details',
-    'garden.pipeline.get_profile_picture',
+    'social.pipeline.user.user_details'
 )
+
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.auth.context_processors.auth",
@@ -134,7 +145,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 #twitterprofile
-AUTH_PROFILE_MODULE = 'garden.UserProfile'
+AUTH_PROFILE_MODULE = 'garden.userprofile'
+
 
 WSGI_APPLICATION = 'minion.wsgi.application'
 
