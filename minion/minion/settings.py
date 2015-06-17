@@ -87,9 +87,6 @@ TEMPLATES = [
 
 
 AUTHENTICATION_BACKENDS = (
-    'social.backends.open_id.OpenIdAuth',
-    'social.backends.facebook.FacebookOAuth2',
-    'social.backends.google.GoogleOAuth2',
     'social.backends.twitter.TwitterOAuth',
     'django.contrib.auth.backends.ModelBackend',
     #profile
@@ -100,7 +97,8 @@ AUTHENTICATION_BACKENDS = (
     # 'social.pipeline.social_auth.associate_user',
     # 'social.pipeline.social_auth.load_extra_data',
     #'social.pipeline.user.user_details'
-
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/logged/'
+SOCIAL_AUTH_LOGIN_ERROR_URL = '/login-error/'
 
 )
 
