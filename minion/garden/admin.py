@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import *
+from .forms import AccountForm
 
 class FoodTreeInline(admin.TabularInline):
     model = FoodTree
@@ -14,3 +15,12 @@ class UserAdmin(admin.ModelAdmin):
 
 admin.site.register(Garden, GardenAdmin)
 admin.site.register(User, UserAdmin)
+
+#twitterauth
+class AccountAdmin(admin.ModelAdmin):
+	list_display = ["__str__", "timestamp", "updated"]
+	# class Meta:
+	# 	model = Account
+	form = AccountForm
+
+admin.site.register(Account, AccountAdmin)

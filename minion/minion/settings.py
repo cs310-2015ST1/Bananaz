@@ -44,6 +44,8 @@ INSTALLED_APPS = (
     'garden',
     #twitterauth
     'social.apps.django_app.default',
+    #twitterprofileauth
+    #'socialprofile',
 
 )
 
@@ -85,11 +87,23 @@ TEMPLATES = [
 
 
 AUTHENTICATION_BACKENDS = (
-    'social.backends.facebook.FacebookOAuth2',
-    'social.backends.google.GoogleOAuth2',
     'social.backends.twitter.TwitterOAuth',
     'django.contrib.auth.backends.ModelBackend',
+    #profile
+    # 'social.pipeline.social_auth.social_details',
+    # 'social.pipeline.social_auth.social_uid',
+    # 'social.pipeline.social_auth.auth_allowed',
+    # 'social.pipeline.social_auth.social_user',
+    # 'social.pipeline.social_auth.associate_user',
+    # 'social.pipeline.social_auth.load_extra_data',
+    #'social.pipeline.user.user_details'
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/logged/'
+SOCIAL_AUTH_LOGIN_ERROR_URL = '/login-error/'
+
 )
+
+#twitterprofile
+AUTH_PROFILE_MODULE = 'garden.UserProfile'
 
 WSGI_APPLICATION = 'minion.wsgi.application'
 
@@ -123,3 +137,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)

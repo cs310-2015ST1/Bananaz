@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.3">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.baselet.element.old.element.Class</type>
+    <coordinates>
+      <x>500</x>
+      <y>150</y>
+      <w>170</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>Garden
+--
+latitude : Decimal
+longitude : Decimal
+name : String
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.baselet.element.old.element.Class</type>
+    <coordinates>
+      <x>370</x>
+      <y>300</y>
+      <w>140</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>FoodTree
+--
+amount : Integer
+food_type : String
+--</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.baselet.element.old.element.Class</type>
+    <coordinates>
+      <x>140</x>
+      <y>200</y>
+      <w>100</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>User</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>500</x>
+      <y>230</y>
+      <w>130</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+m1=garden
+</panel_attributes>
+    <additional_attributes>80.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>400</x>
+      <y>60</y>
+      <w>50</w>
+      <h>260</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;30.0;240.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>470</x>
+      <y>60</y>
+      <w>110</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;90.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>200</x>
+      <y>60</y>
+      <w>220</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>200.0;10.0;10.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <type>com.baselet.element.old.element.Class</type>
+    <coordinates>
+      <x>270</x>
+      <y>40</y>
+      <w>320</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Django.db.models.Model</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.baselet.element.old.element.Class</type>
+    <coordinates>
+      <x>560</x>
+      <y>450</y>
+      <w>460</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>garden/views.py
+--
+--
+index(HttpRequest) : HttpResponse
+logout(HttpRequest) : HttpResponseRedirect
+render_index(HttpRequest, List&lt;Garden&gt;, List&lt;String&gt;) : HttpResponse
+generate_food_types() : List&lt;String&gt;
+search_criteria(HttpRequest) : HttpResponse
+filter_by_name(List&lt;Garden&gt;, String) : List&lt;Garden&gt;
+filter_by_foods(List&lt;FoodTree&gt;, List&lt;String&gt;) : List&lt;Garden&gt;
+ignore_name(String) : boolean
+ignore_foods(List&lt;String&gt;) : boolean</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.baselet.element.old.element.Class</type>
+    <coordinates>
+      <x>190</x>
+      <y>450</y>
+      <w>340</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>ajax_import.py
+--
+IMPORT_SERVER : String
+IMPORT_LOCATION : String
+STORAGE_LOCATION : String
+--
+import_garden_data(HttpRequest) : HttpResponse
+download_ftp_file() : File
+flush_gardens_and_trees() : Void
+parse_downloaded_file(File) : Void
+is_valid_garden(Map&lt;String, String&gt;) : boolean
+parse_food_trees(String, Garden, List&lt;String&gt; : Void
+add_food_tree(String, String, Garden) : Void
+generate_food_list() : Void</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
