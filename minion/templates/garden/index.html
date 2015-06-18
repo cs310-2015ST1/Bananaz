@@ -112,7 +112,7 @@ google.maps.event.addDomListener(window, 'load', setPoint);
         <td>
             <ul class="comma-separated">
                 {% for tree in g.foodtree_set.all %}
-                    <li>{{tree.food_type}}</li>
+                    <li>{{ tree.food_type }} ({{ tree.amount }})</li>
                 {% endfor %}
             </ul>
         </td>
