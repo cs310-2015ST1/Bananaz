@@ -10,7 +10,7 @@ function clickedImport() {
     setResult("Please wait...");
     $("#submit-button").attr("disabled", "disabled");
     $.ajax({
-        url: "http://127.0.0.1:8000/admin/import/",
+        url: getImportUrl(),
         type: "POST",
         data: {
             csrfmiddlewaretoken: getCsrfToken()
