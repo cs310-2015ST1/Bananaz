@@ -38,7 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'garden',
-    'gunicorn'
+    'gunicorn',
     'social.apps.django_app.default',
 
 )
