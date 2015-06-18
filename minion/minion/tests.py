@@ -4,6 +4,8 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase
 from garden.models import Garden, FoodTree
 from minion import ajax_import
+from django.http import HttpRequest, QueryDict
+from garden.views import *
 
 
 def create_garden(name='Garden', latitude=0, longitude=0):
@@ -29,6 +31,17 @@ def make_ajax_request(self_object, mock_file_download_location):
 
 def create_dict_line(name="Garden", latitude="0", longitude="0", food_tree_varieties=""):
     return name + "," + latitude + "," + longitude + "," + food_tree_varieties + "\n"
+
+
+def create_http_request_object(name, list_of_foods):
+    object = HttpRequest()
+    dict = {'name': name, 'foods': list_of_foods}
+    qdict = QueryDict('', mutable=True)
+    qdict.update(dict)
+    object.GET = qdict
+    return object
+
+
 
 
 class AjaxImportTests(TestCase):
@@ -91,6 +104,7 @@ class AjaxImportTests(TestCase):
         self.assertEqual(5, g.foodtree_set.filter(food_type="blackberry")[0].amount)
 
 
+
 class FlushGardenTests(TestCase):
     def test_flush_garden_and_trees_with_one_garden(self):
         g = create_garden()
@@ -133,3 +147,15 @@ class FlushGardenTests(TestCase):
 
         self.assertEqual(Garden.objects.all().count(), 0)
         self.assertEqual(FoodTree.objects.all().count(), 0)
+
+
+
+class SearchCriteriaTests(TestCase):
+    def search_for_a_garden_with_name_success(self):
+        response = make_ajax_request(self, "test/oneGardenOneTree.csv")
+        g = Garden.objects.all()
+
+        name = 'One'
+        list_of_foods = []
+        request = create_http_request_object(name, list_of_foods)
+        response = search_criteria(request)
