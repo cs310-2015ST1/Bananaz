@@ -1,13 +1,16 @@
 import ftplib
 import csv
+import os
 from django.http import HttpResponse
 import re
 from garden.models import Garden, FoodTree
+from minion.settings import BASE_DIR
 
 # File located at ftp://webftp.vancouver.ca/OpenData/csv/CommunityGardensandFoodTrees.csv
+
 IMPORT_SERVER = "webftp.vancouver.ca"
 IMPORT_LOCATION = "OpenData/csv/CommunityGardensandFoodTrees.csv"
-STORAGE_LOCATION = "data/CommunityGardensandFoodTrees.csv"
+STORAGE_LOCATION = os.path.join(BASE_DIR, "data/CommunityGardensandFoodTrees.csv")
 
 
 def import_garden_data(request):
@@ -94,4 +97,4 @@ def add_food_tree(tree_text, food, garden):
 # Modified from http://stackoverflow.com/questions/3277503/python-read-file-line-by-line-into-array
 def generate_food_list():
     """Convert line-separated food list to array of lowercase strings"""
-    return [line.rstrip('\n').lower() for line in open("data/food_list.txt")]
+    return [line.rstrip('\n').lower() for line in open(os.path.join(BASE_DIR, "data/food_list.txt"))]
