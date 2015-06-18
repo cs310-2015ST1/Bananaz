@@ -17,29 +17,10 @@ class FoodTree(models.Model):
     amount = models.IntegerField()
     food_type = models.CharField(max_length=MAX_LENGTH)
 
-#twitterauth
-# class Account(models.Model):
-# 	name = models.CharField(max_length=120, default= '', blank=False, null=True)
-# 	timestamp = models.DateTimeField(auto_now_add = True, auto_now = False)
-# 	updated = models.DateTimeField(auto_now_add = False, auto_now = True)
-# 	def __str__(self):
-# 		return self.name
-
 #twitterprofile
 class UserProfile(models.Model):
     user = models.OneToOneField(User, null = True)
     photo = models.TextField()
-profile = property(lambda u: UserProfile.objects.get_or_create(user=u)[0])
 
 def __str__(self):
     return self.user.username
-
-
-# def user_post_save(sender, instance, created, **kwargs):
-#     """Create a user profile when a new user account is created"""
-#     if created == True:
-#         p = UserProfile()
-#         p.account = instance
-#         p.save()
-
-# post_save.connect(user_post_save, sender=User)

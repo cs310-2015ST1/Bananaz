@@ -1,14 +1,14 @@
 {% if user and not user.is_anonymous and user.is_superuser %}
     <p>Hello, {{ user.username }}. Logout to login with Twitter.</p>
     <br>
-    <a href="/logout">Logout</a>
+    <a href={% url 'logout' %}>Logout</a>
 {% elif user and not user.is_anonymous %}
   <a>Hello, {{ user.get_full_name }}!</a>
   <br>
   <small>This is your profile picture</small>
   <img src="{{user.userprofile.photo}}" width="48px" height="48px" class="img-account" >
   <br>
-  <a href="/logout">Logout</a>
+  <a href={% url 'logout' %}>Logout</a>
 {% else %}
     {% load staticfiles %}
   <a href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}"><img src="{% static "twitter.png" %}"></a>

@@ -25,13 +25,4 @@ urlpatterns = [
     url(r'',include('garden.urls')),
     #twitterauth
     url('', include('social.apps.django_app.urls', namespace='social')),
-    # url(r'^$', 'garden.views.login'),
-    # url(r'^home/$', 'garden.views.home'),
-    # url(r'^logout/$', 'garden.views.logout'),
-
-
-    # Social Profiles
-    #url(r'^socialprofile/', include('socialprofile.urls')),
-
-
 ]
