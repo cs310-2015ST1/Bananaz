@@ -10,6 +10,9 @@ from django.core.context_processors import csrf
 from .models import Garden
 from .models import FoodTree
 
+global_var_garden = []
+
+
 def index(request):
 	food_types = generate_food_types()
 	gardens = Garden.objects.order_by('name')
@@ -35,7 +38,11 @@ def logout(request):
 
 
 def render_index(request, gardens, food_types):
-	return render(request, 'garden/index.html',
+    global_var_garden = gardens
+
+    for g in global_var_garden:
+        print(g.name)
+    return render(request, 'garden/index.html',
 				{'gardens': gardens, 'food_types': food_types})
 
 
