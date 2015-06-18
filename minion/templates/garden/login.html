@@ -1,4 +1,8 @@
-{% if user and not user.is_anonymous %}
+{% if user and not user.is_anonymous and user.is_superuser %}
+    <p>Hello, {{ user.username }}. Logout to login with Twitter.</p>
+    <br>
+    <a href="/logout">Logout</a>
+{% elif user and not user.is_anonymous %}
   <a>Hello, {{ user.get_full_name }}!</a>
   <br>
   <small>This is your profile picture</small>
