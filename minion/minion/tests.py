@@ -1,12 +1,9 @@
-import StringIO
 from decimal import Decimal
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from garden.models import Garden, FoodTree
 from minion import ajax_import
 from django.http import HttpRequest, QueryDict, HttpResponse
-from minion.garden.views import search_criteria
-from minion.minion.ajax_import import import_garden_data
 
 
 def create_garden(name='Garden', latitude=0, longitude=0):
