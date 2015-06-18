@@ -1,0 +1,1 @@
+web: gunicorn minion.wsgi --log-file -

@@ -156,10 +156,27 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.8/howto/static-files/
+# Copied from https://devcenter.heroku.com/articles/getting-started-with-django
 
+# Parse database configuration from $DATABASE_URL
+import dj_database_url
+DATABASES['default'] =  dj_database_url.config()
+
+# Honor the 'X-Forwarded-Proto' header for request.is_secure()
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Allow all host headers
+ALLOWED_HOSTS = ['*']
+
+# Static asset configuration
+import os
+STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
+
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, 'static'),
 )
+
+# modified from http://stackoverflow.com/questions/26080303/improperlyconfigured-settings-databases-is-improperly-configured-please-supply
+
+DATABASES['default'] = dj_database_url.config(default=os.environ.get("DATABASE_URL", "sqlite:\\" + BASE_DIR +"\\db.sqlite3"))

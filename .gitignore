@@ -9,3 +9,4 @@ minion/data/CommunityGardensandFoodTrees.csv
 
 config.py
 *.iml
+venv/
