@@ -13,4 +13,7 @@ https://realpython.com/blog/python/django-and-ajax-form-submissions/ -->
     function getCsrfToken() {
         return '{{ csrf_token }}';
     }
+    function getImportUrl() {
+        return '{% url "ajax_import" %}';
+    }
 </script>
