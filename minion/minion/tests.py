@@ -4,8 +4,9 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase
 from garden.models import Garden, FoodTree
 from minion import ajax_import
-from django.http import HttpRequest, QueryDict
-from garden.views import *
+from django.http import HttpRequest, QueryDict, HttpResponse
+from minion.garden.views import search_criteria
+from minion.minion.ajax_import import import_garden_data
 
 
 def create_garden(name='Garden', latitude=0, longitude=0):
@@ -158,4 +159,8 @@ class SearchCriteriaTests(TestCase):
         name = 'One'
         list_of_foods = []
         request = create_http_request_object(name, list_of_foods)
-        response = search_criteria(request)
+        httpresponse = search_criteria(request)
+        got = httpresponse.context['name']
+        self.assertEqual(got, 'One')
+
+        # response_temp = HttpResponse()
