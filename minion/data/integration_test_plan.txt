@@ -65,3 +65,5 @@ Number	User Story										Test
 															iv. Verify Kitsilano Community Garden lat: 49.2664025 long: -123.1504383 fruits: apple (2) pear (2) plum (4) apricot (1) hazelnut (1) fig (1) 
 															v. Verify Woodland Park Community Garden lat: 49.2785071 long: -123.0734599 fruits: apple (2)
 															vi. Logout, navigate to index and re-verify previous 2 in the table
+
+				
