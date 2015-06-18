@@ -13,9 +13,6 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
-#twitterauth
-# from config import *
-
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -42,10 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'garden',
-    #twitterauth
     'social.apps.django_app.default',
-    #twitterprofileauth
-    #'socialprofile',
 
 )
 
@@ -92,18 +86,11 @@ TEMPLATES = [
 AUTHENTICATION_BACKENDS = (
     'social.backends.twitter.TwitterOAuth',
     'django.contrib.auth.backends.ModelBackend',
-    #profile
-    # 'social.pipeline.social_auth.social_details',
-    # 'social.pipeline.social_auth.social_uid',
-    # 'social.pipeline.social_auth.auth_allowed',
-    # 'social.pipeline.social_auth.social_user',
-    # 'social.pipeline.social_auth.associate_user',
-    # 'social.pipeline.social_auth.load_extra_data',
-    #'social.pipeline.user.user_details'
 )
 
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/logged/'
 SOCIAL_AUTH_LOGIN_ERROR_URL = '/login-error/'
+
 
 
 SOCIAL_AUTH_TWITTER_KEY = 'BVBOWynKxDOQkVLkVMUvxPXzY'
@@ -114,16 +101,6 @@ TWITTER_ACCESS_TOKEN = '3223057478-yEyffNPrNEOJw9LmiM5jzsNZL2vEgmrYhK4oW7T'
 TWITTER_ACCESS_TOKEN_SECRET = 'paPcP3gBU1LNvS9q81dGWF73mDhLQCRn7pM6inHT2Vpwr'
 
 
-
-# SOCIAL_AUTH_PIPELINE = (
-# 'social_auth.backends.pipeline.social.social_auth_user',
-# 'social_auth.backends.pipeline.associate.associate_by_email',
-# 'social_auth.backends.pipeline.user.get_username',
-# 'social_auth.backends.pipeline.user.create_user',
-# 'social_auth.backends.pipeline.social.associate_user',
-# 'social_auth.backends.pipeline.user.update_user_details',
-# 'garden.pipeline.save_profile',  # <--- set the path to the function
-# )
 
 SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.social_details',
@@ -143,6 +120,9 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.auth.context_processors.auth",
     'django.core.context_processors.request',
 )
+
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/logged/'
+SOCIAL_AUTH_LOGIN_ERROR_URL = '/login-error/'
 
 #twitterprofile
 AUTH_PROFILE_MODULE = 'garden.userprofile'
