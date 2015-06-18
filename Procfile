@@ -1,1 +1,1 @@
-web: gunicorn minion.wsgi --log-file -
+web: gunicorn minion.wsgi ../minion --log-file -
