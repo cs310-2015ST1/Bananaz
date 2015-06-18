@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -180,3 +179,6 @@ STATICFILES_DIRS = (
 # modified from http://stackoverflow.com/questions/26080303/improperlyconfigured-settings-databases-is-improperly-configured-please-supply
 
 DATABASES['default'] = dj_database_url.config(default=os.environ.get("DATABASE_URL", "sqlite:\\" + BASE_DIR +"\\db.sqlite3"))
+
+import sys
+sys.path.insert(1, os.path.dirname(os.path.realpath(__file__)))
