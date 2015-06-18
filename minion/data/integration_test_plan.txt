@@ -52,3 +52,16 @@ Number	User Story										Test
 														i. leave dropdown list unselected
 														f. hit 'Search' button
 														j. expect to see no gardens as the result
+
+5.		Admin Retrieve Data								a. Test error message is shown correctly
+															i. Login as an admin
+															ii. Disable internet
+															iii. Click Import button
+															iv. Expect message "Error! INTERNAL SERVER ERROR"
+														b. Test imports work correctly
+															i. Login as an admin
+															ii. Delete Kitsilano Community Garden and Woodland Park Community Garden
+															iii. Click Import Gardens and wait until "Success!" appears
+															iv. Verify Kitsilano Community Garden lat: 49.2664025 long: -123.1504383 fruits: apple (2) pear (2) plum (4) apricot (1) hazelnut (1) fig (1) 
+															v. Verify Woodland Park Community Garden lat: 49.2785071 long: -123.0734599 fruits: apple (2)
+															vi. Logout, navigate to index and re-verify previous 2 in the table
