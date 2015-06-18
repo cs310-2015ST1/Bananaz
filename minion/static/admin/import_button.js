@@ -24,7 +24,7 @@ function clickedImport() {
             console.log(textStatus);
             console.log(errorThrown);
 
-            setResult("Error!  status: " + textStatus + "error: " + errorThrown);
+            setResult("Error! " + errorThrown);
             $("#submit-button").removeAttr("disabled");
         }
     })
