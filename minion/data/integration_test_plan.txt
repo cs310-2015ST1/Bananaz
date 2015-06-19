@@ -18,29 +18,34 @@ Number	User Story										Test and Result
 														c. The map is centered around the clicked garden.
 														d. Clicking on a different garden removes the previous marker and places a new marker at the new location.
 
-4. 		Filter with Categories Display					a. type 'Kitsilano' in search box, leave dropdown list unselected
-														b. hit 'Search' button
-														c. expect to get 4 'Kitsilano' Gardens as the result
+4. 		Filter with Categories Display					a. Search Box Only test with multiple gardens as result
+															i. type 'Kitsilano' in search box, leave dropdown list unselected
+															ii. hit 'Search' button
+															iii. expect to get 4 'Kitsilano' Gardens as the result
 
-														d. leave search box empty
-														e. in dropdown list select 'apricot'
-														f. hit 'Search' button
-														g. expect to see 'Kitsilano Community Garden' as the result
+														b. 1 criteria only test with 1 garden as the result
+															i. leave search box empty
+															ii. in dropdown list select 'apricot'
+															iii. hit 'Search' button
+															iv. expect to see 'Kitsilano Community Garden' as the result
 
-														h. type 'Garden' in search box
-														i. in dropdown list select 'blueberry'
-														f. hit 'Search' button
-														j. expect to see 'Tea Swamp Community Garden' as the result
+														c. Both criteria work together test with 1 garden as the result
+															i. type 'Garden' in search box
+															ii. in dropdown list select 'blueberry'
+															iii. hit 'Search' button
+															iv. expect to see 'Tea Swamp Community Garden' as the result
 
-														d. leave search box empty
-														i. in dropdown list select 'All'
-														f. hit 'Search' button
-														j. expect to see all gardens as the result
+														d. All gardens test
+															i. leave search box empty
+															ii. in dropdown list select 'All'
+															iii. hit 'Search' button
+															iv. expect to see all gardens as the result
 
-														d. type 'Blah' in search box
-														i. leave dropdown list unselected
-														f. hit 'Search' button
-														j. expect to see no gardens as the result
+														e. Invalid search Criteria Result
+															i. type 'Blah' in search box
+															ii. leave dropdown list unselected
+															iii. hit 'Search' button
+															iv. expect to see no gardens as the result
 
 5.		Admin Retrieve Data								a. Test error message is shown correctly
 															i. Login as an admin
