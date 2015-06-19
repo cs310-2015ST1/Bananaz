@@ -18,7 +18,6 @@ Number	User Story										Test
 														c. The map is centered around the clicked garden.
 														d. Clicking on a different garden removes the previous marker and places a new marker at the new location.
 
-
 4. 		Filter with Categories Display					a. type 'Kitsilano' in search box, leave dropdown list unselected
 														b. hit 'Search' button
 														c. expect to get 4 'Kitsilano' Gardens as the result
@@ -34,17 +33,7 @@ Number	User Story										Test
 														j. expect to see 'Tea Swamp Community Garden' as the result
 
 														d. leave search box empty
-														i. in dropdown list select 'apricot', Ctrl select 'fig'
-														f. hit 'Search' button
-														j. expect to see 'Tea Swamp Community Garden' as the result
-
-														d. leave search box empty
 														i. in dropdown list select 'All'
-														f. hit 'Search' button
-														j. expect to see all gardens as the result
-
-														d. leave search box empty
-														i. in dropdown list select 'All', Ctrl select 'fig'
 														f. hit 'Search' button
 														j. expect to see all gardens as the result
 
