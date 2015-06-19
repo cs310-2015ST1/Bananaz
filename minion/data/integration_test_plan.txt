@@ -1,15 +1,15 @@
-Number	User Story										Test
+Number	User Story										Test and Result
 1		Displaying search results on a map				a. Map loads centered on vancouver when you first go to the site for the first time containing points of all gardens
 														b. Map loads after search button is pressed
 														c. Map loads with all points displayed on it as per the search results
-														d. Search results are displayed when only 1 garden is the result of the search. Test Case : {Lemon}
-														e. Search results are displayed when more than 1 garden is the result of the search. Test Case(s) : {Apple + *}
-														f. Empty map loads centered on Vancouver when no garden is the search result. Invalid name is used in the search box. Test Case : {"Orange"}
+														d. Search results are displayed when only 1 garden is the result of the search. Test Case : {Lemon : Mount Pleasant Community Garden}
+														e. Search results are displayed when more than 1 garden is the result of the search. Test Case(s) : {Blueberry + * : Evergreen Urban Orchard, Tea Swamp Community Garden}
+														f. Empty map loads centered on Vancouver when no garden is the search result. Invalid name is used in the search box. Test Case : {"Orange" :  Empty Map}
 
 2		Table List of Gardens							a. Table list containing names of all gardens is loaded when you first arrive at the site.
 														b. Each row has a value in the name field, latitude field and a longitude field and an optional value in the food tress depending upon if the garden in question has a food tree or not.
-														c. Table shows only 1 garden if the search result gives back only 1 such garden. Test Case: {Lemon}
-														d. Table shows more than 1 gardens if the search result gives back more than 1 gardens. Test Case(s) : {Apple + *}
+														c. Table shows only 1 garden if the search result gives back only 1 such garden. Test Case: {Lemon : Mount Pleasant Community Garden}
+														d. Table shows more than 1 gardens if the search result gives back more than 1 gardens. Test Case(s) : {Blueberry + * : Evergreen Urban Orchard, Tea Swamp Community Garden }
 														e. A table loads after the search button is pressed.
 														f. An empty table loads for a food tree that is not present in any garden. Test Case(s): Invalid name is used in the search box.
 
