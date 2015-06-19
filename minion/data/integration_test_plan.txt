@@ -18,10 +18,16 @@ Number	User Story										Test and Result
 														c. The map is centered around the clicked garden.
 														d. Clicking on a different garden removes the previous marker and places a new marker at the new location.
 
+
 4. 		Filter with Categories Display					a. Search Box Only test with multiple gardens as result
 															i. type 'Kitsilano' in search box, leave dropdown list unselected
 															ii. hit 'Search' button
 															iii. expect to get 4 'Kitsilano' Gardens as the result
+																1.Kitsilano CC Collaborative Garden 	49.2618643 	-123.1620928 	
+																2.Kitsilano Christian Community Church 	49.2570894 	-123.1437758 	
+																3.Kitsilano Community Garden 	49.2664025 	-123.1504383 	
+																4.Kitsilano Neighbourhood House 	49.2686566 	-123.1852422 
+
 
 														b. 1 criteria only test with 1 garden as the result
 															i. leave search box empty
