@@ -66,4 +66,8 @@ Number	User Story										Test
 															v. Verify Woodland Park Community Garden lat: 49.2785071 long: -123.0734599 fruits: apple (2)
 															vi. Logout, navigate to index and re-verify previous 2 in the table
 
-				
+6.		User Registration								a. Test that the sign into twitter button shows up at top left corner, prompting sign in using twitter when not logged into twitter
+
+														b. Test that when sign into twitter button is pressed, the page changes to the twitter login, with an option to sign up for twitter if not a member (Make sure cookies are off)
+
+														c. Test that once successfully logged in, the page redirects back to the home page displaying a Welcome greeting and the user's name and twitter profile picture
