@@ -49,22 +49,22 @@ def search_criteria(request):
 	# Get / invalid Post request
 	try:
 		name_of_garden = request.POST['name']
-		list_of_foods = request.POST.getlist('foods')
+		food = request.POST['foods']
 	except MultiValueDictKeyError:
 		return render_index(request, all_gardens, food_types)
 
 	# empty search
-	if ignore_name(name_of_garden) and ignore_foods(list_of_foods):
+	if ignore_name(name_of_garden) and ignore_foods(food):
 		return render_index(request, all_gardens, food_types)
 
 	elif ignore_name(name_of_garden):
-		gardens = filter_by_foods(all_food_trees, list_of_foods)
+		gardens = filter_by_foods(all_food_trees, food)
 
-	elif ignore_foods(list_of_foods):
+	elif ignore_foods(food):
 		gardens = filter_by_name(all_gardens, name_of_garden)
 
 	else:
-		gardens = filter_by_foods(all_food_trees, list_of_foods)
+		gardens = filter_by_foods(all_food_trees, food)
 		gardens = filter_by_name(gardens, name_of_garden)
 
 	return render_index(request, gardens, food_types)
@@ -78,10 +78,10 @@ def filter_by_name(gardens, name_of_garden):
 	return filtered_gardens
 
 
-def filter_by_foods(all_food_trees, list_of_foods):
+def filter_by_foods(all_food_trees, food):
 	gardens = []
 	for tree in all_food_trees:
-		if tree.food_type in list_of_foods:
+		if tree.food_type in food:
 			if tree.garden in gardens:
 				pass
 			else:
