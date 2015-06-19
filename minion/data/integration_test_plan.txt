@@ -70,4 +70,9 @@ Number	User Story										Test
 
 														b. Test that when sign into twitter button is pressed, the page changes to the twitter login, with an option to sign up for twitter if not a member (Make sure cookies are off)
 
-														c. Test that once successfully logged in, the page redirects back to the home page displaying a Welcome greeting and the user's name and twitter profile picture
+														c. Test that once successfully logged in, the page redirects back to the home page displaying a Welcome greeting and the user's name and twitter profile picture and a logout link
+
+														d. Test that logout link successfully logs the user out of twitter and loads the home page with a sign into twitter prompt
+
+														e. Test that wrong login information does not redirect back to home page, but prompts login again
+
