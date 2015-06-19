@@ -21,6 +21,14 @@ Number	User Story										Test and Result
 4. 		Filter with Categories Display					a. type 'Kitsilano' in search box, leave dropdown list unselected
 														b. hit 'Search' button
 														c. expect to get 4 'Kitsilano' Gardens as the result
+														Kitsilano CC Collaborative Garden 	49.2618643 	-123.1620928 	
+
+Kitsilano Christian Community Church 	49.2570894 	-123.1437758 	
+
+Kitsilano Community Garden 	49.2664025 	-123.1504383 	
+
+Kitsilano Neighbourhood House 	49.2686566 	-123.1852422 
+
 
 														d. leave search box empty
 														e. in dropdown list select 'apricot'
