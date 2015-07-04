@@ -1,6 +1,7 @@
-/**
+/*
+/!**
  * Created by Haoran on 2015-07-02.
- */
+ *!/
 $("#updateuser-form").submit(function(event) {
     event.preventDefault();
     clickedUpdate();
@@ -40,4 +41,4 @@ function clickedUpdate() {
         }
     });
     return false;
-}
+}*/

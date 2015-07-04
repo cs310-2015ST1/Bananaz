@@ -10,6 +10,6 @@ urlpatterns = [
 
 	url(r'^search_criteria/$', views.search_criteria, name='search_criteria'),
 
-	url(r'^updateusers/$', minion.minion.ajax_update_users.import_user_data, name='ajax_update_users'),
+	url(r'^update_users_button/$', minion.minion.ajax_update_users.import_user_data, name='ajax_update_users'),
 
 ]
