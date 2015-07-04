@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 import ajax_import
-from minion.minion import ajax_update_users
+import ajax_update_users
 
 admin.autodiscover()
 
@@ -24,7 +24,7 @@ admin.autodiscover()
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^admin/import/$', ajax_import.import_garden_data, name='ajax_import'),
-
+    url(r'^update_users/$', ajax_update_users.import_user_data, name='ajax_update_users'),
     url(r'',include('garden.urls')),
     #twitterauth
     url('', include('social.apps.django_app.urls', namespace='social')),

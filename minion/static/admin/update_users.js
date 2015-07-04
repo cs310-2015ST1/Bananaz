@@ -1,44 +1,19 @@
-/*
-/!**
- * Created by Haoran on 2015-07-02.
- *!/
-$("#updateuser-form").submit(function(event) {
-    event.preventDefault();
-    clickedUpdate();
-});
 
-function setLog(r) {
-    $("#log").html(r);
-}
+/**
+ * Created by Haoran
+ */
+	$(document).ready(function() {
 
-function clickedUpdate() {
-    setLog("Please wait...");
-    $("#update-button").attr("disabled", "disabled");
-    $.ajax({
-        url: getImportUrL(),
-        type: "POST",
-        data: {
-            csrfmiddlewaretoken: getCsrfToken()
-        },
-        //dataType: 'json',
-        success: function() {
-            setLog("Success!");
-            $("#update-button").removeAttr("disabled");
+		// JQuery code to be added in here.
 
-            for (var i in users) {
-                //$('#print_users').append(i. + '<br/>');
-                setLog("print_users!");
-        }
+        $('#display_users').click(function(){
 
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR);
-            console.log(textStatus);
-            console.log(errorThrown);
+	         $.get('/update_users/', function(data){
+	                   $('#all_users').html(data);
 
-            setLog("Error! " + errorThrown);
-            $("#update-button").removeAttr("disabled");
-        }
-    });
-    return false;
-}*/
+	               });
+	    });
+
+
+
+	});
