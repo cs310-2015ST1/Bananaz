@@ -9,18 +9,26 @@ $("#updateuser-form").submit(function(event) {
 function setLog(r) {
     $("#log").html(r);
 }
+
 function clickedUpdate() {
     setLog("Please wait...");
     $("#update-button").attr("disabled", "disabled");
     $.ajax({
-        url: getImportUrl(),
+        url: getImportUrL(),
         type: "POST",
         data: {
             csrfmiddlewaretoken: getCsrfToken()
         },
+        //dataType: 'json',
         success: function() {
             setLog("Success!");
             $("#update-button").removeAttr("disabled");
+
+            for (var i in users) {
+                //$('#print_users').append(i. + '<br/>');
+                setLog("print_users!");
+        }
+
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log(jqXHR);
@@ -30,5 +38,6 @@ function clickedUpdate() {
             setLog("Error! " + errorThrown);
             $("#update-button").removeAttr("disabled");
         }
-    })
+    });
+    return false;
 }

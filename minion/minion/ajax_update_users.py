@@ -1,6 +1,10 @@
 __author__ = 'Haoran'
 from django.http import HttpResponse
 from garden.models import UserProfile
+from django.shortcuts import render
 
 def import_user_data(request):
-    return False
+    users = UserProfile.objects.all()
+    #return HttpResponse({'users': users})
+    return render(request, 'update_users_button.html',
+				{'users': users})
