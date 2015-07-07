@@ -21,6 +21,7 @@
 				});
 
 
+
 	}
 	{% for g in gardens %}
 	gardenByID[{{g.id}}] = {
@@ -40,7 +41,7 @@
                 var center = new google.maps.LatLng(garden.lat, garden.lng);
 				clearOverlays();
                 if (marker) marker.setMap();
-                allmarkers[0] = marker;
+                //allmarkers[0] = marker;
                 marker = new google.maps.Marker({map: map, position: center});
                 map.panTo(center);
             }).hover(
@@ -81,71 +82,18 @@
         // JQuery code for Getting Directions.
         google.maps.event.addListener(map, 'click', function(e) {
 {#            clearOverlays();#}
+
             setMarker(e.latLng, map);
+
           });
 
-                    // for Getting Directions
-        //var directionsService = new google.maps.DirectionsService();
-        //var directionsDisplay = new google.maps.DirectionsRenderer();
-        //directionsDisplay.setMap(map);
+
 
 	}
 
 	
 google.maps.event.addDomListener(window, 'load', setPoint);
     activateGardens();
-
-
-
-    // code for Getting Directions
-    function setMarker(position, map) {
-
-        // setMarker only works if only one garden's marker is on the map
-        if (allmarkers.length != 1){
-            return;
-        }
-
-        if ((placedmarkers.length == 0)) {
-            var marker = new google.maps.Marker({
-            position: position,
-            map: map
-          });
-            placedmarkers[0]=marker;
-            placedmarkers[0].setMap(map);
-            //calcRoute(placedmarkers[0].position, allmarkers[0].position)
-        }
-
-        else if ((placedmarkers.length == 1)){
-            placedmarkers[0].setMap(null);
-
-            var marker = new google.maps.Marker({
-            position: position,
-            map: map
-          });
-            placedmarkers[0]=marker;
-            placedmarkers[0].setMap(map);
-            //calcRoute(placedmarkers[0].position, allmarkers[0].position)
-        }
-        $('#numofmarkers').html('allmarkers'+allmarkers.length+'placedmarkers'+placedmarkers.length);
-
-    }
-
-{#    function calcRoute(start, end) {#}
-{#      var request = {#}
-{#        origin:start,#}
-{#        destination:end,#}
-{#        travelMode: google.maps.TravelMode.DRIVING#}
-{#      };#}
-{#      directionsService.route(request, function(result, status) {#}
-{#        if (status == google.maps.DirectionsStatus.OK) {#}
-{#          directionsDisplay.setDirections(result);#}
-{#        }#}
-{#        else {#}
-{#            $('#numofmarkers').html('fail');#}
-{#        }#}
-{#      });#}
-{#    }#}
-
 
     // JQuery code for Admin View All Users.
 
@@ -156,6 +104,38 @@ google.maps.event.addDomListener(window, 'load', setPoint);
 
                });
     });
+
+    // code for Getting Directions
+    function setMarker(position, map) {
+
+        // setMarker only works if only one garden's marker is on the map
+{#        if (allmarkers.length != 1){#}
+{#            return;#}
+{#        }#}
+
+
+        if ((placedmarkers.length == 0)) {
+            var marker = new google.maps.Marker({
+            position: position,
+            map: map
+          });
+            placedmarkers[0]=marker;
+            placedmarkers[0].setMap(map);}
+
+        else if ((placedmarkers.length == 1)){
+            placedmarkers[0].setMap(null);
+
+            var marker = new google.maps.Marker({
+            position: position,
+            map: map
+          });
+            placedmarkers[0]=marker;
+            placedmarkers[0].setMap(map);
+        }
+        $('#numofmarkers').html('allmarkers'+allmarkers.length+'placedmarkers'+placedmarkers.length);
+
+    }
+
 });
 
 
@@ -181,7 +161,6 @@ google.maps.event.addDomListener(window, 'load', setPoint);
 
 	<div id=map></div>
 	<div id=numofmarkers></div>
-    <div id=directionsstatus></div>
 
     <table>
     <tr>
@@ -215,8 +194,6 @@ google.maps.event.addDomListener(window, 'load', setPoint);
 
 
     <br>
-    <br>
-    Currently only work on /index page, not on /search_criteria page.<br>
     {% if user and not user.is_anonymous and user.is_superuser %}
         <button id ="display_users" class="btn btn-mini btn-primary" type="button">All Users</button>
     {% endif %}
