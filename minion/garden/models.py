@@ -21,5 +21,5 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, null = True)
     photo = models.TextField()
 
-def __str__(self):
-    return self.user.username
+    def __str__(self):
+        return self.user.username
