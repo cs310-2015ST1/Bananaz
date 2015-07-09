@@ -15,7 +15,7 @@ from .models import FoodTree
 def index(request):
 	food_types = generate_food_types()
 	gardens = Garden.objects.order_by('name')
-	return render_index(request, gardens, food_types)
+	return render_index(request, gardens, food_types, '')
 
 
 # twitterauth
@@ -24,9 +24,9 @@ def logout(request):
 	return redirect(reverse('index'))
 
 
-def render_index(request, gardens, food_types):
+def render_index(request, gardens, food_types, food):
 	return render(request, 'garden/index.html',
-				{'gardens': gardens, 'food_types': food_types})
+				{'gardens': gardens, 'food_types': food_types, 'name_of_fruit': food})
 
 
 def generate_food_types():
@@ -51,11 +51,11 @@ def search_criteria(request):
 		name_of_garden = request.POST['name']
 		food = request.POST['foods']
 	except MultiValueDictKeyError:
-		return render_index(request, all_gardens, food_types)
+		return render_index(request, all_gardens, food_types, '')
 
 	# empty search
 	if ignore_name(name_of_garden) and ignore_foods(food):
-		return render_index(request, all_gardens, food_types)
+		return render_index(request, all_gardens, food_types, food)
 
 	elif ignore_name(name_of_garden):
 		gardens = filter_by_foods(all_food_trees, food)
@@ -67,7 +67,8 @@ def search_criteria(request):
 		gardens = filter_by_foods(all_food_trees, food)
 		gardens = filter_by_name(gardens, name_of_garden)
 
-	return render_index(request, gardens, food_types)
+
+	return render_index(request, gardens, food_types, food)
 
 
 def filter_by_name(gardens, name_of_garden):

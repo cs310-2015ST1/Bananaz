@@ -184,10 +184,16 @@ google.maps.event.addDomListener(window, 'load', setPoint);
 	{% include 'garden/home.html' %}
 	{% include 'garden/login.html' %}
 
+    //Fruit Icon
+    {% if name_of_fruit %}
+        {{ name_of_fruit }}
+    {% endif %}
+
 
 	<div id=map></div>
 	<div id=numofmarkers></div>
     <div id=directionsstatus></div>
+
 
     <table>
     <tr>
