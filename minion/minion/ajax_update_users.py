@@ -1,13 +1,12 @@
-from django.contrib.auth.models import User
+from garden.models import UserProfile
 
-
+__author__ = 'Haoran'
 from django.http import HttpResponse
 
-from django.shortcuts import render
 
 def import_user_data(request):
-    users = User.objects.all()
+    users = UserProfile.objects.all()
     str = ''
     for u in users:
-        str = str + u.username + "<br>"
+        str = str + u.__str__() + "<br>"
     return HttpResponse(str)
