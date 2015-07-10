@@ -9,7 +9,7 @@
 {#    </script>#}
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script>
-	var map,marker,gardenByID = {};
+	var map,marker,route,gardenByID = {};
 	var allmarkers = new Array();
 
     // for Getting Directions
@@ -50,10 +50,10 @@
                 marker = new google.maps.Marker({map: map, position: center});
                 map.panTo(center);
 
-                // for Getting Directions
-                var latLng = new google.maps.LatLng(49.26061, -123.24599); //Mock user location
-                setMarker(latLng, map);
-                calcRoute(latLng, center)
+{#                // for Getting Directions#}
+{#                var latLng = new google.maps.LatLng(49.26061, -123.24599); //Mock user location#}
+{#                setMarker(latLng, map);#}
+{#                calcRoute(latLng, center)#}
 
             }).hover(
                 function () {this.className = this.className.replace('OFF', 'ON');},
@@ -113,6 +113,35 @@ google.maps.event.addDomListener(window, 'load', setPoint);
 
                });
     });
+	
+	$('#add_tweet').click(function(){
+		window.open('form/');
+	
+	})
+	
+    $('#display_route').click(function(){
+
+        $('.g').each(function () {
+            $(this).click(function() {
+                var garden = gardenByID[this.id];
+                var center = new google.maps.LatLng(garden.lat, garden.lng);
+				clearOverlays();
+                if (marker) marker.setMap();
+                //allmarkers[0] = marker;
+                marker = new google.maps.Marker({map: map, position: center});
+                map.panTo(center);
+
+                // for Getting Directions
+                var latLng = new google.maps.LatLng(49.26061, -123.24599); //Mock user location
+                setMarker(latLng, map);
+                calcRoute(latLng, center)
+
+            }).hover(
+                function () {this.className = this.className.replace('OFF', 'ON');},
+                function () {this.className = this.className.replace('ON', 'OFF');}
+            );
+        });
+    });
 
     // code for Getting Directions
     function setMarker(position, map) {
@@ -123,15 +152,15 @@ google.maps.event.addDomListener(window, 'load', setPoint);
 {#        }#}
 
 
-        if ((placedmarkers.length == 0)) {
+{#        if ((placedmarkers.length == 0)) {}#}
             var marker = new google.maps.Marker({
             position: position,
             map: map
           });
             placedmarkers[0]=marker;
-            placedmarkers[0].setMap(map);}
+            placedmarkers[0].setMap(map);
 
-        else if ((placedmarkers.length == 1)){
+{% comment %}        else if ((placedmarkers.length == 1)){
             placedmarkers[0].setMap(null);
 
             var marker = new google.maps.Marker({
@@ -140,8 +169,8 @@ google.maps.event.addDomListener(window, 'load', setPoint);
           });
             placedmarkers[0]=marker;
             placedmarkers[0].setMap(map);
-        }
-        $('#numofmarkers').html('allmarkers'+allmarkers.length+'placedmarkers'+placedmarkers.length);
+        }{% endcomment %}
+{#        $('#numofmarkers').html('allmarkers'+allmarkers.length+'placedmarkers'+placedmarkers.length);#}
 
     }
 
@@ -152,7 +181,7 @@ google.maps.event.addDomListener(window, 'load', setPoint);
         destination:end,
         travelMode: google.maps.TravelMode.DRIVING
       };
-      directionsService.route(request, function(result, status) {
+      route = directionsService.route(request, function(result, status) {
         if (status == google.maps.DirectionsStatus.OK) {
           directionsDisplay.setDirections(result);
         }
@@ -161,6 +190,8 @@ google.maps.event.addDomListener(window, 'load', setPoint);
         }
       });
     }
+	
+	
 
 });
 
@@ -184,10 +215,16 @@ google.maps.event.addDomListener(window, 'load', setPoint);
 	{% include 'garden/home.html' %}
 	{% include 'garden/login.html' %}
 
+    //Fruit Icon
+    {% if name_of_fruit %}
+        {{ name_of_fruit }}
+    {% endif %}
+
 
 	<div id=map></div>
 	<div id=numofmarkers></div>
     <div id=directionsstatus></div>
+
 
     <table>
     <tr>
@@ -214,12 +251,16 @@ google.maps.event.addDomListener(window, 'load', setPoint);
             </ul>
         </td>
 
+        <td><button id ="display_route" class="btn btn-mini btn-primary" type="button">Display Route</button></td>
+		<td><button id ="add_tweet" class="btn btn-mini btn-primary" type="button">Tweet</button></td>
+		
+
     </tr>
     {% endfor %}
 	</table>
     {% include 'garden/search_criteria.html' %}
 
-
+ONLY WORKS ON INDEX PAGE
     <br>
     {% if user and not user.is_anonymous and user.is_superuser %}
         <button id ="display_users" class="btn btn-mini btn-primary" type="button">All Users</button>

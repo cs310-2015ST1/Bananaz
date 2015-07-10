@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 
-__author__ = 'Haoran'
+
 from django.http import HttpResponse
 
 from django.shortcuts import render

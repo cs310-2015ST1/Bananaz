@@ -23,5 +23,5 @@ class UserProfile(models.Model):
     oauth_token_secret = models.TextField()
     photo = models.TextField()
 
-def __str__(self):
-    return self.user.username
+    def __str__(self):
+        return self.user.username
