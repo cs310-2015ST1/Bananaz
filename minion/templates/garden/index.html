@@ -50,10 +50,10 @@
                 marker = new google.maps.Marker({map: map, position: center});
                 map.panTo(center);
 
-                // for Getting Directions
-                var latLng = new google.maps.LatLng(49.26061, -123.24599); //Mock user location
-                setMarker(latLng, map);
-                calcRoute(latLng, center)
+{#                // for Getting Directions#}
+{#                var latLng = new google.maps.LatLng(49.26061, -123.24599); //Mock user location#}
+{#                setMarker(latLng, map);#}
+{#                calcRoute(latLng, center)#}
 
             }).hover(
                 function () {this.className = this.className.replace('OFF', 'ON');},
@@ -112,6 +112,30 @@ google.maps.event.addDomListener(window, 'load', setPoint);
                    $('#all_users').html(data);
 
                });
+    });
+
+    $('#display_route').click(function(){
+
+        $('.g').each(function () {
+            $(this).click(function() {
+                var garden = gardenByID[this.id];
+                var center = new google.maps.LatLng(garden.lat, garden.lng);
+				clearOverlays();
+                if (marker) marker.setMap();
+                //allmarkers[0] = marker;
+                marker = new google.maps.Marker({map: map, position: center});
+                map.panTo(center);
+
+                // for Getting Directions
+                var latLng = new google.maps.LatLng(49.26061, -123.24599); //Mock user location
+                setMarker(latLng, map);
+                calcRoute(latLng, center)
+
+            }).hover(
+                function () {this.className = this.className.replace('OFF', 'ON');},
+                function () {this.className = this.className.replace('ON', 'OFF');}
+            );
+        });
     });
 
     // code for Getting Directions
@@ -220,12 +244,14 @@ google.maps.event.addDomListener(window, 'load', setPoint);
             </ul>
         </td>
 
+        <td><button id ="display_route" class="btn btn-mini btn-primary" type="button">Display Route</button></td>
+
     </tr>
     {% endfor %}
 	</table>
     {% include 'garden/search_criteria.html' %}
 
-
+ONLY WORKS ON INDEX PAGE
     <br>
     {% if user and not user.is_anonymous and user.is_superuser %}
         <button id ="display_users" class="btn btn-mini btn-primary" type="button">All Users</button>
