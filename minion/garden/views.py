@@ -8,6 +8,8 @@ from django.http import HttpResponseRedirect
 from django.contrib import auth
 from django.core.context_processors import csrf
 
+import oauth2 as oauth
+import cgi
 
 from .models import Garden
 from .models import FoodTree
@@ -22,7 +24,6 @@ def index(request):
 def logout(request):
 	auth_logout(request)
 	return redirect(reverse('index'))
-
 
 def render_index(request, gardens, food_types):
 	return render(request, 'garden/index.html',

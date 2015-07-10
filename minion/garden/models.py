@@ -19,6 +19,8 @@ class FoodTree(models.Model):
 #twitterprofile
 class UserProfile(models.Model):
     user = models.OneToOneField(User, null = True)
+    oauth_token = models.TextField()
+    oauth_token_secret = models.TextField()
     photo = models.TextField()
 
 def __str__(self):
