@@ -123,15 +123,15 @@ google.maps.event.addDomListener(window, 'load', setPoint);
 {#        }#}
 
 
-        if ((placedmarkers.length == 0)) {
+{#        if ((placedmarkers.length == 0)) {}#}
             var marker = new google.maps.Marker({
             position: position,
             map: map
           });
             placedmarkers[0]=marker;
-            placedmarkers[0].setMap(map);}
+            placedmarkers[0].setMap(map);
 
-        else if ((placedmarkers.length == 1)){
+{% comment %}        else if ((placedmarkers.length == 1)){
             placedmarkers[0].setMap(null);
 
             var marker = new google.maps.Marker({
@@ -140,8 +140,8 @@ google.maps.event.addDomListener(window, 'load', setPoint);
           });
             placedmarkers[0]=marker;
             placedmarkers[0].setMap(map);
-        }
-        $('#numofmarkers').html('allmarkers'+allmarkers.length+'placedmarkers'+placedmarkers.length);
+        }{% endcomment %}
+{#        $('#numofmarkers').html('allmarkers'+allmarkers.length+'placedmarkers'+placedmarkers.length);#}
 
     }
 
