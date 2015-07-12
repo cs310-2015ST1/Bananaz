@@ -193,19 +193,53 @@
     ul.comma-separated li {display:inline}
     ul.comma-separated li:after {content: ","}
     ul.comma-separated li:last-child:after {content: ""}
+
+
+    .box-centerside-left-panel
+     {
+      float:left;
+      min-height:100px;
+      width:50%;
+     }
+
+    .box-centerside-right-panel
+     {
+      float:left;
+      min-height:100px;
+      width:50%;
+     }
 </style>
 </head>
 <body onload='initialize()'>
 
 	{% include 'garden/home.html' %}
+    <div class="box-centerside-left-panel">
+      <div class="panel-body">
 	{% include 'garden/login.html' %}
 
+
+    <a href="../">Refresh</a>
+
+    <br>ONLY WORKS ON INDEX PAGE
+    {% if user and not user.is_anonymous and user.is_superuser %}
+        <button id ="display_users" class="btn btn-mini btn-primary" type="button">All Users</button>
+    {% endif %}
+    <div id="all_users"></div>
+
+      </div>
+    </div>
+
+    <div class="box-centerside-right-panel">
+      <div class="panel-body">
+          {% include 'garden/search_criteria.html' %}
 {#    Fruit Icon#}
     {% if name_of_fruit %}
         {{ name_of_fruit }}
     {% endif %}
-    <a href="../">Refresh</a>
+      </div>
+    </div>
 
+    <br>
 
 	<div id=map></div>
 	<div id=numofmarkers></div>
@@ -244,14 +278,9 @@
     </tr>
     {% endfor %}
 	</table>
-    {% include 'garden/search_criteria.html' %}
+
 Tweet-BROKEN ON search_criteria page <br>
-ONLY WORKS ON INDEX PAGE
-    <br>
-    {% if user and not user.is_anonymous and user.is_superuser %}
-        <button id ="display_users" class="btn btn-mini btn-primary" type="button">All Users</button>
-    {% endif %}
-    <div id="all_users"></div>
+
 </body>
 
 
