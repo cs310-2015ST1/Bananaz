@@ -49,7 +49,13 @@
 
                 if($(e.target).is('button')){
                     e.preventDefault();
-                    displayRoute(garden.lat, garden.lng);
+                    if (e.target.id == 'add_tweet'){
+                        window.open('form/');
+                    }
+                    else{
+                        displayRoute(garden.lat, garden.lng);
+                    }
+
                     return;}
 {#                if ($this.is('#display_route')) {#}
 {#                    displayRoute(garden.lat, garden.lng);#}
@@ -143,10 +149,10 @@ google.maps.event.addDomListener(window, 'load', setPoint);
                });
     });
 	
-	$('#add_tweet').click(function(){
-		window.open('form/');
-	
-	});
+{#	$('#add_tweet').click(function(){#}
+{#		window.open('form/');#}
+{#	#}
+{#	});#}
 
     function displayRoute(lati, long) {
 {#    $('#display_route').click(function(){#}
@@ -328,7 +334,7 @@ google.maps.event.addDomListener(window, 'load', setPoint);
     {% endfor %}
 	</table>
     {% include 'garden/search_criteria.html' %}
-
+Tweet-BROKEN ON search_criteria page
 ONLY WORKS ON INDEX PAGE
     <br>
     {% if user and not user.is_anonymous and user.is_superuser %}
