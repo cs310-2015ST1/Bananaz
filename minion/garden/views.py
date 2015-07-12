@@ -18,6 +18,7 @@ from .forms import TweetForm
 from .models import UserProfile
 
 
+
 def index(request):
 	food_types = generate_food_types()
 	gardens = Garden.objects.order_by('name')
