@@ -63,6 +63,7 @@
                     }
                     else{
                         displayRoute(garden.lat, garden.lng);
+                        $('#directionsstatus').html('you are viewing the route from your current location to ' + garden.name);
                     }
 
                     return;}
@@ -77,6 +78,7 @@
                 marker = new google.maps.Marker({map: map, position: center});
 
                 map.panTo(center);
+                $('#directionsstatus').html('you are viewing the location of ' + garden.name);
 
 
             }).hover(
