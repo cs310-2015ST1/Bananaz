@@ -226,7 +226,7 @@
 	{% include 'garden/login.html' %}
 
 
-    <a href="../">Refresh</a>
+    <a href="../">Refresh Page</a>
 
     <br>
 
@@ -243,9 +243,14 @@
       <div class="panel-body">
           {% include 'garden/search_criteria.html' %}
 {#    Fruit Icon#}
-    {% if name_of_fruit %}
-        {{ name_of_fruit }}
+    {% if name_of_garden %}
+        You are displaying gardens containing keyword: {{ name_of_garden }}
     {% endif %}
+    <br>
+    {% if name_of_fruit %}
+        You are displaying gardens containing fruit type: {{ name_of_fruit }}
+    {% endif %}
+
       </div>
     </div>
 

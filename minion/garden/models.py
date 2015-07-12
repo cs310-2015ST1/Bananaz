@@ -24,4 +24,10 @@ class UserProfile(models.Model):
     photo = models.TextField()
 
     def __str__(self):
-        return self.user.username
+        if (self.user.email):
+            email = 'email: ' + self.user.email
+        else:
+            email = ''
+
+        return 'username: ' + self.user.username + '<br>' + 'Name: ' + self.user.first_name + ' ' + self.user.last_name + '<br>' + email + '<br>'
+
