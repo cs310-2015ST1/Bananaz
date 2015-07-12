@@ -98,7 +98,7 @@ def search_criteria(request):
 def filter_by_name(gardens, name_of_garden):
 	filtered_gardens = []
 	for garden in gardens:
-		if name_of_garden in garden.name:
+		if name_of_garden.lower() in (garden.name).lower():
 			filtered_gardens.append(garden)
 	return filtered_gardens
 
