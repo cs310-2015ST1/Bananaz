@@ -25,6 +25,11 @@
         // for Getting Directions
         directionsDisplay.setMap(map);
 
+        navigator.geolocation.getCurrentPosition(function (position) {
+            userLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        }, function () {
+        });
+
 	}
 	{% for g in gardens %}
 	gardenByID[{{g.id}}] = {
@@ -136,10 +141,7 @@
 
         map.panTo(center);
 
-        navigator.geolocation.getCurrentPosition(function (position) {
-            userLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-        }, function () {
-        });
+
 
         calcRoute(userLatLng, center);
 
