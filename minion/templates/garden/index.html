@@ -42,8 +42,27 @@
     function activateGardens() {
         // Add Garden click handler
         $('.g').each(function () {
-            $(this).click(function() {
+            $(this).click(function(e) {
+                //alert( this.id );
                 var garden = gardenByID[this.id];
+
+                if($(e.target).is('button')){
+                    e.preventDefault();
+                    return;}
+{#                if ($this.is('#display_route')) {#}
+{#                    displayRoute(garden.lat, garden.lng);#}
+{#                    return;#}
+{#                }#}
+
+
+{#                if ( $( e.currentTarget ).is( ":button" ) ) {#}
+{#                    return;#}
+{#                }#}
+
+{#                if($(this).is('button')){#}
+{#                    return;#}
+{#                }#}
+
                 var center = new google.maps.LatLng(garden.lat, garden.lng);
 				clearOverlays();
                 if (marker) marker.setMap();
@@ -119,38 +138,39 @@ google.maps.event.addDomListener(window, 'load', setPoint);
 		window.open('form/');
 	
 	});
-	
-    $('#display_route').click(function(){
 
-        $('.g').each(function () {
-            $(this).click(function() {
-                var garden = gardenByID[this.id];
-                var center = new google.maps.LatLng(garden.lat, garden.lng);
-				clearOverlays();
-                //if (marker) marker.setMap();
-                //allmarkers[0] = marker;
-                //marker = new google.maps.Marker({map: map, position: center});
-                map.panTo(center);
+    function displayRoute(lati, long) {
+        {#    $('#display_route').click(function(){#}
 
-                // for Getting Directions
+        {#        var lati = $(this).attr("value");#}
+        {#        var long = $(this).attr("name");#}
+        {##}
+        {#        lati = parseFloat (lati);#}
+        {#        long = parseFloat (long);#}
+        {#        $('#directionsstatus').html(lati+' '+long);#}
 
-                //var latLng = new google.maps.LatLng(49.26061, -123.24599); //Mock user location
+        var center = new google.maps.LatLng(lati, long);
+        clearOverlays();
+        //if (marker) marker.setMap();
+        //allmarkers[0] = marker;
+        //marker = new google.maps.Marker({map: map, position: center});
+        map.panTo(center);
 
-                navigator.geolocation.getCurrentPosition(function(position) {
-                    userLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                }, function() {
-                });
+        // for Getting Directions
 
-                setMarker(userLatLng, map);
-                calcRoute(userLatLng, center);
-                //userLatLng = new google.maps.LatLng(0,0);
+        //var latLng = new google.maps.LatLng(49.26061, -123.24599); //Mock user location
 
-            }).hover(
-                function () {this.className = this.className.replace('OFF', 'ON');},
-                function () {this.className = this.className.replace('ON', 'OFF');}
-            );
+        navigator.geolocation.getCurrentPosition(function (position) {
+            userLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        }, function () {
         });
-    });
+
+        //setMarker(userLatLng, map);
+        calcRoute(userLatLng, center);
+        //userLatLng = new google.maps.LatLng(0,0);
+    }
+{#    });#}
+
 
     // code for Getting Directions
     function setMarker(position, map) {
@@ -270,7 +290,7 @@ google.maps.event.addDomListener(window, 'load', setPoint);
             </ul>
         </td>
 
-        <td><button id ="display_route" class="btn btn-mini btn-primary" type="button">Display Route</button></td>
+        <td><button id ="display_route" class="btn btn-mini btn-primary" type="button" value="{{ g.latitude }}" name="{{ g.longitude }}">Display Route</button></td>
 		<td><button id ="add_tweet" class="btn btn-mini btn-primary" type="button">Tweet</button></td>
 		
 
