@@ -1,7 +1,8 @@
 <!doctype html>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="stylesheet.css">
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="../../static/stylesheet.css">
 
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 <script src="https://maps.google.com/maps/api/js?sensor=false"></script>
@@ -169,29 +170,7 @@
 </script>
 
 <style>
-body {font-family: sans-serif}
-#map {width: 1000px; height: 500px}
-#gardens {overflow: auto; width: 500px; height: 100px}
-.linkOFF {color: darkblue}
-.linkON {color: white; background-color: darkblue;cursor:pointer}
-ul.comma-separated {list-style: none; display: inline; padding:0; margin:0}
-ul.comma-separated li {display:inline}
-ul.comma-separated li:after {content: ","}
-ul.comma-separated li:last-child:after {content: ""}
 
-.box-centerside-left-panel
- {
-  float:left;
-  min-height:100px;
-  width:50%;
- }
-
-.box-centerside-right-panel
- {
-  float:left;
-  min-height:100px;
-  width:50%;
- }
 </style>
 
 
