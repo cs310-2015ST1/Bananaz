@@ -3,10 +3,6 @@
 <head>
 <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 <script src="https://maps.google.com/maps/api/js?sensor=false"></script>
-{#<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>#}
-{#<script type="text/javascript"#}
-{#      src="https://maps.googleapis.com/maps/api/js?key=API_KEY">#}
-{#    </script>#}
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script>
 	var map,marker,gardenByID = {};
@@ -44,11 +40,14 @@
         // Add Garden click handler
         $('.g').each(function () {
             $(this).click(function(e) {
-                //alert( this.id );
+
                 var garden = gardenByID[this.id];
 
+                // prevent button click to do the same thing as a table row click
                 if($(e.target).is('button')){
                     e.preventDefault();
+
+                    // twitter button click function.
                     if (e.target.id == 'add_tweet'){
                         window.open('form/');
                     }
@@ -57,23 +56,10 @@
                     }
 
                     return;}
-{#                if ($this.is('#display_route')) {#}
-{#                    displayRoute(garden.lat, garden.lng);#}
-{#                    return;#}
-{#                }#}
 
-
-{#                if ( $( e.currentTarget ).is( ":button" ) ) {#}
-{#                    return;#}
-{#                }#}
-
-{#                if($(this).is('button')){#}
-{#                    return;#}
-{#                }#}
 
                 var center = new google.maps.LatLng(garden.lat, garden.lng);
 				clearOverlays();
-
 
 
                 if (marker) marker.setMap();
@@ -82,10 +68,6 @@
 
                 map.panTo(center);
 
-{#                // for Getting Directions#}
-{#                var latLng = new google.maps.LatLng(49.26061, -123.24599); //Mock user location#}
-{#                setMarker(latLng, map);#}
-{#                calcRoute(latLng, center)#}
 
             }).hover(
                 function () {this.className = this.className.replace('OFF', 'ON');},
@@ -108,7 +90,7 @@
         placedmarkers.length = 0;
 
         directionsDisplay.set('directions', null);
-        //marker.setMap();
+
 	}
 	
 	function setPoint(){
@@ -128,19 +110,15 @@
         // JQuery code for Getting Directions.
         google.maps.event.addListener(map, 'click', function(e) {
 
-
-            //setMarker(e.latLng, map);
-
           });
 
 	}
 
 	
-google.maps.event.addDomListener(window, 'load', setPoint);
+    google.maps.event.addDomListener(window, 'load', setPoint);
     activateGardens();
 
     // JQuery code for Admin View All Users.
-
     $('#display_users').click(function(){
 
          $.get('update_users/', function(data){
@@ -149,76 +127,34 @@ google.maps.event.addDomListener(window, 'load', setPoint);
                });
     });
 	
-{#	$('#add_tweet').click(function(){#}
-{#		window.open('form/');#}
-{#	#}
-{#	});#}
-
+    // for Getting Directions
     function displayRoute(lati, long) {
-{#    $('#display_route').click(function(){#}
-
-        {#        var lati = $(this).attr("value");#}
-        {#        var long = $(this).attr("name");#}
-        {##}
-        {#        lati = parseFloat (lati);#}
-        {#        long = parseFloat (long);#}
-        {#        $('#directionsstatus').html(lati+' '+long);#}
 
         var center = new google.maps.LatLng(lati, long);
         clearOverlays();
         if (marker) marker.setMap();
 
-
-        //if (marker) marker.setMap();
-        //allmarkers[0] = marker;
-        //marker = new google.maps.Marker({map: map, position: center});
         map.panTo(center);
-
-        // for Getting Directions
-
-        //var latLng = new google.maps.LatLng(49.26061, -123.24599); //Mock user location
 
         navigator.geolocation.getCurrentPosition(function (position) {
             userLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
         }, function () {
         });
 
-        //setMarker(userLatLng, map);
         calcRoute(userLatLng, center);
 
-        //userLatLng = new google.maps.LatLng(0,0);
     }
-{#    });#}
 
 
     // code for Getting Directions
     function setMarker(position, map) {
 
-        // setMarker only works if only one garden's marker is on the map
-{#        if (allmarkers.length != 1){#}
-{#            return;#}
-{#        }#}
-
-
-{#        if ((placedmarkers.length == 0)) {}#}
             var marker = new google.maps.Marker({
             position: position,
             map: map
           });
             placedmarkers[0]=marker;
             placedmarkers[0].setMap(map);
-
-{% comment %}        else if ((placedmarkers.length == 1)){
-            placedmarkers[0].setMap(null);
-
-            var marker = new google.maps.Marker({
-            position: position,
-            map: map
-          });
-            placedmarkers[0]=marker;
-            placedmarkers[0].setMap(map);
-        }{% endcomment %}
-{#        $('#numofmarkers').html('allmarkers'+allmarkers.length+'placedmarkers'+placedmarkers.length);#}
 
     }
 
@@ -234,39 +170,13 @@ google.maps.event.addDomListener(window, 'load', setPoint);
           route = result;
           directionsDisplay.setDirections(result);
 
-        // http://stackoverflow.com/questions/16180104/get-a-polyline-from-google-maps-directions-v3
-{#        var legs = response.routes[0].legs;#}
-{#        for (i=0;i<legs.length;i++) {#}
-{#          var steps = legs[i].steps;#}
-{#          for (j=0;j<steps.length;j++) {#}
-{#            var nextSegment = steps[j].path;#}
-{#            for (k=0;k<nextSegment.length;k++) {#}
-{#              polyline.getPath().push(nextSegment[k]);#}
-{#              bounds.extend(nextSegment[k]);#}
-{#            }#}
-{#          }#}
-{#        }#}
-{#        polyline.setMap(map);#}
-{#        map.fitBounds(bounds);#}
-
         }
         else{
-            $('#directionsstatus').html('user location enabled. please click again');
+            alert( 'user location enabled. please click again to display directions' );
+            //$('#directionsstatus').html();
         }
       });
     }
-
-{#    function getUserLocation() {#}
-{##}
-{#      if(navigator.geolocation) {#}
-{#        navigator.geolocation.getCurrentPosition(function(position) {#}
-{#            return (new google.maps.LatLng(position.coords.latitude, position.coords.longitude));#}
-{##}
-{#        }, function() {#}
-{##}
-{#        });#}
-{#      }#}
-{#    }#}
 
 });
 
@@ -290,10 +200,11 @@ google.maps.event.addDomListener(window, 'load', setPoint);
 	{% include 'garden/home.html' %}
 	{% include 'garden/login.html' %}
 
-    //Fruit Icon
+{#    Fruit Icon#}
     {% if name_of_fruit %}
         {{ name_of_fruit }}
     {% endif %}
+    <a href="../">Refresh</a>
 
 
 	<div id=map></div>
@@ -334,7 +245,7 @@ google.maps.event.addDomListener(window, 'load', setPoint);
     {% endfor %}
 	</table>
     {% include 'garden/search_criteria.html' %}
-Tweet-BROKEN ON search_criteria page
+Tweet-BROKEN ON search_criteria page <br>
 ONLY WORKS ON INDEX PAGE
     <br>
     {% if user and not user.is_anonymous and user.is_superuser %}
@@ -342,10 +253,6 @@ ONLY WORKS ON INDEX PAGE
     {% endif %}
     <div id="all_users"></div>
 </body>
-
-
-
-
 
 
 </html>
