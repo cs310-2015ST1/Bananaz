@@ -79,10 +79,18 @@
 	function setPoint(){
 		var j = 0;
 		$('.g').each(function(){
-			var garden = gardenByID[this.id];
+			var image = {
+                url: 'http://img3.wikia.nocookie.net/__cb20100619222000/frontierville/images/f/f3/Apple_Tree_Fruit-icon.png',
+                size: new google.maps.Size(71,71),
+                origin : new google.maps.Point(0,0),
+                anchor: new google.maps.Point(17, 34),
+                scaledSize: new google.maps.Size(35,35)
+            };
+            var garden = gardenByID[this.id];
 			allmarkers[j] = new google.maps.Marker({
 				position: new google.maps.LatLng(garden.lat, garden.lng),
 				title: garden.name,
+                icon: image
 			});
 			j++;
 		});
