@@ -169,7 +169,7 @@
       };
       route = directionsService.route(request, function(result, status) {
         if (status == google.maps.DirectionsStatus.OK) {
-          route = result;
+          //route = result;
           directionsDisplay.setDirections(result);
 
         }
@@ -186,7 +186,7 @@
 
 </script>
 <style>
-	body {font-family: sans-serif}
+    	body {font-family: sans-serif}
 	#map {width: 1000px; height: 500px}
 	#gardens {overflow: auto; width: 500px; height: 100px}
     .linkOFF {color: darkblue}
@@ -211,6 +211,7 @@
       width:50%;
      }
 </style>
+
 </head>
 <body onload='initialize()'>
 
