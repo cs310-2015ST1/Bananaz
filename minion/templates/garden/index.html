@@ -16,6 +16,7 @@
     var placedmarkers = new Array();
     var directionsService = new google.maps.DirectionsService();
     var directionsDisplay = new google.maps.DirectionsRenderer();
+    var userLatLng = new google.maps.LatLng(0,0);
 
 	function initialize(){
 		map = new google.maps.Map(document.getElementById('map'),{
@@ -117,7 +118,7 @@ google.maps.event.addDomListener(window, 'load', setPoint);
 	$('#add_tweet').click(function(){
 		window.open('form/');
 	
-	})
+	});
 	
     $('#display_route').click(function(){
 
@@ -126,15 +127,23 @@ google.maps.event.addDomListener(window, 'load', setPoint);
                 var garden = gardenByID[this.id];
                 var center = new google.maps.LatLng(garden.lat, garden.lng);
 				clearOverlays();
-                if (marker) marker.setMap();
+                //if (marker) marker.setMap();
                 //allmarkers[0] = marker;
-                marker = new google.maps.Marker({map: map, position: center});
+                //marker = new google.maps.Marker({map: map, position: center});
                 map.panTo(center);
 
                 // for Getting Directions
-                var latLng = new google.maps.LatLng(49.26061, -123.24599); //Mock user location
-                setMarker(latLng, map);
-                calcRoute(latLng, center)
+
+                //var latLng = new google.maps.LatLng(49.26061, -123.24599); //Mock user location
+
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    userLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                }, function() {
+                });
+
+                setMarker(userLatLng, map);
+                calcRoute(userLatLng, center);
+                //userLatLng = new google.maps.LatLng(0,0);
 
             }).hover(
                 function () {this.className = this.className.replace('OFF', 'ON');},
@@ -190,8 +199,18 @@ google.maps.event.addDomListener(window, 'load', setPoint);
         }
       });
     }
-	
-	
+
+{#    function getUserLocation() {#}
+{##}
+{#      if(navigator.geolocation) {#}
+{#        navigator.geolocation.getCurrentPosition(function(position) {#}
+{#            return (new google.maps.LatLng(position.coords.latitude, position.coords.longitude));#}
+{##}
+{#        }, function() {#}
+{##}
+{#        });#}
+{#      }#}
+{#    }#}
 
 });
 
