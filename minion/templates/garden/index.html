@@ -30,6 +30,11 @@
         }, function () {
         });
 
+
+        //Display Users
+        //var is_root =/^\/(?:|index\.aspx?)$/i.test(location.pathname);
+
+
 	}
 	{% for g in gardens %}
 	gardenByID[{{g.id}}] = {
@@ -223,10 +228,12 @@
 
     <a href="../">Refresh</a>
 
-    <br>ONLY WORKS ON INDEX PAGE
+    <br>
+
     {% if user and not user.is_anonymous and user.is_superuser %}
         <button id ="display_users" class="btn btn-mini btn-primary" type="button">All Users</button>
     {% endif %}
+    <div id=user_button></div>
     <div id="all_users"></div>
 
       </div>
@@ -245,7 +252,7 @@
     <br>
 
 	<div id=map></div>
-	<div id=numofmarkers></div>
+
     <div id=directionsstatus></div>
 
 
@@ -282,7 +289,7 @@
     {% endfor %}
 	</table>
 
-Tweet-BROKEN ON search_criteria page <br>
+<br>
 
 </body>
 
