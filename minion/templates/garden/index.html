@@ -115,9 +115,28 @@ google.maps.event.addDomListener(window, 'load', setPoint);
     });
 	
 	$('#add_tweet').click(function(){
-		window.open('form/');
+		$('.g').each(function(){
+			$(this).click(function(){
+				var hashtag = '#bananaz' + this.id;
+				var tweet = prompt("Please enter your tweet",hashtag);
+				if(tweet != null){
+					document.getElementById("tweet_form").submit();
+				}
+			});
+		});
+		
+		
+	});
 	
-	})
+	$('#search_tweets').click(function(){
+		$('.g').each(function(){
+			$(this).click(function(){
+			
+			});
+		
+		});
+		
+	});
 	
     $('#display_route').click(function(){
 
@@ -253,7 +272,7 @@ google.maps.event.addDomListener(window, 'load', setPoint);
 
         <td><button id ="display_route" class="btn btn-mini btn-primary" type="button">Display Route</button></td>
 		<td><button id ="add_tweet" class="btn btn-mini btn-primary" type="button">Tweet</button></td>
-		
+		<td>{% include 'garden/view_tweets.html' %}</td>
 
     </tr>
     {% endfor %}
@@ -266,6 +285,7 @@ ONLY WORKS ON INDEX PAGE
         <button id ="display_users" class="btn btn-mini btn-primary" type="button">All Users</button>
     {% endif %}
     <div id="all_users"></div>
+	{% include 'garden/form.html' %}
 </body>
 
 

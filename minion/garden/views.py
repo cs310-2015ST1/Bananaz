@@ -46,6 +46,9 @@ def post_tweet(user,tweet):
 	t = Twitter(auth=OAuth(user.oauth_token,user.oauth_token_secret,'BVBOWynKxDOQkVLkVMUvxPXzY','A2iD5qZSGn3O0qiI3SbVd3nR7LQeHV5n4ikBQDMI7xZxf0ym8D'))
 	t.statuses.update(status=tweet)
 
+def search_tweets(request):
+	current_user = request.user.userprofile
+	t = Twitter(auth=OAuth(user.oauth_token,user.oauth_token_secret,'BVBOWynKxDOQkVLkVMUvxPXzY','A2iD5qZSGn3O0qiI3SbVd3nR7LQeHV5n4ikBQDMI7xZxf0ym8D'))
 
 def render_index(request, gardens, food_types, food):
 	return render(request, 'garden/index.html',
