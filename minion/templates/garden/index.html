@@ -8,7 +8,8 @@
 <script src="https://maps.google.com/maps/api/js?sensor=false"></script>
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script>
-	var map,marker,gardenByID = {};
+	var map,marker,gardenByID, foodTreeByID = {};
+
     var route = [];
 	var allmarkers = new Array();
 
@@ -34,13 +35,31 @@
 
 
 	}
-	{% for g in gardens %}
-	gardenByID[{{g.id}}] = {
-		name: "{{g.name}}",
-		lat: {{g.latitude}},
-		lng: {{g.longitude}}
-	};
-	{% endfor %}
+
+  {% for g in gardens %}
+       gardenByID[{{g.id}}] = {};
+   {%  endfor %}
+
+   {% for g in gardens %}
+       foodTreeByID[{{g.id}}] = {};
+   {%  endfor %}
+
+{% for g in gardens %}
+gardenByID[{{g.id}}] = {
+   name: "{{g.name}}",
+   lat: {{g.latitude}},
+   lng: {{g.longitude}}
+};
+       {% for tree in g.foodtree_set.all %}
+           foodTreeByID[{{g.id}}] = {
+       name: "{{g.name}}"};
+           if (foodTreeByID.contains ({{ tree.amount }})){
+           amount: {{ tree.amount }}
+           }
+
+{% endfor %}
+
+   {%  endfor %}
 
 
 	$(document).ready(function () {
