@@ -10,3 +10,9 @@ class GardenAdmin(admin.ModelAdmin):
     search_fields = ['name']
 
 admin.site.register(Garden, GardenAdmin)
+
+class UserProfileAdmin(admin.ModelAdmin):
+    list_display = ('user', 'photo')
+    pass
+
+admin.site.register(UserProfile, UserProfileAdmin)
