@@ -203,9 +203,12 @@
 
     {% if name_of_garden %}
         You are displaying gardens containing keyword: {{ name_of_garden }}
+        <br>
     {% endif %}
-    <br>
-    {% if name_of_fruit %}
+
+    {% if name_of_fruit and name_of_garden%}
+        and containing fruit type: {{ name_of_fruit }}
+    {% elif name_of_fruit%}
         You are displaying gardens containing fruit type: {{ name_of_fruit }}
     {% endif %}
 
