@@ -42,3 +42,6 @@ https://en.wikipedia.org/wiki/Raspberry#/media/File:Raspberries05.jpg
 
 walnut
 https://en.wikipedia.org/wiki/File:English_Walnuts.jpg
+
+tree
+http://www.clipartpanda.com/categories/tree-clip-art-background
