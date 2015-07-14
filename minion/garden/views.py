@@ -118,7 +118,7 @@ def ignore_foods(list_of_foods):
 
 def save_garden(request):
 	garden_id = request.POST['garden_id']
-	set_saved = request.POST['set_saved']
+	set_saved = request.POST['set_saved'].lower() == 'true'
 	garden = get_object_or_404(Garden, id=garden_id)
 	is_garden_saved = request.user.userprofile.gardens.filter(id=garden_id).exists()
 
