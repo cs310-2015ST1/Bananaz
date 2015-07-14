@@ -1,22 +1,14 @@
 from django.core.urlresolvers import reverse
-
-from django.shortcuts import redirect, render, render_to_response
+from django.shortcuts import redirect, render
 from django.contrib.auth import logout as auth_logout
 from django.utils.datastructures import MultiValueDictKeyError
-from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
-from django.contrib import auth
-from django.core.context_processors import csrf
-
-import oauth2 as oauth
-import cgi
 from twitter import *
+from minion.settings import SOCIAL_AUTH_TWITTER_SECRET, SOCIAL_AUTH_TWITTER_KEY
 
 from .models import Garden
+
 from .models import FoodTree
 from .forms import TweetForm
-from .models import UserProfile
-
 
 
 def index(request):
@@ -43,8 +35,8 @@ def get_tweet(request):
 
 	return render(request,'garden/form.html',{'form':form})
 
-def post_tweet(user,tweet):
-	t = Twitter(auth=OAuth(user.oauth_token,user.oauth_token_secret,'BVBOWynKxDOQkVLkVMUvxPXzY','A2iD5qZSGn3O0qiI3SbVd3nR7LQeHV5n4ikBQDMI7xZxf0ym8D'))
+def post_tweet(user, tweet):
+	t = Twitter(auth=OAuth(user.oauth_token, user.oauth_token_secret, SOCIAL_AUTH_TWITTER_KEY, SOCIAL_AUTH_TWITTER_SECRET))
 	t.statuses.update(status=tweet)
 
 
