@@ -8,10 +8,8 @@
 <script src="https://maps.google.com/maps/api/js?sensor=false"></script>
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script>
-	var map,marker,gardenByID, foodTreeByID, amounts= {};
+	var map,marker,gardenByID= {};
     gardenByID = {};
-    foodTreeByID = {};
-    amounts = {};
     var route = [];
 	var allmarkers = new Array();
 
@@ -40,21 +38,21 @@
 var i = 0;
 
 {% for g in gardens %}
-gardenByID[{{g.id}}] = {
-   name: "{{g.name}}",
-   lat: {{g.latitude}},
-   lng: {{g.longitude}}
-};
+    gardenByID[{{g.id}}] = {
+        name: "{{g.name}}",
+        lat: {{g.latitude}},
+        lng: {{g.longitude}},
+        foodTrees: []
+    };
 {% endfor %}
-
 {% for g in gardens %}
-{% for tree in g.foodtree_set.all %}
-          foodTreeByID[{{tree.id}}] = {
-       name: "{{g.name}}",
-       amount : {{ tree.amount }}
-           };
+    {% for tree in g.foodtree_set.all %}
+        gardenByID[{{ g.id }}].foodTrees.push({
+            food_type: "{{ tree.food_type }}",
+            amount : {{ tree.amount }}
+        });
+    {%  endfor %}
 {%  endfor %}
-   {%  endfor %}
 
 
 	$(document).ready(function () {
@@ -120,25 +118,34 @@ gardenByID[{{g.id}}] = {
                 scaledSize: new google.maps.Size(25,25)
             };
 
+        var imagesmedium = {
+                url: 'http://img3.wikia.nocookie.net/__cb20100619222000/frontierville/images/f/f3/Apple_Tree_Fruit-icon.png',
+                size: new google.maps.Size(71,71),
+                origin : new google.maps.Point(0,0),
+                anchor: new google.maps.Point(17, 34),
+                scaledSize: new google.maps.Size(35,35)
+            };
         var imagebig = {
                 url: 'http://img3.wikia.nocookie.net/__cb20100619222000/frontierville/images/f/f3/Apple_Tree_Fruit-icon.png',
                 size: new google.maps.Size(71,71),
                 origin : new google.maps.Point(0,0),
                 anchor: new google.maps.Point(17, 34),
-                scaledSize: new google.maps.Size(55,55)
+                scaledSize: new google.maps.Size(45,45)
             };
-
-        $('.tree').each(function() {
-
-            var foodtree = foodTreeByID[this.id];
-            var amount = parseInt(foodtree.amount);
-
-        });
-
 
 		$('.g').each(function(){
 
             var garden = gardenByID[this.id];
+
+            var foodtrees = gardenByID[this.id].foodTrees;
+
+            var COUNT = 0;
+
+            for (var i=0; i<(foodtrees.length); i++){
+                COUNT += parseInt(foodtrees[i].amount);
+            }
+
+
 			allmarkers[j] = new google.maps.Marker({
 				position: new google.maps.LatLng(garden.lat, garden.lng),
 				title: garden.name,
