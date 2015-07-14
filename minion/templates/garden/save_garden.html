@@ -1,0 +1,41 @@
+{% load staticfiles %}
+<script src="{% static "ajax_post.js" %}"></script>
+<script>
+
+    $(document).ready(function() {
+        var savedGardens = [];
+        {% for g in user.userprofile.gardens.all %}
+            savedGardens.push('{{ g.id }}');
+            $("#{{ g.id }} .save_garden").html("Unsave Garden");
+        {% endfor %}
+
+        $(".save_garden").click(function(e) {
+            e.stopPropagation();
+            var $button = $(this);
+            var gardenId = $button.closest("tr")[0].id;
+            var saveGarden = !(savedGardens.indexOf(gardenId) !== -1);
+
+            function onFailure() {
+                $button.removeAttr("disabled");
+            }
+
+            function onSuccess() {
+                $button.removeAttr("disabled");
+                $button.html(saveGarden ? "Unsave Garden" : "Save Garden");
+
+                var gardenIdPosition = savedGardens.indexOf(gardenId);
+                if (saveGarden && gardenIdPosition === -1) {
+                    if (gardenIdPosition === -1) {
+                        savedGardens.push(gardenId)
+                    }
+                } else if (gardenIdPosition !== -1) {
+                    savedGardens.splice(gardenIdPosition);
+                }
+            }
+
+            $button.attr("disabled", "disabled");
+            doAjaxCall('{% url "save_garden" %}', '{{ csrf_token }}', {set_saved: saveGarden, garden_id: gardenId}, onSuccess, onFailure);
+        });
+    })
+
+</script>

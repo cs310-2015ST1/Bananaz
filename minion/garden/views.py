@@ -1,5 +1,6 @@
 from django.core.urlresolvers import reverse
-from django.shortcuts import redirect, render
+from django.http import HttpResponse
+from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth import logout as auth_logout
 from django.utils.datastructures import MultiValueDictKeyError
 from twitter import *
@@ -113,3 +114,17 @@ def ignore_name(name_of_garden):
 
 def ignore_foods(list_of_foods):
 	return (list_of_foods.__len__() == 0) or ("all" in list_of_foods)
+
+
+def save_garden(request):
+	garden_id = request.POST['garden_id']
+	set_saved = request.POST['set_saved']
+	garden = get_object_or_404(Garden, id=garden_id)
+	is_garden_saved = request.user.userprofile.gardens.filter(id=garden_id).exists()
+
+	if set_saved and not is_garden_saved:
+		request.user.userprofile.gardens.add(garden)
+	elif not set_saved and is_garden_saved:
+		request.user.userprofile.gardens.remove(garden)
+
+	return HttpResponse("Success!")
