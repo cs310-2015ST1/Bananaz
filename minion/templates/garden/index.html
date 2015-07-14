@@ -178,8 +178,15 @@ var i = 0;
             var COUNT = 0;
 
             for (var i=0; i<(foodtrees.length); i++){
+                if (('{{ name_of_fruit }}' != 'any') && ('{{ name_of_fruit }}' == foodtrees[i].food_type)){
+                    COUNT = parseInt(foodtrees[i].amount);
+                    break;
+                }
                 COUNT += parseInt(foodtrees[i].amount);
             }
+
+
+            $('#directionsstatus').append(COUNT);
 
             if (COUNT  <= 1) {
                 allmarkers[j] = new google.maps.Marker({
@@ -188,7 +195,7 @@ var i = 0;
                     icon: imagesmall
                 });
             }
-            else if (COUNT>1 && COUNT <=4 ){
+            else if (COUNT>1 && COUNT <4 ){
                 allmarkers[j] = new google.maps.Marker({
 				position: new google.maps.LatLng(garden.lat, garden.lng),
 				title: garden.name,
@@ -196,7 +203,7 @@ var i = 0;
             });
             }
 
-            else if (COUNT>4){
+            else if (COUNT>=4){
                 allmarkers[j] = new google.maps.Marker({
 				position: new google.maps.LatLng(garden.lat, garden.lng),
 				title: garden.name,
