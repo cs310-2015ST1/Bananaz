@@ -8,7 +8,9 @@
 <script src="https://maps.google.com/maps/api/js?sensor=false"></script>
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script>
-	var map,marker,gardenByID = {};
+	var map,marker,gardenByID, foodTreeByID= {};
+    gardenByID = {};
+    foodTreeByID = {};
     var route = [];
 	var allmarkers = new Array();
 
@@ -34,16 +36,33 @@
 
 
 	}
-	{% for g in gardens %}
-	gardenByID[{{g.id}}] = {
-		name: "{{g.name}}",
-		lat: {{g.latitude}},
-		lng: {{g.longitude}}
-	};
-	{% endfor %}
+
+{% for g in gardens %}
+gardenByID[{{g.id}}] = {
+   name: "{{g.name}}",
+   lat: {{g.latitude}},
+   lng: {{g.longitude}}
+};
+{% endfor %}
+
+{% for g in gardens %}
+{% for tree in g.foodtree_set.all %}
+          foodTreeByID[{{g.id}}] = {
+       name: "{{g.name}}",
+       amount: {{ tree.amount }},
+           };
+   {%  endfor %}
+   {%  endfor %}
+
+
+
+    function determineMarkerSize(){
+
+    }
 
 
 	$(document).ready(function () {
+
     function activateGardens() {
         // Add Garden click handler
         $('.g').each(function () {
@@ -96,7 +115,7 @@
 	function setPoint(){
 		var j = 0;
 		$('.g').each(function(){
-			var image = {
+            var image = {
                 url: 'http://img3.wikia.nocookie.net/__cb20100619222000/frontierville/images/f/f3/Apple_Tree_Fruit-icon.png',
                 size: new google.maps.Size(71,71),
                 origin : new google.maps.Point(0,0),
