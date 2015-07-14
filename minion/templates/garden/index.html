@@ -58,6 +58,13 @@ var i = 0;
 	$(document).ready(function () {
 
     function activateGardens() {
+        var imagemedium = {
+                url: 'http://img3.wikia.nocookie.net/__cb20100619222000/frontierville/images/f/f3/Apple_Tree_Fruit-icon.png',
+                size: new google.maps.Size(71,71),
+                origin : new google.maps.Point(0,0),
+                anchor: new google.maps.Point(17, 34),
+                scaledSize: new google.maps.Size(45,55)
+            };
         // Add Garden click handler
         $('.g').each(function () {
             $(this).click(function(e) {
@@ -83,7 +90,11 @@ var i = 0;
 				clearOverlays();
 
                 if (marker) marker.setMap();
-                marker = new google.maps.Marker({map: map, position: center});
+                marker = new google.maps.Marker({
+                    map: map,
+                    position: center,
+                    icon: imagemedium
+                });
                 map.panTo(center);
                 $('#directionsstatus').html('you are viewing the location of ' + garden.name);
 
