@@ -31,7 +31,7 @@ def create_dict_line(name="Garden", latitude="0", longitude="0", food_tree_varie
     return name + "," + latitude + "," + longitude + "," + food_tree_varieties + "\n"
 
 
-class AjaxImportTests(TestCase):
+class AjaxImportTest(TestCase):
     def test_ajax_import_with_one_garden(self):
         response = make_ajax_request(self, "test/oneGarden.csv")
         self.assertEqual("Success!", response.content)
@@ -91,7 +91,7 @@ class AjaxImportTests(TestCase):
         self.assertEqual(5, g.foodtree_set.filter(food_type="blackberry")[0].amount)
 
 
-class FlushGardenTests(TestCase):
+class FlushGardenTest(TestCase):
     def test_flush_garden_and_trees_with_one_garden(self):
         g = create_garden()
 

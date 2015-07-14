@@ -44,8 +44,12 @@ def search_tweets(request):
 	t = Twitter(auth=OAuth(user.oauth_token,user.oauth_token_secret,SOCIAL_AUTH_TWITTER_KEY,SOCIAL_AUTH_TWITTER_SECRET))
 
 def render_index(request, gardens, food_types, food, name_of_garden):
-	return render(request, 'garden/index.html',
-				{'gardens': gardens, 'food_types': food_types, 'name_of_fruit': food, 'name_of_garden': name_of_garden})
+	return render(request, 'garden/index.html', {
+		'gardens': gardens.order_by('name'),
+		'food_types': food_types,
+		'name_of_fruit': food,
+		'name_of_garden': name_of_garden
+	})
 
 
 def generate_food_types():
