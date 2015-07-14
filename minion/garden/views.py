@@ -15,7 +15,7 @@ from .forms import TweetForm
 def index(request):
 	food_types = generate_food_types()
 	gardens = Garden.objects.order_by('name')
-	return render_index(request, gardens, food_types, '', '')
+	return render_index(request, gardens, food_types, 'any', '')
 
 
 # twitterauth
