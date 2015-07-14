@@ -66,13 +66,14 @@ var i = 0;
 
                 // prevent button click to do the same thing as a table row click
                 if($(e.target).is('button')){
-                    e.preventDefault();
 
                     // twitter button click function.
-                    if (e.target.id == 'add_tweet'){
+                    if (e.target.id === 'add_tweet'){
+                        e.preventDefault();
                         window.open('form/');
                     }
-                    else{
+                    else if (e.target.id === 'display_route') {
+                        e.preventDefault();
                         displayRoute(garden.lat, garden.lng);
                         $('#directionsstatus').html('you are viewing the route from your current location to ' + garden.name);
                     }
