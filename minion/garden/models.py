@@ -22,6 +22,7 @@ class UserProfile(models.Model):
     oauth_token = models.TextField()
     oauth_token_secret = models.TextField()
     photo = models.TextField()
+    gardens = models.ManyToManyField(Garden)
 
     def __str__(self):
         if (self.user.email):
