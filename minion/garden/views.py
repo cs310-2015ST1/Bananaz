@@ -18,10 +18,11 @@ from .forms import TweetForm
 from .models import UserProfile
 
 
+
 def index(request):
 	food_types = generate_food_types()
 	gardens = Garden.objects.order_by('name')
-	return render_index(request, gardens, food_types, '')
+	return render_index(request, gardens, food_types, '', '')
 
 
 # twitterauth
@@ -50,9 +51,9 @@ def search_tweets(request):
 	current_user = request.user.userprofile
 	t = Twitter(auth=OAuth(user.oauth_token,user.oauth_token_secret,'BVBOWynKxDOQkVLkVMUvxPXzY','A2iD5qZSGn3O0qiI3SbVd3nR7LQeHV5n4ikBQDMI7xZxf0ym8D'))
 
-def render_index(request, gardens, food_types, food):
+def render_index(request, gardens, food_types, food, name_of_garden):
 	return render(request, 'garden/index.html',
-				{'gardens': gardens, 'food_types': food_types, 'name_of_fruit': food})
+				{'gardens': gardens, 'food_types': food_types, 'name_of_fruit': food, 'name_of_garden': name_of_garden})
 
 
 def generate_food_types():
@@ -77,30 +78,31 @@ def search_criteria(request):
 		name_of_garden = request.POST['name']
 		food = request.POST['foods']
 	except MultiValueDictKeyError:
-		return render_index(request, all_gardens, food_types, '')
+		return render_index(request, all_gardens, food_types, 'any', '')
 
 	# empty search
 	if ignore_name(name_of_garden) and ignore_foods(food):
-		return render_index(request, all_gardens, food_types, food)
+		return render_index(request, all_gardens, food_types, 'any', name_of_garden)
 
 	elif ignore_name(name_of_garden):
 		gardens = filter_by_foods(all_food_trees, food)
 
 	elif ignore_foods(food):
 		gardens = filter_by_name(all_gardens, name_of_garden)
+		food = 'any'
 
 	else:
 		gardens = filter_by_foods(all_food_trees, food)
 		gardens = filter_by_name(gardens, name_of_garden)
 
 
-	return render_index(request, gardens, food_types, food)
+	return render_index(request, gardens, food_types, food, name_of_garden)
 
 
 def filter_by_name(gardens, name_of_garden):
 	filtered_gardens = []
 	for garden in gardens:
-		if name_of_garden in garden.name:
+		if name_of_garden.lower() in (garden.name).lower():
 			filtered_gardens.append(garden)
 	return filtered_gardens
 

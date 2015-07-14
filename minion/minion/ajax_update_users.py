@@ -1,6 +1,5 @@
 from garden.models import UserProfile
 
-__author__ = 'Haoran'
 from django.http import HttpResponse
 
 
