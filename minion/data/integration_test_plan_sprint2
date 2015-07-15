@@ -32,8 +32,11 @@ Click the row '15th Avenue Coop', not the button 'Display Route'.
 Should see a marker appearing on the map, the log message under the map says 'you are viewing the location of 15th Avenue Coop'
 Keep track of where the marker is.
 Now click 'Display Route' for the garden '15th Avenue Coop'.
+Check the previous marker is removed.
 Should see line connecting 2 markers.
 Check that marker 'B' is at the same location as the marker when you clicked row '15th Avenue Coop'
 Check that marker 'A' is the location where you are currently at.
+Now click 'Display Route' for the garden '2624 Franklin St - Apartment'
+Check that previous markers and route clears, new marker 'A' and 'B' and route is displayed on the map.
 If possible, walk/drive to a different location and complete all steps above.
 Check that marker 'A' is the location where you are currently at.
