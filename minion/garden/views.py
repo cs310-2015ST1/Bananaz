@@ -1,4 +1,3 @@
-from operator import attrgetter
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse
 from django.shortcuts import redirect, render, get_object_or_404
@@ -54,7 +53,7 @@ def render_index(request, gardens, food_types, food, name_of_garden):
 		unsaved_gardens = gardens.exclude(gardenuserrelationship__userprofile=request.user.userprofile).order_by('name')
 		ordered_gardens = saved_gardens + list(unsaved_gardens)
 	else:
-		ordered_gardens = sorted(gardens, key=attrgetter('name'))
+		ordered_gardens = gardens.order_by('name')
 
 	return render(request, 'garden/index.html', {
 		'gardens': ordered_gardens,
@@ -76,7 +75,7 @@ def generate_food_types():
 
 
 def search_criteria(request):
-	all_gardens = Garden.objects.all()
+	all_gardens = Garden.objects.order_by('name')
 
 	food_types = generate_food_types()
 	all_food_trees = FoodTree.objects.order_by('food_type')
