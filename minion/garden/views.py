@@ -37,12 +37,13 @@ def get_tweet(request):
 def post_tweet(user, tweet):
 	t = Twitter(auth=OAuth(user.oauth_token, user.oauth_token_secret, SOCIAL_AUTH_TWITTER_KEY, SOCIAL_AUTH_TWITTER_SECRET))
 	t.statuses.update(status=tweet)
-	search_term = request.POST['search_term']
-	tweets = t.search.tweets(q=search_term)
 
-def search_tweets(request):
+def search_tweets(request, search_term):
 	current_user = request.user.userprofile
-	t = Twitter(auth=OAuth(user.oauth_token,user.oauth_token_secret,SOCIAL_AUTH_TWITTER_KEY,SOCIAL_AUTH_TWITTER_SECRET))
+	t = Twitter(auth=OAuth(current_user.oauth_token,current_user.oauth_token_secret,SOCIAL_AUTH_TWITTER_KEY,SOCIAL_AUTH_TWITTER_SECRET))
+	tweets = t.search.tweets(q="#"+search_term)
+	
+	return render(request, 'garden/view_tweets.html', {'tweets':tweets})
 
 def render_index(request, gardens, food_types, food, name_of_garden):
 	if request.user.is_authenticated() and not request.user.is_superuser:

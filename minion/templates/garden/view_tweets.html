@@ -1,1 +1,7 @@
-<button id="search_tweets" class="btn btn-mini btn-primary" type="button">View</button>
+<script>
+	var obj = JSON.parse('{{tweets}}');
+	console.log(obj);
+</script>
+{% for tweet in tweets %}
+	<p>tweet</p>
+{% endfor %}
