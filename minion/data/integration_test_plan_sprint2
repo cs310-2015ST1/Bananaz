@@ -1,0 +1,21 @@
+Admin View All Users
+
+Go to root url 'https://radiant-savannah-1336.herokuapp.com/'
+Look at top left corner under 'Bananaz - Fruit for All: Community Gardens in Vancouver' for user information
+If you are logged in with a twitter account, click 'Logout'.
+On the url bar, enter 'https://radiant-savannah-1336.herokuapp.com/admin/'
+Log in with username 'admin' and password 'admin'
+You are now logged in as an admin.
+On the url bar, enter 'https://radiant-savannah-1336.herokuapp.com/'
+On the top left corner, see 'Hello, admin. Logout to login with Twitter.'
+Under 'Logout' link, click the button 'All Users'
+A list of all 'twitter users' that used this web application is listed under the button.
+Each 2-3 line block in this table/list represents a user.
+Each user has a 'Username', 'Name', and 'Email' line. Field is empty if that user doesn't have that field
+On a second brower window, go to 'https://radiant-savannah-1336.herokuapp.com/admin/'
+Click 'Users', click on a twitter user (all twitter users have a First Name)
+Delete this user by clicking 'Delete', keep track of which user you deleted
+Now on your first browser, click the 'All Users' button again.
+Confirm that the deleted user is not displayed in the table/list
+
+
