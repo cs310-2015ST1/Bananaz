@@ -112,6 +112,8 @@ var i = 0;
                     }
 					else if(e.target.id === 'search_tweet'){
 						e.preventDefault();
+						var searchTerm = "bananaz" + this.id;
+						window.open("view_tweets/"+searchTerm+"/");
 					}
                     return;
 				}
@@ -145,33 +147,30 @@ var i = 0;
 	}
 
 
+    function setMarkerSize(count) {
+        var icon_url = all_icons['{{ name_of_fruit }}'];
+
+        if (('{{ name_of_fruit }}' != 'any')){
+            count *= 10;
+        }
+        else {
+            count *= 4
+        }
+
+        var image = {
+            url: icon_url,
+            size: new google.maps.Size(71, 71),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(17, 34),
+            scaledSize: new google.maps.Size(35 + count, 35 + count)
+        };
+
+        return image;
+    }
+
 	function setPoint(){
         var j = 0;
 
-        var icon_url = all_icons['{{ name_of_fruit }}'];
-
-        var imagesmall = {
-                url: icon_url,
-                size: new google.maps.Size(71,71),
-                origin : new google.maps.Point(0,0),
-                anchor: new google.maps.Point(17, 34),
-                scaledSize: new google.maps.Size(35,35)
-            };
-
-        var imagemedium = {
-                url: icon_url,
-                size: new google.maps.Size(71,71),
-                origin : new google.maps.Point(0,0),
-                anchor: new google.maps.Point(17, 34),
-                scaledSize: new google.maps.Size(55,55)
-            };
-        var imagebig = {
-                url: icon_url,
-                size: new google.maps.Size(71,71),
-                origin : new google.maps.Point(0,0),
-                anchor: new google.maps.Point(17, 34),
-                scaledSize: new google.maps.Size(75,75)
-            };
 
 		$('.g').each(function(){
 
@@ -179,48 +178,26 @@ var i = 0;
 
             var foodtrees = gardenByID[this.id].foodTrees;
 
-            var COUNT = 0;
+            var count = 0;
 
             for (var i=0; i<(foodtrees.length); i++){
                 if (('{{ name_of_fruit }}' != 'any') && ('{{ name_of_fruit }}' == foodtrees[i].food_type)){
-                    COUNT = parseInt(foodtrees[i].amount);
+                    count = parseInt(foodtrees[i].amount);
                     break;
                 }
-                COUNT += parseInt(foodtrees[i].amount);
+                count += parseInt(foodtrees[i].amount);
             }
 
 
-            if (COUNT  <= 1) {
-                allmarkers[j] = new google.maps.Marker({
+            allmarkers[j] = new google.maps.Marker({
                     position: new google.maps.LatLng(garden.lat, garden.lng),
                     title: garden.name,
-                    icon: imagesmall
+                    icon: setMarkerSize(count)
                 });
-            }
-            else if (COUNT>1 && COUNT <4 ){
-                allmarkers[j] = new google.maps.Marker({
-				position: new google.maps.LatLng(garden.lat, garden.lng),
-				title: garden.name,
-                icon: imagemedium
-            });
-            }
-
-            else if (COUNT>=4){
-                allmarkers[j] = new google.maps.Marker({
-				position: new google.maps.LatLng(garden.lat, garden.lng),
-				title: garden.name,
-                icon: imagebig
-            });
-            }
-                else{
-                allmarkers[j] = new google.maps.Marker({
-				position: new google.maps.LatLng(garden.lat, garden.lng),
-				title: garden.name
-			});
-            }
 
 			j++;
-		});
+            });
+
 		for(var i=0;i<j;i++){
 			allmarkers[i].setMap(map);
 		}

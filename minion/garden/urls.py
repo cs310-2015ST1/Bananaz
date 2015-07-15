@@ -13,5 +13,7 @@ urlpatterns = [
 	url(r'^form/',views.get_tweet, name='form'),
 	url(r'^search_criteria/form/',views.get_tweet, name='form'),
 	url(r'^save_garden/$', views.save_garden, name='save_garden'),
+	#url(r'^view_tweets/$', views.search_tweets, name='search_tweets'),
+	url(r'^view_tweets/(bananaz.*)/$',views.search_tweets, name='search_tweets'),
 
 ]
