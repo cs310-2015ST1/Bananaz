@@ -1,5 +1,5 @@
-<form action="tweet" method="post">
+<form name="tweet" action="/tweet/" method="post" hidden>
     {% csrf_token %}
-    {{ form }}
+    <input type="text" id="id_tweet" name="Tweet">
     <input type="submit" value="Tweet" />
 </form>

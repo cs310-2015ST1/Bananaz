@@ -1,0 +1,486 @@
+<!doctype html>
+<html>
+<head>
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static "stylesheet.css" %}">
+
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+<script src="https://maps.google.com/maps/api/js?sensor=false"></script>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script>
+	var map,marker,gardenByID = {};
+    var route = [];
+	var allmarkers = new Array();
+
+{#    var trees = [];#}
+{#    var fruit_amount = 0;#}
+{#    var trees_amount = 0;#}
+    var all_icons = {
+        'any':'http://3.bp.blogspot.com/-Bns_AyIbYJQ/VaQ6BTUVkQI/AAAAAAAACJg/xrrMprQt-qA/s320/tree.png',
+        'apple':'http://1.bp.blogspot.com/-o1EwYtA5w7A/VaQ57OJNyVI/AAAAAAAACHs/GXX2-PGuiqM/s320/apple.jpg',
+        'apricot':'http://1.bp.blogspot.com/-2NFvFAqI9bw/VaQ59UP5-6I/AAAAAAAACH4/fPBRr7JOF5w/s320/apricot.jpg',
+        'blueberry':'http://2.bp.blogspot.com/-ti7Wwragl1M/VaQ59azieVI/AAAAAAAACH0/C4RoIMfzULw/s320/blueberry.jpg',
+        'cherry':'http://3.bp.blogspot.com/-4XUkrRAcLr4/VaQ59R3X83I/AAAAAAAACH8/jhvmsecEbYc/s320/cherry.jpg',
+        'fig':'http://1.bp.blogspot.com/-L4TTbCHDri8/VaQ596aWAGI/AAAAAAAACII/AKpOvroRuxo/s320/fig.jpg',
+        'grape':'http://4.bp.blogspot.com/-ooaBXqFO4HI/VaQ5-KOnwuI/AAAAAAAACJM/HQ2p1m_koFc/s320/grape.jpg',
+        'hazelnut':'http://1.bp.blogspot.com/-sHQ559cBkLo/VaQ5-Mq3akI/AAAAAAAACIE/s2HnzzAhvn8/s320/hazelnut.jpg',
+        'lemon':'http://1.bp.blogspot.com/-XvB052jp-JQ/VaQ5-tWtHiI/AAAAAAAACIU/83vtuV3Cci0/s320/lemon.jpg',
+        'peach':'http://1.bp.blogspot.com/-0T8Y3x2D6LY/VaQ5-_lfSsI/AAAAAAAACIY/zNaurxjKzqU/s320/peach.jpg',
+        'pear':'http://2.bp.blogspot.com/-h9UBynl1Xrc/VaQ5_ToqwoI/AAAAAAAACIg/vMzUiF4iz1Q/s320/pear.jpg',
+        'persimmon':'http://3.bp.blogspot.com/-8BhnvGLjvWs/VaQ5_i2c0RI/AAAAAAAACIk/w-ZZUEADX80/s320/persimmon.jpg',
+        'plum':'http://1.bp.blogspot.com/-356efJBRS7Q/VaQ6ALFlv-I/AAAAAAAACI4/IO_cbPHcFEU/s320/plum.jpg',
+        'quince':'http://4.bp.blogspot.com/-oSHnaShRdhs/VaQ6AVCKxyI/AAAAAAAACI0/IqU-idLNAUA/s320/quince.jpg',
+        'raspberry':'http://3.bp.blogspot.com/-y2GjJJGUtpo/VaQ6BMTKCvI/AAAAAAAACJA/f2vrg0xu-9o/s320/raspberry.jpg',
+        'walnut':'http://1.bp.blogspot.com/-zY9kXlsBAZ8/VaQ6BzqvpiI/AAAAAAAACJc/uMsrkvvf8fw/s320/walnut.jpg'
+    };
+{##}
+{#    fruit#}
+{#    var image;#}
+{#    image = new Image();#}
+    {#    fruit#}
+{#    image.src = "fruits/apple.jpg";#}
+
+    // for Getting Directions
+    var directionsService = new google.maps.DirectionsService();
+    var directionsDisplay = new google.maps.DirectionsRenderer();
+    var userLatLng = new google.maps.LatLng(0,0);
+
+	function initialize(){
+		map = new google.maps.Map(document.getElementById('map'),{
+				zoom: 12,
+				center: new google.maps.LatLng(49.261,-123.1139),
+				mapTypeId: google.maps.MapTypeId.TERRAIN
+				});
+
+        // for Getting Directions
+        directionsDisplay.setMap(map);
+
+        navigator.geolocation.getCurrentPosition(function (position) {
+            userLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+        }, function () {
+        });
+
+
+
+
+{#        $('#directionsstatus').html('<img  width="90" height="100" src="fruits/apple.jpg" alt="Picture of Rango" />');#}
+
+	}
+	{% for g in gardens %}
+{#        var any_trees_amount = 0;#}
+{#        var fruit = '{{ name_of_fruit }}';#}
+        var trees = [];
+{#        {% for tree in g.foodtree_set.all %}#}
+{##}
+{#            trees.concat([{{ tree }}]);#}
+{#            any_trees_amount += {{ tree.amount }};#}
+{#            {% if tree.food_type %}#}
+{##}
+{#            {% endif %}#}
+{#            var fruit_amount;#}
+{##}
+{#        {% endfor %}#}
+	gardenByID[{{g.id}}] = {
+		name: "{{g.name}}",
+		lat: {{g.latitude}},
+		lng: {{g.longitude}},
+        all_trees: trees
+	};
+
+	{% endfor %}
+
+
+{#        if (tree.food_type == '{{ name_of_fruit }}')#}
+{#            fruit_amount = tree.amount#}
+{##}
+{#        fruit_amount += {{ tree.amount }}#}
+
+
+
+	$(document).ready(function () {
+    function activateGardens() {
+        // Add Garden click handler
+        $('.g').each(function () {
+            $(this).click(function(e) {
+
+                var garden = gardenByID[this.id];
+
+                // prevent button click to do the same thing as a table row click
+                if($(e.target).is('button')){
+                    e.preventDefault();
+
+                    // twitter button click function.
+                    if (e.target.id == 'add_tweet'){
+                        window.open('form/');
+                    }
+                    else{
+                        displayRoute(garden.lat, garden.lng);
+                        $('#directionsstatus').html('You are viewing the route from your current location to ' + garden.name);
+                    }
+
+                    return;}
+
+                var center = new google.maps.LatLng(garden.lat, garden.lng);
+				clearOverlays();
+
+                if (marker) marker.setMap();
+
+                //var image = 'apple.jpg';
+                marker = new google.maps.Marker({map: map, position: center});
+                map.panTo(center);
+                $('#directionsstatus').html('You are viewing the location of ' + garden.name);
+
+
+            }).hover(
+                function () {this.className = this.className.replace('OFF', 'ON');},
+                function () {this.className = this.className.replace('ON', 'OFF');}
+            );
+        });
+
+    }
+
+	function clearOverlays(){
+		for (var i = 0; i < allmarkers.length; i++ ) {
+				allmarkers[i].setMap(null);
+			}
+		allmarkers.length = 0;
+
+        directionsDisplay.set('directions', null);
+
+	}
+	
+	function setPoint(){
+		var j = 0;
+		$('.g').each(function(){
+
+            var garden = gardenByID[this.id];
+
+{#            var image = 'apple.jpg';#}
+
+            var img_size = getSize((this.id));
+
+
+            //alert( img_size );
+            //alert( type );
+            img_size = add(img_size);
+            //$('#directionsstatus').append(img_size);
+{#            var type = img_size;#}
+{#            type = Object.prototype.toString.call(type);#}
+{#            alert( type );#}
+            //img_size = parseInt(img_size);
+
+            //var type = Object.prototype.toString.call(img_size);
+            //img_size = nodeToString(img_size);
+
+            //var type = Object.prototype.toString.call(img_size);
+            //alert( img_size );
+
+            //alert( img_size );
+            //var type = Object.prototype.toString.call(img_size);
+
+
+            //img_size = img_size.parseFloat();
+            //$('#all_users').html(img_size);
+            //var strs = document.getElementById('garden-' + id);
+
+{#        var x = $('#garden-' + id).html();#}
+{#        var r = new RegExp("\d+");#}
+
+{#        var strs = x.match(r);#}
+{#        var results = strs.map(function(s){#}
+{#            return s.replace(/\d+/g, function(n){#}
+{#               return n.split('').reduce(function(s,i){ return +i+s }, 0)#}
+{#            })#}
+{#        });#}
+            //$('#garden+' + id).html(strs);
+
+            //var img_size = garden.all_trees_amount;
+            //var img_size = 20;
+
+            var image = new google.maps.MarkerImage(all_icons['{{ name_of_fruit }}'], null, null, null, new google.maps.Size(10+img_size*10, 10+img_size*10));
+
+			//var garden = gardenByID[this.id];
+			allmarkers[j] = new google.maps.Marker({
+				position: new google.maps.LatLng(garden.lat, garden.lng),
+                icon: image,
+				title: garden.name
+			});
+
+{#            allmarkers[j].setIcon(image);#}
+			j++;
+		});
+		for(var i=0;i<j;i++){
+			allmarkers[i].setMap(map);
+		}
+
+        // JQuery code for Getting Directions.
+        google.maps.event.addListener(map, 'click', function(e) {
+
+          });
+
+        google.maps.event.addListener(marker, 'mouseover', function() {
+            infowindow.open(map, this);
+        });
+
+        google.maps.event.addListener(marker, 'mouseout', function() {
+            infowindow.close();
+        });
+	}
+
+{#    function nodeToString ( node ) {#}
+{#       var tmpNode = document.createElement( "div" );#}
+{#       tmpNode.appendChild( node.cloneNode( true ) );#}
+{#       var str = tmpNode.innerHTML;#}
+{#       tmpNode = node = null; // prevent memory leaks in IE#}
+{#       return str;#}
+{#    }#}
+    function add(string) {
+{#        string = string.split(' ');                 //split into individual characters#}
+{#        var sum = '';                               //have a storage ready#}
+{#        for (var i = 0; i < string.length; i++) {  //iterate through#}
+{#            sum += sum+string[i]   ;     //convert from string to int#}
+{#        }#}
+{#        return sum;                                //return when done#}
+
+
+        string = string.match(/\d+/g);
+{#        alert( sum );#}
+{##}
+{#        string = string.split('');                 //split into individual characters#}
+        var sum = 0;                               //have a storage ready
+{#        if (string == null){#}
+{#            return 0;#}
+{#        }#}
+{#        for (var i = 0; i < string.length; i++) {  //iterate through#}
+{#            sum += string[i];         //convert from string to int#}
+{#        }#}
+{##}
+{#        alert( sum );#}
+{#        return sum;#}
+
+            var type = string;
+            type = Object.prototype.toString.call(type);
+            if (type[8]=='A' ){
+                type = Object.prototype.toString.call(string[0]);
+            //alert( type );
+            for (var i = 0; i < string.length; i++) {  //iterate through
+                sum += parseInt(string[i],10);         //convert from string to int
+            }
+            }
+        return sum;
+
+    }
+
+
+    function getSize(id){
+
+
+        id = id.toString();
+        var strs = document.getElementById('garden-'+id).innerHTML;
+
+
+
+{#        var numberPattern = /\d+/g;#}
+
+        //strs = strs.match( numberPattern )
+{#        var results = strs.map(function(s){#}
+{#            return s.replace(/\d+/g, function(n){#}
+{#               return n.split('').reduce(function(s,i){ return +i+s }, 0)#}
+{#            })#}
+{#        });#}
+        //var thenum = strs.replace( /^\D+/g, '');
+
+
+{#        var x = $('#garden-' + id).html();#}
+{#        var r = new RegExp("\d+");#}
+{#        //var strs = document.getElementById(id);#}
+{#        var strs = x.match(r);#}
+{#        var results = strs.map(function(s){#}
+{#            return s.replace(/\d+/g, function(n){#}
+{#               return n.split('').reduce(function(s,i){ return +i+s }, 0)#}
+{#            })#}
+{#        });#}
+{#        $('#garden+' + id).html(x);#}
+        //$('#all_users').html(fruit);
+
+{#        for (var tree in trees){#}
+{#            if (fruit == tree.food_type){#}
+{#                fruit_amount = tree.amount;#}
+{#            }#}
+{#            trees_amount += tree.amount;#}
+{#        }#}
+{##}
+{#        if (fruit == 'any'){#}
+{#            //$('#all_users').html(trees_amount);#}
+{#            return trees_amount;#}
+{#        }#}
+{#        else{#}
+{#            //$('#all_users').html(fruit_amount);#}
+{#            return fruit_amount;#}
+{#        }#}
+        return strs;
+    }
+
+
+
+    google.maps.event.addDomListener(window, 'load', setPoint);
+    activateGardens();
+
+    // JQuery code for Admin View All Users.
+    $('#display_users').click(function(){
+
+         $.get('update_users/', function(data){
+                   $('#all_users').html(data);
+               });
+    });
+	
+    // for Getting Directions
+    function displayRoute(lati, long) {
+
+        var center = new google.maps.LatLng(lati, long);
+        clearOverlays();
+        if (marker) marker.setMap();
+
+        map.panTo(center);
+
+        calcRoute(userLatLng, center);
+    }
+
+
+    function calcRoute(start, end) {
+
+      var request = {
+        origin:start,
+        destination:end,
+        travelMode: google.maps.TravelMode.DRIVING
+      };
+      route = directionsService.route(request, function(result, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+          directionsDisplay.setDirections(result);
+        }
+        else{
+            alert( 'user location disabled. please enable sharing your location' );
+        }
+      });
+    }
+
+});
+
+
+
+</script>
+
+<style>
+
+</style>
+
+
+</head>
+<body onload='initialize()'>
+
+	{% include 'garden/home.html' %}
+    <div class="box-centerside-left-panel">
+      <div class="panel-body">
+        {% include 'garden/login.html' %}
+
+
+        <a href="../">Home</a>
+
+        <br>
+
+        {% if user and not user.is_anonymous and user.is_superuser %}
+            <button id ="display_users" class="btn btn-mini btn-primary" type="button">All Users</button>
+        {% endif %}
+        <div id=user_button></div>
+        <div id="all_users"></div>
+
+      </div>
+    </div>
+
+    <div class="box-centerside-right-panel">
+      <div class="panel-body">
+        {% include 'garden/search_criteria.html' %}
+
+
+        {% if name_of_garden %}
+            You are displaying gardens containing keyword: {{ name_of_garden }}
+            <br>
+        {% endif %}
+
+        {% if name_of_fruit and name_of_garden%}
+            and containing fruit type: {{ name_of_fruit }}
+        {% elif name_of_fruit%}
+            You are displaying gardens containing fruit type: {{ name_of_fruit }}
+        {% endif %}
+
+      </div>
+    </div>
+
+    <br>
+
+	<div id=map></div>
+
+    <div id=directionsstatus></div>
+
+
+    <table>
+    <tr>
+        <th>Garden</th>
+
+        <th>Latitude</th>
+
+        <th>Longitude</th>
+
+        <th>Fruits in Garden</th>
+    </tr>
+    {% for g in gardens %}
+    <tr id={{g.id}} class='g linkOFF'>
+        <td>{{ g.name }}</td>
+
+        <td>{{ g.latitude }}</td>
+
+        <td>{{ g.longitude }}</td>
+        <td>
+            <ul class="comma-separated">
+                {% for tree in g.foodtree_set.all %}
+                    <li>{{ tree.food_type }} ({{ tree.amount }})</li>
+                {% endfor %}
+            </ul>
+        </td>
+
+        <td><button id ="display_route" class="btn btn-mini btn-primary" type="button" value="{{ g.latitude }}" name="{{ g.longitude }}">Display Route</button></td>
+		<td><button id ="add_tweet" class="btn btn-mini btn-primary" type="button">Tweet</button></td>
+		
+
+    </tr>
+    {% endfor %}
+	</table>
+
+
+    <div id=hidden_info>
+    {% for g in gardens %}
+        <div id=garden-{{g.id}}>
+{#        {{ g.id }} : #}
+        {% for tree in g.foodtree_set.all %}
+
+           {% if name_of_fruit == tree.food_type %}
+               {{ tree.amount }}
+
+
+           {% elif name_of_fruit == 'any' %}
+                {{ tree.amount }}
+           {% endif %}
+
+        {% endfor %}
+
+        </div>
+        <div id=garden+{{g.id}}>
+        </div>
+    {% endfor %}
+    </div>
+
+
+</body>
+
+
+</html>

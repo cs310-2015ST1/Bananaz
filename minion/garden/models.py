@@ -22,12 +22,13 @@ class UserProfile(models.Model):
     oauth_token = models.TextField()
     oauth_token_secret = models.TextField()
     photo = models.TextField()
+    gardens = models.ManyToManyField(Garden)
 
     def __str__(self):
         if (self.user.email):
-            email = 'email: ' + self.user.email
+            email = 'Email: ' + self.user.email
         else:
             email = ''
 
-        return 'username: ' + self.user.username + '<br>' + 'Name: ' + self.user.first_name + ' ' + self.user.last_name + '<br>' + email + '<br>'
+        return 'Username: ' + self.user.username + '<br>' + 'Name: ' + self.user.first_name + ' ' + self.user.last_name + '<br>' + email + '<br>'
 
