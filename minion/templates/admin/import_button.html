@@ -8,12 +8,26 @@ https://realpython.com/blog/python/django-and-ajax-form-submissions/ -->
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 {% load staticfiles %}
-<script src="{% static "admin/import_button.js" %}"></script>
+<script src="{% static 'ajax_post.js' %}"></script>
 <script>
-    function getCsrfToken() {
-        return '{{ csrf_token }}';
+    $("#post-form").submit(function(event) {
+        event.preventDefault();
+        setResult("Please wait...");
+        $("#submit-button").attr("disabled", "disabled");
+        doAjaxCall('{% url "ajax_import" %}', '{{ csrf_token }}', null, onSuccess, onFailure);
+    });
+
+    function setResult(r) {
+        $("#results").html(r);
     }
-    function getImportUrl() {
-        return '{% url "ajax_import" %}';
+
+    function onSuccess() {
+        setResult("Success!");
+        $("#submit-button").removeAttr("disabled");
+    }
+
+    function onFailure(jqXHR, textStatus, errorThrown) {
+        setResult("Error! " + errorThrown);
+        $("#submit-button").removeAttr("disabled");
     }
 </script>

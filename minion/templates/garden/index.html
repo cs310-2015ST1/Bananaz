@@ -14,11 +14,12 @@
     var route = [];
 	var allmarkers = new Array();
 
+
     var all_icons = {
         'any':'http://img3.wikia.nocookie.net/__cb20100619222000/frontierville/images/f/f3/Apple_Tree_Fruit-icon.png',
         'apple':'http://a.dryicons.com/images/icon_sets/coquette_part_7_icons_set/png/128x128/apple.png',
         'apricot':'http://img2.wikia.nocookie.net/__cb20130104062545/farmville2/images/7/7a/Briancon_Apricot.png',
-        'blueberry':'http://files.softicons.com/download/food-drinks-icons/fruits-icon-pack-by-miniartx/png/48/3.png',
+        'blueberry':'http://www.clker.com/cliparts/P/v/Z/O/M/G/cerezafiro12.svg',
         'cherry':'http://en.xn--icne-wqa.com/images/icones/2/6/cherries.png',
         'fig':'http://images.clipartpanda.com/plum-clipart-plum_clipart.png',
         'grape':'http://icons.iconarchive.com/icons/fasticon/fruits/128/grape-icon.png',
@@ -33,25 +34,24 @@
         'walnut':'https://upload.wikimedia.org/wikipedia/commons/f/f6/Walnut.png'
     };
 
+
     // for Getting Directions
     var directionsService = new google.maps.DirectionsService();
     var directionsDisplay = new google.maps.DirectionsRenderer();
     var userLatLng = new google.maps.LatLng(0,0);
-
 	function initialize(){
 		map = new google.maps.Map(document.getElementById('map'),{
 				zoom: 12,
 				center: new google.maps.LatLng(49.261,-123.1139),
 				mapTypeId: google.maps.MapTypeId.TERRAIN
 				});
-
         // for Getting Directions
         directionsDisplay.setMap(map);
-
         navigator.geolocation.getCurrentPosition(function (position) {
             userLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
         }, function () {
         });
+
 
 
 	}
@@ -75,6 +75,7 @@ var i = 0;
 {%  endfor %}
 
 
+
 	$(document).ready(function () {
 
     function activateGardens() {
@@ -91,24 +92,30 @@ var i = 0;
         // Add Garden click handler
         $('.g').each(function () {
             $(this).click(function(e) {
-
                 var garden = gardenByID[this.id];
-
                 // prevent button click to do the same thing as a table row click
                 if($(e.target).is('button')){
 
                     // twitter button click function.
                     if (e.target.id === 'add_tweet'){
                         e.preventDefault();
-                        window.open('form/');
+						var default_val = "#bananaz" + this.id;
+						var tweet = prompt("Enter your tweet here",default_val);
+						var elem = document.getElementById("id_tweet");
+						elem.value = tweet;
+						document.tweet.submit();
                     }
                     else if (e.target.id === 'display_route') {
                         e.preventDefault();
                         displayRoute(garden.lat, garden.lng);
                         $('#directionsstatus').html('you are viewing the route from your current location to ' + garden.name);
                     }
+					else if(e.target.id === 'search_tweet'){
+						e.preventDefault();
+					}
+                    return;
+				}
 
-                    return;}
 
                 var center = new google.maps.LatLng(garden.lat, garden.lng);
 				clearOverlays();
@@ -119,18 +126,15 @@ var i = 0;
                     position: center,
                     icon: imagemedium
                 });
+
                 map.panTo(center);
                 $('#directionsstatus').html('you are viewing the location of ' + garden.name);
-
-
             }).hover(
                 function () {this.className = this.className.replace('OFF', 'ON');},
                 function () {this.className = this.className.replace('ON', 'OFF');}
             );
         });
-
     }
-
 	function clearOverlays(){
 		for (var i = 0; i < allmarkers.length; i++ ) {
 				allmarkers[i].setMap(null);
@@ -138,7 +142,6 @@ var i = 0;
 		allmarkers.length = 0;
 
         directionsDisplay.set('directions', null);
-
 	}
 
 
@@ -187,8 +190,6 @@ var i = 0;
             }
 
 
-            $('#directionsstatus').append(COUNT);
-
             if (COUNT  <= 1) {
                 allmarkers[j] = new google.maps.Marker({
                     position: new google.maps.LatLng(garden.lat, garden.lng),
@@ -223,12 +224,9 @@ var i = 0;
 		for(var i=0;i<j;i++){
 			allmarkers[i].setMap(map);
 		}
-
         // JQuery code for Getting Directions.
         google.maps.event.addListener(map, 'click', function(e) {
-
           });
-
         google.maps.event.addListener(marker, 'mouseover', function() {
             infowindow.open(map, this);
         });
@@ -237,14 +235,11 @@ var i = 0;
             infowindow.close();
         });
 	}
-
 	
     google.maps.event.addDomListener(window, 'load', setPoint);
     activateGardens();
-
     // JQuery code for Admin View All Users.
     $('#display_users').click(function(){
-
          $.get('update_users/', function(data){
                    $('#all_users').html(data);
                });
@@ -252,19 +247,16 @@ var i = 0;
 	
     // for Getting Directions
     function displayRoute(lati, long) {
-
         var center = new google.maps.LatLng(lati, long);
         clearOverlays();
         if (marker) marker.setMap();
-
         map.panTo(center);
-
         calcRoute(userLatLng, center);
     }
 
 
-    function calcRoute(start, end) {
 
+    function calcRoute(start, end) {
       var request = {
         origin:start,
         destination:end,
@@ -279,11 +271,7 @@ var i = 0;
         }
       });
     }
-
 });
-
-
-
 </script>
 {% include 'garden/save_garden.html' %}
 <style>
@@ -363,14 +351,15 @@ var i = 0;
 
         <td><button id ="display_route" class="btn btn-mini btn-primary" type="button" value="{{ g.latitude }}" name="{{ g.longitude }}">Display Route</button></td>
 		{% if user and not user.is_anonymous and not user.is_superuser %}
-            <td><button id ="add_tweet" class="btn btn-mini btn-primary" type="button">Tweet</button></td>
+            <td><button id ="add_tweet" class="get_tweet" type="button">Tweet</button></td>
+			<td><button id ="search_tweet" class="search_tweets" type="button">Search</button></td>
             <td><button class="save_garden">Save Garden</button></td>
         {% endif %}
 
     </tr>
     {% endfor %}
 	</table>
-
+	{% include 'garden/form.html' %}
 <br>
 
 </body>

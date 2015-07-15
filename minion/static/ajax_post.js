@@ -1,4 +1,5 @@
 function doAjaxCall(url, csrfToken, data, successCallback, failureCallback) {
+    data = data || {};
     data.csrfmiddlewaretoken = csrfToken;
 
     $.ajax({
@@ -16,7 +17,7 @@ function doAjaxCall(url, csrfToken, data, successCallback, failureCallback) {
             console.log(errorThrown);
 
             if(failureCallback) {
-                failureCallback();
+                failureCallback(jqXHR, textStatus, errorThrown);
             }
         }
     })

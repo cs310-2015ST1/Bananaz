@@ -4,9 +4,9 @@
 
     $(document).ready(function() {
         var savedGardens = [];
-        {% for g in user.userprofile.gardens.all %}
-            savedGardens.push('{{ g.id }}');
-            $("#{{ g.id }} .save_garden").html("Unsave Garden");
+        {% for rel in user.userprofile.gardenuserrelationship_set.all %}
+            savedGardens.push('{{ rel.garden.id }}');
+            $("#{{ rel.garden.id }} .save_garden").html("Unsave Garden");
         {% endfor %}
 
         $(".save_garden").click(function(e) {
