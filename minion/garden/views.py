@@ -38,6 +38,8 @@ def get_tweet(request):
 def post_tweet(user, tweet):
 	t = Twitter(auth=OAuth(user.oauth_token, user.oauth_token_secret, SOCIAL_AUTH_TWITTER_KEY, SOCIAL_AUTH_TWITTER_SECRET))
 	t.statuses.update(status=tweet)
+	search_term = request.POST['search_term']
+	tweets = t.search.tweets(q=search_term)
 
 def search_tweets(request):
 	current_user = request.user.userprofile
