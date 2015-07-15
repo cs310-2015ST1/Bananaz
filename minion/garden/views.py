@@ -4,10 +4,9 @@ from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth import logout as auth_logout
 from django.utils.datastructures import MultiValueDictKeyError
 from twitter import *
+
 from minion.settings import SOCIAL_AUTH_TWITTER_SECRET, SOCIAL_AUTH_TWITTER_KEY
-
 from .models import Garden, GardenUserRelationship
-
 from .models import FoodTree
 from .forms import TweetForm
 
@@ -44,8 +43,20 @@ def search_tweets(request):
 	t = Twitter(auth=OAuth(user.oauth_token,user.oauth_token_secret,SOCIAL_AUTH_TWITTER_KEY,SOCIAL_AUTH_TWITTER_SECRET))
 
 def render_index(request, gardens, food_types, food, name_of_garden):
+	if request.user.is_authenticated() and not request.user.is_superuser:
+		saved_gardens = gardens.filter(gardenuserrelationship__userprofile=request.user.userprofile)
+		saved_gardens = sorted(
+			saved_gardens,
+			key=lambda garden: garden.gardenuserrelationship_set.get(userprofile=request.user.userprofile).date_saved,
+			reverse=True
+		)
+		unsaved_gardens = gardens.exclude(gardenuserrelationship__userprofile=request.user.userprofile).order_by('name')
+		ordered_gardens = saved_gardens + list(unsaved_gardens)
+	else:
+		ordered_gardens = gardens.order_by('name')
+
 	return render(request, 'garden/index.html', {
-		'gardens': gardens.order_by('name'),
+		'gardens': ordered_gardens,
 		'food_types': food_types,
 		'name_of_fruit': food,
 		'name_of_garden': name_of_garden
