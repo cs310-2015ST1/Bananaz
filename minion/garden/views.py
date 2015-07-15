@@ -6,7 +6,7 @@ from django.utils.datastructures import MultiValueDictKeyError
 from twitter import *
 from minion.settings import SOCIAL_AUTH_TWITTER_SECRET, SOCIAL_AUTH_TWITTER_KEY
 
-from .models import Garden
+from .models import Garden, GardenUserRelationship
 
 from .models import FoodTree
 from .forms import TweetForm
@@ -123,14 +123,13 @@ def ignore_foods(list_of_foods):
 
 
 def save_garden(request):
-	garden_id = request.POST['garden_id']
 	set_saved = request.POST['set_saved'].lower() == 'true'
-	garden = get_object_or_404(Garden, id=garden_id)
-	is_garden_saved = request.user.userprofile.gardens.filter(id=garden_id).exists()
+	garden = get_object_or_404(Garden, id=request.POST['garden_id'])
+	is_garden_saved = GardenUserRelationship.objects.filter(userprofile=request.user.userprofile, garden=garden).exists()
 
 	if set_saved and not is_garden_saved:
-		request.user.userprofile.gardens.add(garden)
+		GardenUserRelationship.objects.create(userprofile=request.user.userprofile, garden=garden)
 	elif not set_saved and is_garden_saved:
-		request.user.userprofile.gardens.remove(garden)
+		GardenUserRelationship.objects.get(userprofile=request.user.userprofile, garden=garden).delete()
 
 	return HttpResponse("Success!")
