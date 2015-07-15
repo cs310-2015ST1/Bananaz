@@ -17,7 +17,7 @@ function doAjaxCall(url, csrfToken, data, successCallback, failureCallback) {
             console.log(errorThrown);
 
             if(failureCallback) {
-                failureCallback();
+                failureCallback(jqXHR, textStatus, errorThrown);
             }
         }
     })

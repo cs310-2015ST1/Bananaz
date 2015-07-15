@@ -27,10 +27,6 @@ https://realpython.com/blog/python/django-and-ajax-form-submissions/ -->
     }
 
     function onFailure(jqXHR, textStatus, errorThrown) {
-        console.log(jqXHR);
-        console.log(textStatus);
-        console.log(errorThrown);
-
         setResult("Error! " + errorThrown);
         $("#submit-button").removeAttr("disabled");
     }
