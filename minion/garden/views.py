@@ -107,22 +107,11 @@ def search_criteria(request):
 
 
 def filter_by_name(gardens, name_of_garden):
-	filtered_gardens = []
-	for garden in gardens:
-		if name_of_garden.lower() in (garden.name).lower():
-			filtered_gardens.append(garden)
-	return filtered_gardens
+	return gardens.filter(name__icontains=name_of_garden)
 
 
 def filter_by_foods(all_food_trees, food):
-	gardens = []
-	for tree in all_food_trees:
-		if tree.food_type in food:
-			if tree.garden in gardens:
-				pass
-			else:
-				gardens.append(tree.garden)
-	return gardens
+	return Garden.objects.filter(foodtree__food_type__icontains=food)
 
 
 def ignore_name(name_of_garden):
