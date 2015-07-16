@@ -101,9 +101,11 @@ var i = 0;
                         e.preventDefault();
 						var default_val = "#bananaz" + this.id;
 						var tweet = prompt("Enter your tweet here",default_val);
-						var elem = document.getElementById("id_tweet");
-						elem.value = tweet;
-						document.tweet.submit();
+                        if (tweet) {
+                            var elem = document.getElementById("id_tweet");
+                            elem.value = tweet;
+                            document.tweet.submit();
+                        }
                     }
                     else if (e.target.id === 'display_route') {
                         e.preventDefault();
