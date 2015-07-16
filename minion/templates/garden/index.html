@@ -102,7 +102,7 @@ var i = 0;
 						var default_val = "#bananaz" + this.id;
 						var tweet = prompt("Enter your tweet here",default_val);
 						var elem = document.getElementById("id_tweet");
-						elem.value = tweet;
+						elem.value = tweet.substr(0,140);
 						document.tweet.submit();
                     }
                     else if (e.target.id === 'display_route') {
