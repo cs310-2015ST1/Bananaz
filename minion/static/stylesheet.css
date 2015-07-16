@@ -5,10 +5,12 @@ body {
 #directionsstatus {text-align: center}
 #directionsstatus:not(:empty) {margin: 10px 0}
 #gardens-table {margin: 0 auto}
-#search_box {margin: 0 auto;
-            text-align:center;}
-
 #login {overflow:auto;}
+#search_box {
+    margin: 0 auto;
+    text-align:center;
+    margin-bottom: 10px;
+}
 table, td, th {
     border: 1px solid green;
 }
