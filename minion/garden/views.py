@@ -96,6 +96,7 @@ def search_criteria(request):
 
 	elif ignore_name(name_of_garden):
 		gardens = filter_by_foods(all_food_trees, food)
+		name_of_garden = ''
 
 	elif ignore_foods(food):
 		gardens = filter_by_name(all_gardens, name_of_garden)

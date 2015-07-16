@@ -108,7 +108,7 @@
                             else if (e.target.id === 'display_route') {
                                 e.preventDefault();
                                 displayRoute(garden.lat, garden.lng);
-                                $('#directionsstatus').html('you are viewing the route from your current location to ' + garden.name);
+                                $('#directionsstatus').html('You are viewing the route from your current location to ' + garden.name);
                             }
                             else if (e.target.id === 'search_tweet') {
                                 e.preventDefault();
@@ -130,7 +130,7 @@
                         });
 
                         map.panTo(center);
-                        $('#directionsstatus').html('you are viewing the location of ' + garden.name);
+                        $('#directionsstatus').html('You are viewing the location of ' + garden.name);
                     }).hover(
                             function () {
                                 this.className = this.className.replace('OFF', 'ON');
@@ -248,7 +248,7 @@
                         directionsDisplay.setDirections(result);
                     }
                     else {
-                        alert('user location disabled. please enable sharing your location');
+                        alert('User location disabled. Please refresh the page and enable sharing your location.');
                     }
                 });
             }
@@ -264,7 +264,7 @@
 <body onload='initialize()'>
 
 {% include 'garden/home.html' %}
-<div class="box-centerside-left-panel">
+<div>
     <div class="panel-body">
         {% include 'garden/login.html' %}
 
@@ -282,23 +282,26 @@
     </div>
 </div>
 
-<div class="box-centerside-right-panel">
+<div>
     <div class="panel-body">
         {% include 'garden/search_criteria.html' %}
 
 
         {% if name_of_garden %}
-            You are displaying gardens containing keyword: {{ name_of_garden }}
+            You are displaying gardens containing keyword: "{{ name_of_garden }}"
+
         {% endif %}
-        <br>
-        {% if name_of_fruit %}
-            You are displaying gardens containing fruit type: {{ name_of_fruit }}
+
+        {% if name_of_fruit and name_of_garden%}
+            and containing fruit type: "{{ name_of_fruit }}"
+        {% elif name_of_fruit%}
+            You are displaying gardens containing fruit type: "{{ name_of_fruit }}"
         {% endif %}
 
     </div>
 </div>
 
-<br>
+
 
 <div id=map></div>
 
