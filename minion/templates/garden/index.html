@@ -328,10 +328,10 @@ var i = 0;
             </ul>
         </td>
 
-        <td><button id ="display_route" class="btn btn-mini btn-primary" type="button" value="{{ g.latitude }}" name="{{ g.longitude }}">Display Route</button></td>
+        <td><button id ="display_route" value="{{ g.latitude }}" name="{{ g.longitude }}">Display Route</button></td>
 		{% if user and not user.is_anonymous and not user.is_superuser %}
-            <td><button id ="add_tweet" class="get_tweet" type="button">Tweet</button></td>
-			<td><button id ="search_tweet" class="search_tweets" type="button">Search</button></td>
+            <td><button id ="add_tweet" class="get_tweet">Tweet</button></td>
+			<td><button id ="search_tweet" class="search_tweets">Search</button></td>
             <td><button class="save_garden">Save Garden</button></td>
         {% endif %}
 
