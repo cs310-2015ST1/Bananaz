@@ -4,6 +4,8 @@ body {
 #map {width: 1000px; height: 500px; margin: 0 auto}
 #directionsstatus {text-align: center}
 #gardens-table {margin: 0 auto}
+#search_box {margin: 0 auto;
+            text-align:center;}
 table, td, th {
     border: 1px solid green;
 }
