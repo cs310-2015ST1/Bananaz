@@ -3,6 +3,7 @@ body {
     background-color: #d6edae;}
 #map {width: 1000px; height: 500px; margin: 0 auto}
 #directionsstatus {text-align: center}
+#directionsstatus:not(:empty) {margin: 10px 0}
 #gardens-table {margin: 0 auto}
 #search_box {margin: 0 auto;
             text-align:center;}
