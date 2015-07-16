@@ -1,6 +1,7 @@
 body {font-family: sans-serif}
-#map {width: 1000px; height: 500px}
-#gardens {overflow: auto; width: 500px; height: 100px}
+#map {width: 1000px; height: 500px; margin: 0 auto}
+#directionsstatus {text-align: center}
+#gardens-table {margin: 0 auto}
 .linkOFF {color: darkblue}
 .linkON {color: white; background-color: darkblue;cursor:pointer}
 ul.comma-separated {list-style: none; display: inline; padding:0; margin:0}
