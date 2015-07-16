@@ -1,5 +1,6 @@
 <html>
 <body>
+{% if tweets.statuses|length > 0 %}
 <h1>Tweets</h1>
 <table>
 	<tr>
@@ -19,5 +20,9 @@
 	</tr>
 {% endfor %}
 </table>
+{% endif %}
+{% if tweets.statuses|length == 0 %}
+<h1> SORRY, NO TWEETS WERE FOUND ABOUT THIS GARDEN </h1>
+{% endif %}
 </body>
 </html>
