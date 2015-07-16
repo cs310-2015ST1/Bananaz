@@ -1,7 +1,17 @@
-body {font-family: sans-serif}
+body {
+    font-family: sans-serif;
+    background-color: #d6edae;}
 #map {width: 1000px; height: 500px; margin: 0 auto}
 #directionsstatus {text-align: center}
 #gardens-table {margin: 0 auto}
+table, td, th {
+    border: 1px solid green;
+}
+
+th {
+    background-color: green;
+    color: #feffcf;
+}
 .linkOFF {color: darkblue}
 .linkON {color: white; background-color: darkblue;cursor:pointer}
 ul.comma-separated {list-style: none; display: inline; padding:0; margin:0}
