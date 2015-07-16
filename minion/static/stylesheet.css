@@ -6,6 +6,8 @@ body {
 #gardens-table {margin: 0 auto}
 #search_box {margin: 0 auto;
             text-align:center;}
+
+#login {overflow:auto;}
 table, td, th {
     border: 1px solid green;
 }

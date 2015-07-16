@@ -25,11 +25,12 @@ class UserProfile(models.Model):
 
     def __str__(self):
         if (self.user.email):
-            email = 'Email: ' + self.user.email
+            email = self.user.email
         else:
             email = ''
 
-        return 'Username: ' + self.user.username + '<br>' + 'Name: ' + self.user.first_name + ' ' + self.user.last_name + '<br>' + email + '<br>'
+        return '<tr> <td>' + self.user.username + '</td> <td>' + self.user.first_name + ' ' + self.user.last_name + '</td> <td>' + email + '</td> </tr>'
+
 
 class GardenUserRelationship(models.Model):
     garden = models.ForeignKey(Garden)
