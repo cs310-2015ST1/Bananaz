@@ -119,7 +119,7 @@ def filter_by_foods(all_food_trees, food):
 
 
 def ignore_name(name_of_garden):
-	return (name_of_garden == '') or (name_of_garden == "Type Keyword in the Name of the Garden (leave blank to list all)")
+	return (name_of_garden == '')
 
 
 def ignore_foods(list_of_foods):
