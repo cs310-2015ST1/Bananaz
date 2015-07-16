@@ -313,17 +313,29 @@
         </td>
 
         <td>
-            <button id="display_route" value="{{ g.latitude }}" name="{{ g.longitude }}">Display Route</button>
+            <button id="display_route" value="{{ g.latitude }}" name="{{ g.longitude }}">
+                <img src="{% static "icon_directions.png" %}" class="button-icon" />
+                Display Route
+            </button>
         </td>
         {% if user and not user.is_anonymous and not user.is_superuser %}
             <td>
-                <button id="add_tweet" class="get_tweet">Tweet</button>
+                <button id="add_tweet" class="get_tweet">
+                    <img src="{% static "make_tweet.jpg" %}" class="button-icon" />
+                    Tweet
+                </button>
             </td>
             <td>
-                <button id="search_tweet" class="search_tweets">Search</button>
+                <button id="search_tweet" class="search_tweets">
+                    <img src="{% static "search_twitter.png" %}" class="button-icon" />
+                    Search
+                </button>
             </td>
             <td>
-                <button class="save_garden">Save Garden</button>
+                <button class="save_garden">
+                    <img src="{% static "save_garden.png" %}" class="button-icon" />
+                    Save Garden
+                </button>
             </td>
         {% endif %}
 
