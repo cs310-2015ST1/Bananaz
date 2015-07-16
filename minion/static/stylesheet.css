@@ -14,6 +14,14 @@ th {
     background-color: green;
     color: #feffcf;
 }
+#gardens-header {position: relative;}
+#gardens-header img {vertical-align: bottom;}
+#login {
+ position: absolute;
+ top: 0;
+ right: 0;
+}
+.button-icon {height: 16px; width: 16px; vertical-align: middle;}
 .linkOFF {color: darkblue}
 .linkON {color: white; background-color: darkblue;cursor:pointer}
 ul.comma-separated {list-style: none; display: inline; padding:0; margin:0}

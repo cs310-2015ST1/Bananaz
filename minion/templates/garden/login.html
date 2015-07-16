@@ -1,14 +1,20 @@
-{% if user and not user.is_anonymous and user.is_superuser %}
-    <p>Hello, {{ user.username }}. Logout to login with Twitter.</p>
+<div id="login">
+    {% if user and not user.is_anonymous and user.is_superuser %}
+        <span>Hello, {{ user.username }}. Logout to login with Twitter.</span>
+        <a href={% url 'logout' %}>Logout</a>
+    {% elif user and not user.is_anonymous %}
+        <img src="{{ user.userprofile.photo }}" width="48px" height="48px" class="img-account">
+        <span>Hello, {{ user.get_full_name }}!</span>
+        <a href={% url 'logout' %}>Logout</a>
+    {% else %}
+        {% load staticfiles %}
+        <a href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}"><img src="{% static "twitter.png" %}"></a>
+    {% endif %}
+    <a href="../">Home</a>
     <br>
-    <a href={% url 'logout' %}>Logout</a>
-{% elif user and not user.is_anonymous %}
-  <a>Hello, {{ user.get_full_name }}!</a>
-  <br>
-  <img src="{{user.userprofile.photo}}" width="48px" height="48px" class="img-account" >
-  <br>
-  <a href={% url 'logout' %}>Logout</a>
-{% else %}
-    {% load staticfiles %}
-  <a href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}"><img src="{% static "twitter.png" %}"></a>
-{% endif %}
+    {% if user and not user.is_anonymous and user.is_superuser %}
+        <button id="display_users">All Users</button>
+    {% endif %}
+    <div id=user_button></div>
+    <div id="all_users"></div>
+</div>
