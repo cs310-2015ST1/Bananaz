@@ -1,23 +1,18 @@
 <form method="post" action="/search_criteria/">
     {% csrf_token %}
-    <p><b>SEARCH</b></p>
-    Type Keyword in the Name of the Garden (leave blank to list all):
-    <br>
 
-<input type="text" name="name" >
-<br>
 
-    Select Fruit in Garden (leave unselected for any type of fruit)
-<br>
+<input type="text" name="name" placeholder="Type Keyword in the Name of the Garden (leave blank to list all)" size="80">
+
 <select name="foods">
-  <option value="all">Any</option>
+  <option value="all">Any Fruit</option>
 
 {% for food in food_types %}
   <option value={{ food }}>{{ food }}</option>
 {% endfor %}
 </select>
 
-<br>
 
-<input type="submit" class="btn" value="Search" >
+
+<input type="submit" class="btn" value="Search Garden" >
 </form>

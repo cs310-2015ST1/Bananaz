@@ -1,1 +1,23 @@
-<button id="search_tweets" class="btn btn-mini btn-primary" type="button">View</button>
+<html>
+<body>
+<h1>Tweets</h1>
+<table>
+	<tr>
+		<th>User</th>
+		<th></th>
+		<th>Tweet</th>
+		<th></th>
+		<th>Date</th>
+	</tr>
+{% for tweet in tweets.statuses %}
+	<tr>
+		<td><b>{{tweet.user.name}} </b>@{{tweet.user.screen_name}}</td>
+		<td></td>
+		<td>{{tweet.text}}</td>
+		<td></td>
+		<td>{{tweet.created_at}}</td>
+	</tr>
+{% endfor %}
+</table>
+</body>
+</html>

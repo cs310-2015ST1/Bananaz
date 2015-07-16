@@ -38,9 +38,12 @@ def post_tweet(user, tweet):
 	t = Twitter(auth=OAuth(user.oauth_token, user.oauth_token_secret, SOCIAL_AUTH_TWITTER_KEY, SOCIAL_AUTH_TWITTER_SECRET))
 	t.statuses.update(status=tweet)
 
-def search_tweets(request):
+def search_tweets(request, search_term):
 	current_user = request.user.userprofile
-	t = Twitter(auth=OAuth(user.oauth_token,user.oauth_token_secret,SOCIAL_AUTH_TWITTER_KEY,SOCIAL_AUTH_TWITTER_SECRET))
+	t = Twitter(auth=OAuth(current_user.oauth_token,current_user.oauth_token_secret,SOCIAL_AUTH_TWITTER_KEY,SOCIAL_AUTH_TWITTER_SECRET))
+	tweets = t.search.tweets(q="#"+search_term)
+	
+	return render(request, 'garden/view_tweets.html', {'tweets':tweets})
 
 def render_index(request, gardens, food_types, food, name_of_garden):
 	if request.user.is_authenticated() and not request.user.is_superuser:
@@ -89,10 +92,11 @@ def search_criteria(request):
 
 	# empty search
 	if ignore_name(name_of_garden) and ignore_foods(food):
-		return render_index(request, all_gardens, food_types, 'any', name_of_garden)
+		return render_index(request, all_gardens, food_types, 'any', '')
 
 	elif ignore_name(name_of_garden):
 		gardens = filter_by_foods(all_food_trees, food)
+		name_of_garden = ''
 
 	elif ignore_foods(food):
 		gardens = filter_by_name(all_gardens, name_of_garden)
@@ -115,7 +119,7 @@ def filter_by_foods(all_food_trees, food):
 
 
 def ignore_name(name_of_garden):
-	return name_of_garden == ''
+	return (name_of_garden == '')
 
 
 def ignore_foods(list_of_foods):
