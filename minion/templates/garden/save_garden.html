@@ -6,7 +6,7 @@
         var savedGardens = [];
         {% for rel in user.userprofile.gardenuserrelationship_set.all %}
             savedGardens.push('{{ rel.garden.id }}');
-            $("#{{ rel.garden.id }} .save_garden").html("Unsave Garden");
+            $("#{{ rel.garden.id }} .save_garden .button-text").html("Unsave Garden");
         {% endfor %}
 
         $(".save_garden").click(function(e) {
@@ -21,7 +21,7 @@
 
             function onSuccess() {
                 $button.removeAttr("disabled");
-                $button.html(saveGarden ? "Unsave Garden" : "Save Garden");
+                $button.find(".button-text").html(saveGarden ? "Unsave Garden" : "Save Garden");
 
                 var gardenIdPosition = savedGardens.indexOf(gardenId);
                 if (saveGarden && gardenIdPosition === -1) {

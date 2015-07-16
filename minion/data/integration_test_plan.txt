@@ -1,3 +1,4 @@
+---Sprint 1---
 Number	User Story										Test and Result
 1		Displaying search results on a map				a. Map loads centered on vancouver when you first go to the site for the first time containing points of all gardens
 														b. Map loads after search button is pressed
@@ -76,3 +77,93 @@ Number	User Story										Test and Result
 
 														e. Test that wrong login information does not redirect back to home page, but prompts login again
 
+														
+												
+												
+---Sprint 2---
+Admin View All Users
+
+1.
+Go to root url 'https://radiant-savannah-1336.herokuapp.com/'
+Look at top right corner under 'Bananaz - Fruit for All: Community Gardens in Vancouver' for user information
+If you are logged in with a twitter account, click 'Logout'.
+On the url bar, enter 'https://radiant-savannah-1336.herokuapp.com/admin/'
+Log in with username 'admin' and password 'admin'
+You are now logged in as an admin.
+On the url bar, enter 'https://radiant-savannah-1336.herokuapp.com/'
+On the top right corner, see 'Hello, admin. Logout to login with Twitter.'
+Under 'Logout' link, click the button 'All Users'
+A list of all 'twitter users' that used this web application is listed under the button.
+Each 2-3 line block in this table/list represents a user.
+Each user has a 'Username', 'Name', and 'Email' line. Field is empty if that user doesn't have that field
+
+2.
+Remember the list of all users from test 1.
+On a second brower window, go to 'https://radiant-savannah-1336.herokuapp.com/admin/'
+Click 'Users', click on a twitter user (all twitter users have a First Name)
+Delete this user by clicking 'Delete', keep track of which user you deleted
+Now on your first browser, click the 'All Users' button again.
+Confirm that the deleted user is not displayed in the table/list
+
+
+Getting Directions
+
+1.
+Go to the home page - 'https://radiant-savannah-1336.herokuapp.com/'
+Pop up window appears asking to 'share location', select 'not now'.
+Now look at the table list of gardens, click the button 'Display Route' for any garden
+Should see a pop up window saying 'user location disabled. please enable sharing your location'
+Should not see any markers or routes on the map.
+
+2.
+Go to the home page.
+Pop up window appears asking to 'share location', select 'ok'.
+Click the row '15th Avenue Coop', not the button 'Display Route'.
+Should see a marker appearing on the map, the log message under the map says 'you are viewing the location of 15th Avenue Coop'
+Keep track of where the marker is.
+Now click 'Display Route' for the garden '15th Avenue Coop'.
+Check the previous marker is removed.
+Should see line connecting 2 markers.
+Check that marker 'B' is at the same location as the marker when you clicked row '15th Avenue Coop'
+Check that marker 'A' is the location where you are currently at.
+Now click 'Display Route' for the garden '2624 Franklin St - Apartment'
+Check that previous markers and route clears, new marker 'A' and 'B' and route is displayed on the map.
+If possible, walk/drive to a different location and complete all steps above.
+Check that marker 'A' is the location where you are currently at.
+
+Saving Gardens
+
+1.
+Go to the home page.
+Logout if you are logged in.
+Ensure that the Save/Unsave Garden button is not shown.
+
+2.
+Log in as an admin.
+Go to the home page.
+Ensure that the Save/Unsave Garden button is not shown.
+
+3.
+Log in as a twitter user. This will take you to the home page.
+Ensure that the Save/Unsave Garden button is shown beside each garden.
+Save 3 unsaved gardens. (eg. In order, "Bosman Hotel", then "Arbutus Victory", then "Callister Park")
+Ensure the button changes to "Unsave Garden".
+Refresh the page.
+Ensure the newly saved gardens appear at the top, sorted from newest-to-oldest saved. (eg. In order, "Callister Park", then "Arbutus Victory", then "Bosman Hotel")
+
+4.
+Log in as a twitter user and save at least 3 gardens.
+Refresh the page.
+Unsave and re-save a garden in the middle of your saved gardens.
+Refresh the page.
+Ensure the re-saved garden appears at the top of the gardens table.
+
+5.
+Log in as a twitter user.
+Save 2 gardens.
+Unsave one of the newly-saved gardens.
+Refresh.
+Ensure the unsaved garden isn't at the top of the gardens table.
+Unsave the other garden.
+Refresh.
+Ensure both gardens are back in their original positions.

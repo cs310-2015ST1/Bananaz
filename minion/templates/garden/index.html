@@ -114,7 +114,7 @@
                             else if (e.target.id === 'search_tweet') {
                                 e.preventDefault();
                                 var searchTerm = "bananaz" + this.id;
-                                window.open("view_tweets/" + searchTerm + "/");
+                                window.open("/view_tweets/" + searchTerm + "/");
                             }
                             return;
                         }
@@ -269,6 +269,8 @@
     {% include 'garden/login.html' %}
 </div>
 
+<div id="all_users"></div>
+
 <div id=search_box>
     <div class="panel-body">
         {% include 'garden/search_criteria.html' %}
@@ -334,7 +336,7 @@
             <td>
                 <button class="save_garden">
                     <img src="{% static "save_garden.png" %}" class="button-icon" />
-                    Save Garden
+                    <span class="button-text">Save Garden</span>
                 </button>
             </td>
         {% endif %}

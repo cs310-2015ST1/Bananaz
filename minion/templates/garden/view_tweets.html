@@ -1,21 +1,20 @@
 <html>
 <body>
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static "stylesheet.css" %}">
 {% if tweets.statuses|length > 0 %}
 <h1>Tweets</h1>
 <table>
 	<tr>
 		<th>User</th>
-		<th></th>
 		<th>Tweet</th>
-		<th></th>
 		<th>Date</th>
 	</tr>
 {% for tweet in tweets.statuses %}
 	<tr>
 		<td><b>{{tweet.user.name}} </b>@{{tweet.user.screen_name}}</td>
-		<td></td>
 		<td>{{tweet.text}}</td>
-		<td></td>
 		<td>{{tweet.created_at}}</td>
 	</tr>
 {% endfor %}

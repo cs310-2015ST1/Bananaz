@@ -27,10 +27,6 @@ def make_ajax_request(self_object, mock_file_download_location):
     return self_object.client.post(reverse("ajax_import"))
 
 
-def create_dict_line(name="Garden", latitude="0", longitude="0", food_tree_varieties=""):
-    return name + "," + latitude + "," + longitude + "," + food_tree_varieties + "\n"
-
-
 class AjaxImportTest(TestCase):
     def test_ajax_import_with_one_garden(self):
         response = make_ajax_request(self, "test/oneGarden.csv")
