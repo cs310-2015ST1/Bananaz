@@ -92,10 +92,11 @@ def search_criteria(request):
 
 	# empty search
 	if ignore_name(name_of_garden) and ignore_foods(food):
-		return render_index(request, all_gardens, food_types, 'any', name_of_garden)
+		return render_index(request, all_gardens, food_types, 'any', '')
 
 	elif ignore_name(name_of_garden):
 		gardens = filter_by_foods(all_food_trees, food)
+		name_of_garden = ''
 
 	elif ignore_foods(food):
 		gardens = filter_by_name(all_gardens, name_of_garden)
@@ -118,7 +119,7 @@ def filter_by_foods(all_food_trees, food):
 
 
 def ignore_name(name_of_garden):
-	return name_of_garden == ''
+	return (name_of_garden == '') or (name_of_garden == "Type Keyword in the Name of the Garden (leave blank to list all)")
 
 
 def ignore_foods(list_of_foods):
