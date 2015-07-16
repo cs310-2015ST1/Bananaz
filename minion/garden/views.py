@@ -28,15 +28,21 @@ def get_tweet(request):
 		form = TweetForm(request.POST)
 		current_user = request.user.userprofile
 		tweet = request.POST['Tweet']
-		post_tweet(current_user,tweet)
+		posted = post_tweet(current_user,tweet)
 	else:
 		form = TweetForm()
-
+		
 	return redirect(reverse('index'))
 
 def post_tweet(user, tweet):
 	t = Twitter(auth=OAuth(user.oauth_token, user.oauth_token_secret, SOCIAL_AUTH_TWITTER_KEY, SOCIAL_AUTH_TWITTER_SECRET))
-	t.statuses.update(status=tweet)
+	posted = True
+	try:
+		t.statuses.update(status=tweet)
+	except:
+		posted = False
+	
+	return posted
 
 def search_tweets(request, search_term):
 	current_user = request.user.userprofile
