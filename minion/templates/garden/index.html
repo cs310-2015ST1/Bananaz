@@ -264,24 +264,9 @@
 
 </head>
 <body onload='initialize()'>
-
-{% include 'garden/home.html' %}
-<div>
-    <div class="panel-body">
-        {% include 'garden/login.html' %}
-
-
-        <a href="../">Home</a>
-
-        <br>
-
-        {% if user and not user.is_anonymous and user.is_superuser %}
-            <button id="display_users" class="btn btn-mini btn-primary" type="button">All Users</button>
-        {% endif %}
-        <div id=user_button></div>
-        <div id="all_users"></div>
-
-    </div>
+<div id="gardens-header">
+    {% include 'garden/home.html' %}
+    {% include 'garden/login.html' %}
 </div>
 
 <div id=search_box>
