@@ -188,3 +188,23 @@ Select any fruit name and click "Search Garden"
 Ensure the map's tree markers will be replaced with an icon representing the fruit chosen, showing only the gardens which contain that fruit
 Ensure that the size variability corresponds to each garden's number of the specified fruit. "Example: Garden with (1) apple, should be smaller than Garden with (3) apples"
 Ensure that when another fruit is chosen and searched for, the previous icons are replaced by the new fruit corresponding only to gardens which contain the fruit chosen
+
+Adding Reviews
+Make sure you are logged into Twitter on our app
+Perform the following two tests from the index page and also a search page.
+1. Click on the Tweet button next to the garden you want to tweet about.
+   Type in the prompt box which shows up without deleting the hashtag.
+   Press OK or hit Enter.
+   Navigate to your twitter profile to confirm tweet has been posted.
+   
+2. Click on the Tweet button next to the garden you want to tweet about.
+   Type in the prompt box which shows up without deleting the hashtag.
+   Press Cancel.
+   Navigate to your twitter profile to confirm nothing was posted.
+   
+Searching Reviews
+Make sure you are logged into Twiiter on our app
+Perform the following test from the index page and also a search page.
+1. Click the Search button next to the garden you want to see.
+   You will see the tweets, if any were posted to Twitter, on the new page that opens.
+   Otherwise you will see a message displaying that no tweets about the garden were found.
