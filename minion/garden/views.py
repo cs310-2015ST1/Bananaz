@@ -89,14 +89,14 @@ def search_criteria(request):
 	food_types = generate_food_types()
 	all_food_trees = FoodTree.objects.order_by('food_type')
 
-	# Get / invalid Post request
+
 	try:
 		name_of_garden = request.POST['name']
 		food = request.POST['foods']
 	except MultiValueDictKeyError:
 		return render_index(request, all_gardens, food_types, 'any', '')
 
-	# empty search
+
 	if ignore_name(name_of_garden) and ignore_foods(food):
 		return render_index(request, all_gardens, food_types, 'any', '')
 

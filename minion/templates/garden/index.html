@@ -34,7 +34,7 @@
         };
 
 
-        // for Getting Directions
+
         var directionsService = new google.maps.DirectionsService();
         var directionsDisplay = new google.maps.DirectionsRenderer();
         var userLatLng = new google.maps.LatLng(0, 0);
@@ -44,7 +44,7 @@
                 center: new google.maps.LatLng(49.261, -123.1139),
                 mapTypeId: google.maps.MapTypeId.TERRAIN
             });
-            // for Getting Directions
+
             directionsDisplay.setMap(map);
             navigator.geolocation.getCurrentPosition(function (position) {
                 userLatLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -88,14 +88,14 @@
                     anchor: new google.maps.Point(17, 34),
                     scaledSize: new google.maps.Size(45, 45)
                 };
-                // Add Garden click handler
+
                 $('.g').each(function () {
                     $(this).click(function (e) {
                         var garden = gardenByID[this.id];
-                        // prevent button click to do the same thing as a table row click
+
                         if ($(e.target).is('button')) {
 
-                            // twitter button click function.
+
                             if (e.target.id === 'add_tweet') {
                                 e.preventDefault();
                                 var default_val = "#bananaz" + this.id;
@@ -208,7 +208,7 @@
                 for (var i = 0; i < j; i++) {
                     allmarkers[i].setMap(map);
                 }
-                // JQuery code for Getting Directions.
+
                 google.maps.event.addListener(map, 'click', function (e) {
                 });
                 google.maps.event.addListener(marker, 'mouseover', function () {
@@ -222,14 +222,14 @@
 
             google.maps.event.addDomListener(window, 'load', setPoint);
             activateGardens();
-            // JQuery code for Admin View All Users.
+
             $('#display_users').click(function () {
                 $.get('update_users/', function (data) {
                     $('#all_users').html(data);
                 });
             });
 
-            // for Getting Directions
+
             function displayRoute(lati, long) {
                 var center = new google.maps.LatLng(lati, long);
                 clearOverlays();
